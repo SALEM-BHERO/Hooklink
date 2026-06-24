@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HookLink | Viral Hook Library</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ═══ Header Mount ═══ -->
+    <div id="header-mount"></div>
+
+    <!-- ═══ Main Content ═══ -->
+    <main class="pt-32 pb-unit-xl px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto">
+
+      <!-- ── Page Header ── -->
+      <section class="mb-12">
+        <h1 class="text-headline-xl font-headline font-bold text-on-surface">Viral Hook Library</h1>
+        <p class="mt-4 text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+          Browse 20+ psychological hooks generated for "Building a SaaS in 2024". Optimized for LinkedIn, X, and Threads engagement.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="mt-8 relative max-w-xl">
+          <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/60 pointer-events-none">search</span>
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Filter by hook style..."
+            class="w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant/40 bg-surface-container-lowest text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition"
+          />
+        </div>
+      </section>
+
+      <!-- ── Filter Tags ── -->
+      <section class="mb-10 flex flex-wrap gap-3" id="filterRow">
+        <button data-filter="all" class="filter-pill active px-4 py-2 rounded-xl border border-outline-variant/40 text-body-sm font-semibold transition-all bg-primary text-on-primary">All Hooks</button>
+        <button data-filter="curiosity-gap" class="filter-pill px-4 py-2 rounded-xl border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:border-primary/40">Curiosity-Gap</button>
+        <button data-filter="the-listicle" class="filter-pill px-4 py-2 rounded-xl border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:border-primary/40">The Listicle</button>
+        <button data-filter="the-controversy" class="filter-pill px-4 py-2 rounded-xl border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:border-primary/40">The Controversy</button>
+        <button data-filter="technical-insight" class="filter-pill px-4 py-2 rounded-xl border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:border-primary/40">Technical Insight</button>
+      </section>
+
+      <!-- ── Hook Cards Grid ── -->
+      <section id="hookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+
+        <!-- Card #01 — Curiosity Gap -->
+        <div class="hook-card bg-white border border-outline-variant/40 rounded-xl p-6 hover:shadow-lg transition-all" data-category="curiosity-gap">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed text-xs font-bold uppercase tracking-wider">Curiosity Gap</span>
+            <span class="text-body-sm text-on-surface-variant/60 font-mono">#01</span>
+          </div>
+          <p class="hook-text text-on-surface-variant italic leading-relaxed text-body-md mb-6">
+            &ldquo;99% of SaaS founders are ignoring the one metric that actually predicts 2024 success. (Hint: It's not MRR.)&rdquo;
+          </p>
+          <div class="flex items-center justify-between mt-auto">
+            <div class="flex items-center gap-2 text-body-sm text-on-surface-variant/80">
+              <span>⭐</span>
+              <span>High Conversion</span>
+            </div>
+            <button class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 text-body-sm text-on-surface-variant hover:bg-surface-container hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[18px]">content_copy</span>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Card #02 — The Listicle -->
+        <div class="hook-card bg-white border border-outline-variant/40 rounded-xl p-6 hover:shadow-lg transition-all" data-category="the-listicle">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-lg bg-secondary-container text-on-secondary-container text-xs font-bold uppercase tracking-wider">The Listicle</span>
+            <span class="text-body-sm text-on-surface-variant/60 font-mono">#02</span>
+          </div>
+          <p class="hook-text text-on-surface-variant italic leading-relaxed text-body-md mb-6">
+            &ldquo;7 micro-tools every solo-founder needs to hit $10k/month without hiring a single employee.&rdquo;
+          </p>
+          <div class="flex items-center justify-between mt-auto">
+            <div class="flex items-center gap-2 text-body-sm text-on-surface-variant/80">
+              <span>⚡</span>
+              <span>Save 4h/day</span>
+            </div>
+            <button class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 text-body-sm text-on-surface-variant hover:bg-surface-container hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[18px]">content_copy</span>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Card #03 — The Controversy (FEATURED) -->
+        <div class="hook-card md:col-span-2 lg:col-span-2 bg-primary-fixed/10 border-2 border-primary-container rounded-xl p-8 hover:shadow-lg transition-all relative" data-category="the-controversy">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-3">
+              <span class="px-3 py-1 rounded-lg bg-error-container text-on-error-container text-xs font-bold uppercase tracking-wider">The Controversy</span>
+              <span class="px-3 py-1 rounded-lg bg-tertiary text-on-tertiary text-xs font-bold uppercase tracking-wider">AI Optimized</span>
+            </div>
+            <span class="text-body-sm text-on-surface-variant/60 font-mono">#03</span>
+          </div>
+          <h3 class="text-headline-md font-headline font-bold text-on-surface mt-3 mb-3">The "Anti-Hype" Hook</h3>
+          <p class="hook-text text-on-surface-variant italic leading-relaxed text-body-lg mb-4">
+            &ldquo;Stop building "AI Wrappers". Most of you are just creating features that OpenAI will Sherlock in 6 months. Here's why your business model is dead on arrival.&rdquo;
+          </p>
+          <p class="text-body-sm text-on-surface-variant/70 mb-6">
+            <span class="font-semibold text-on-surface-variant">Psychological Trigger:</span> Fear of Obsolescence + Authority positioning.
+          </p>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-body-sm text-on-surface-variant/80">
+              <span class="material-symbols-outlined text-[18px] text-tertiary">auto_awesome</span>
+              <span>Featured Hook</span>
+            </div>
+            <button class="copy-btn flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-on-primary text-body-sm font-semibold hover:shadow-lg transition-all active:scale-95">
+              <span class="material-symbols-outlined text-[18px]">content_copy</span>
+              Copy Master Hook
+            </button>
+          </div>
+        </div>
+
+        <!-- Card #04 — Technical Insight -->
+        <div class="hook-card bg-white border border-outline-variant/40 rounded-xl p-6 hover:shadow-lg transition-all" data-category="technical-insight">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-lg bg-surface-container-high text-on-surface text-xs font-bold uppercase tracking-wider">Technical Insight</span>
+            <span class="text-body-sm text-on-surface-variant/60 font-mono">#04</span>
+          </div>
+          <p class="hook-text text-on-surface-variant italic leading-relaxed text-body-md mb-6">
+            &ldquo;Why choosing a relational database for your multi-tenant SaaS is a mistake you'll regret at 100k users.&rdquo;
+          </p>
+          <div class="flex items-center justify-between mt-auto">
+            <div class="flex items-center gap-2 text-body-sm text-on-surface-variant/80">
+              <span>💎</span>
+              <span>Authority Build</span>
+            </div>
+            <button class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 text-body-sm text-on-surface-variant hover:bg-surface-container hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[18px]">content_copy</span>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Card #05 — Curiosity Gap -->
+        <div class="hook-card bg-white border border-outline-variant/40 rounded-xl p-6 hover:shadow-lg transition-all" data-category="curiosity-gap">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed text-xs font-bold uppercase tracking-wider">Curiosity Gap</span>
+            <span class="text-body-sm text-on-surface-variant/60 font-mono">#05</span>
+          </div>
+          <p class="hook-text text-on-surface-variant italic leading-relaxed text-body-md mb-6">
+            &ldquo;The "Invisible Salesman" strategy: How I sold $40k of software without sending a single cold DM.&rdquo;
+          </p>
+          <div class="flex items-center justify-between mt-auto">
+            <div class="flex items-center gap-2 text-body-sm text-on-surface-variant/80">
+              <span>📈</span>
+              <span>High Engagement</span>
+            </div>
+            <button class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 text-body-sm text-on-surface-variant hover:bg-surface-container hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[18px]">content_copy</span>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Card #06 — The Listicle -->
+        <div class="hook-card bg-white border border-outline-variant/40 rounded-xl p-6 hover:shadow-lg transition-all" data-category="the-listicle">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-lg bg-secondary-container text-on-secondary-container text-xs font-bold uppercase tracking-wider">The Listicle</span>
+            <span class="text-body-sm text-on-surface-variant/60 font-mono">#06</span>
+          </div>
+          <p class="hook-text text-on-surface-variant italic leading-relaxed text-body-md mb-6">
+            &ldquo;3 boring niches where you can still build a $1M/year SaaS with zero venture capital.&rdquo;
+          </p>
+          <div class="flex items-center justify-between mt-auto">
+            <div class="flex items-center gap-2 text-body-sm text-on-surface-variant/80">
+              <span>💡</span>
+              <span>Expert Advice</span>
+            </div>
+            <button class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 text-body-sm text-on-surface-variant hover:bg-surface-container hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[18px]">content_copy</span>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Card #07 — Technical Insight -->
+        <div class="hook-card bg-white border border-outline-variant/40 rounded-xl p-6 hover:shadow-lg transition-all" data-category="technical-insight">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-lg bg-surface-container-high text-on-surface text-xs font-bold uppercase tracking-wider">Technical Insight</span>
+            <span class="text-body-sm text-on-surface-variant/60 font-mono">#07</span>
+          </div>
+          <p class="hook-text text-on-surface-variant italic leading-relaxed text-body-md mb-6">
+            &ldquo;Is Serverless actually cheaper? The math behind scaling to 10k monthly active users might shock you.&rdquo;
+          </p>
+          <div class="flex items-center justify-between mt-auto">
+            <div class="flex items-center gap-2 text-body-sm text-on-surface-variant/80">
+              <span>💰</span>
+              <span>Cost Analysis</span>
+            </div>
+            <button class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 text-body-sm text-on-surface-variant hover:bg-surface-container hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[18px]">content_copy</span>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Card #08 — The Controversy -->
+        <div class="hook-card bg-white border border-outline-variant/40 rounded-xl p-6 hover:shadow-lg transition-all" data-category="the-controversy">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-lg bg-error-container text-on-error-container text-xs font-bold uppercase tracking-wider">The Controversy</span>
+            <span class="text-body-sm text-on-surface-variant/60 font-mono">#08</span>
+          </div>
+          <p class="hook-text text-on-surface-variant italic leading-relaxed text-body-md mb-6">
+            &ldquo;Your MVP is too polished. If you aren't embarrassed by your first release, you're burning money.&rdquo;
+          </p>
+          <div class="flex items-center justify-between mt-auto">
+            <div class="flex items-center gap-2 text-body-sm text-on-surface-variant/80">
+              <span>⚠️</span>
+              <span>Hard Truths</span>
+            </div>
+            <button class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 text-body-sm text-on-surface-variant hover:bg-surface-container hover:border-primary/40 transition-all">
+              <span class="material-symbols-outlined text-[18px]">content_copy</span>
+              Copy
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── Load More ── -->
+      <section class="mt-12 text-center">
+        <button id="loadMoreBtn" class="px-8 py-3 rounded-xl border-2 border-outline-variant/40 text-body-md font-semibold text-on-surface-variant hover:border-primary hover:text-primary hover:bg-primary-fixed/10 transition-all active:scale-95">
+          Load 12 More Hooks
+        </button>
+        <p class="mt-4 text-body-sm text-on-surface-variant/60">Viewing 8 of 24 psychological variations</p>
+      </section>
+
+      <!-- ── Newsletter CTA ── -->
+      <section class="mt-20 bg-surface-container rounded-2xl p-8 md:p-12 text-center border border-outline-variant/30">
+        <span class="material-symbols-outlined text-[40px] text-primary mb-4">mail</span>
+        <h2 class="text-headline-md font-headline font-bold text-on-surface mb-3">Get Fresh Hooks Weekly</h2>
+        <p class="text-body-md text-on-surface-variant max-w-lg mx-auto mb-8">
+          Join 5,000+ creators receiving AI-generated hook templates every Monday. Unsubscribe anytime.
+        </p>
+        <form class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto" onsubmit="return false;">
+          <input
+            type="email"
+            placeholder="you@example.com"
+            class="flex-1 px-4 py-3 rounded-xl border border-outline-variant/40 bg-surface-container-lowest text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition"
+          />
+          <button type="submit" id="joinBtn" class="bg-primary text-on-primary px-6 py-3 rounded-xl font-semibold text-body-sm tracking-wider hover:shadow-lg transition-all active:scale-95 whitespace-nowrap">
+            Join Free
+          </button>
+        </form>
+      </section>
+
+    </main>
+
+    <!-- ═══ Footer Mount ═══ -->
+    <div id="footer-mount"></div>
+
+    <script type="module" src="/src/js/library.js"></script>
+  </body>
+</html>

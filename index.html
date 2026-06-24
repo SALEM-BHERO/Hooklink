@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HookLink AI — Studio-Grade LinkedIn Content</title>
+    <meta name="description" content="Your AI-powered co-pilot for creating high-performing LinkedIn content. Stop staring at blank screens and start building your authority." />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+
+    <!-- Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <script type="module" src="/src/js/landing.js"></script>
+  </head>
+
+  <body class="font-body bg-background text-on-surface overflow-x-hidden">
+
+    <!-- Header Mount (injected by JS) -->
+    <div id="header-mount"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         HERO SECTION
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="pt-32 pb-unit-xl relative overflow-hidden">
+      <!-- Decorative gradient orbs -->
+      <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none"></div>
+      <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-tertiary/5 rounded-full blur-3xl translate-y-1/2 pointer-events-none"></div>
+
+      <div class="max-w-[1280px] mx-auto px-4 md:px-margin-desktop">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+
+          <!-- Left: Copy -->
+          <div class="space-y-8 section-animate">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 bg-primary/8 border border-primary/15 rounded-full px-4 py-2">
+              <span class="material-symbols-outlined text-primary text-base">auto_awesome</span>
+              <span class="text-body-sm font-semibold text-primary tracking-wide">Early Access Now Open</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="font-headline text-headline-xl leading-[56px] tracking-[-0.02em] font-black text-on-background">
+              Stop staring at<br />blank screens.
+              <span class="block mt-2 italic bg-gradient-to-r from-primary via-primary-container to-tertiary bg-clip-text text-transparent">
+                Start building your authority.
+              </span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-body-lg text-on-surface-variant max-w-lg leading-relaxed">
+              HookLink is your AI-powered co-pilot for creating high-performing LinkedIn content that educates, engages, and converts — in seconds, not hours.
+            </p>
+
+            <!-- CTAs -->
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <a href="/workspace.html" class="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-3.5 rounded-xl font-semibold text-sm tracking-wider hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 active:scale-95">
+                Try Free (beta) →
+              </a>
+              <a href="#features" class="inline-flex items-center gap-2 border-2 border-outline-variant text-on-surface-variant px-8 py-3.5 rounded-xl font-semibold text-sm tracking-wider hover:border-primary hover:text-primary transition-all duration-300">
+                View Case Studies
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: Hero Image -->
+          <div class="relative flex justify-center lg:justify-end section-animate">
+            <div class="relative">
+              <div class="absolute -inset-4 bg-gradient-to-br from-primary/10 via-tertiary/5 to-transparent rounded-3xl blur-2xl"></div>
+              <img
+                src="/images/landing-hero.png"
+                alt="HookLink AI workspace preview"
+                class="relative w-full max-w-[540px] rounded-2xl shadow-2xl shadow-primary/10 animate-float"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Bar -->
+        <div class="mt-20 pt-12 border-t border-outline-variant/30 section-animate">
+          <p class="text-center text-body-sm text-on-surface-variant/60 uppercase tracking-[0.15em] font-medium mb-8">
+            Trusted by founders at
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-12 md:gap-16 opacity-40">
+            <span class="font-headline font-black text-2xl text-on-surface tracking-tight">FORBES</span>
+            <span class="font-headline font-black text-2xl text-on-surface tracking-tight">Y-COMB</span>
+            <span class="font-headline font-black text-2xl text-on-surface tracking-tight">STRIPE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         HOW IT WORKS SECTION
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="how-it-works" class="py-unit-xl bg-surface-container-lowest">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-margin-desktop">
+
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16 section-animate">
+          <span class="text-label-md text-primary uppercase tracking-[0.15em] font-semibold">How it works</span>
+          <h2 class="font-headline text-headline-lg mt-4 text-on-background font-bold">Master Content in Seconds</h2>
+          <p class="text-body-lg text-on-surface-variant mt-4">
+            A simple 4-step workflow that transforms raw ideas into studio-grade LinkedIn posts — no writing experience required.
+          </p>
+        </div>
+
+        <!-- Steps Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+
+          <!-- Step 01 -->
+          <div class="group relative bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-8 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30 transition-all duration-300 section-animate">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                <span class="material-symbols-outlined text-primary text-2xl">edit_note</span>
+              </div>
+              <span class="text-body-sm font-semibold text-on-surface-variant/50 uppercase tracking-widest">Step 01</span>
+            </div>
+            <h3 class="font-headline font-bold text-lg text-on-surface mb-2">Enter Topic</h3>
+            <p class="text-body-sm text-on-surface-variant leading-relaxed">
+              Drop a thought, article, or raw insight — anything you want to turn into a compelling post.
+            </p>
+          </div>
+
+          <!-- Step 02 -->
+          <div class="group relative bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-8 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30 transition-all duration-300 section-animate">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                <span class="material-symbols-outlined text-primary text-2xl">flag</span>
+              </div>
+              <span class="text-body-sm font-semibold text-on-surface-variant/50 uppercase tracking-widest">Step 02</span>
+            </div>
+            <h3 class="font-headline font-bold text-lg text-on-surface mb-2">Choose Goal</h3>
+            <p class="text-body-sm text-on-surface-variant leading-relaxed">
+              Define if you want to educate, sell, or drive brand awareness with your content.
+            </p>
+          </div>
+
+          <!-- Step 03 -->
+          <div class="group relative bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-8 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30 transition-all duration-300 section-animate">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                <span class="material-symbols-outlined text-primary text-2xl">tune</span>
+              </div>
+              <span class="text-body-sm font-semibold text-on-surface-variant/50 uppercase tracking-widest">Step 03</span>
+            </div>
+            <h3 class="font-headline font-bold text-lg text-on-surface mb-2">Pick Tone</h3>
+            <p class="text-body-sm text-on-surface-variant leading-relaxed">
+              Select from professional, casual, or radical transparency — your voice, amplified.
+            </p>
+          </div>
+
+          <!-- Step 04 (Highlighted) -->
+          <div class="group relative bg-gradient-to-br from-primary to-primary-container rounded-2xl p-8 shadow-lg shadow-primary/20 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 section-animate">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-2xl">auto_awesome</span>
+              </div>
+              <span class="text-body-sm font-semibold text-white/60 uppercase tracking-widest">Step 04</span>
+            </div>
+            <h3 class="font-headline font-bold text-lg text-white mb-2">Generate</h3>
+            <p class="text-body-sm text-white/80 leading-relaxed">
+              Get a studio-grade post within seconds — ready to publish or refine further.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FEATURES SECTION
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="features" class="py-unit-xl">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-margin-desktop">
+
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16 section-animate">
+          <span class="text-label-md text-primary uppercase tracking-[0.15em] font-semibold">Features</span>
+          <h2 class="font-headline text-headline-lg mt-4 text-on-background font-bold">Everything You Need to Dominate LinkedIn</h2>
+          <p class="text-body-lg text-on-surface-variant mt-4">
+            Precision-engineered tools that give your content an unfair advantage.
+          </p>
+        </div>
+
+        <!-- Top Row: Two Large Feature Cards -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter mb-gutter">
+
+          <!-- Feature 1: Viral Hook Generator -->
+          <div class="group relative bg-surface-container-lowest border border-outline-variant/40 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 section-animate">
+            <div class="aspect-[16/10] bg-gradient-to-br from-surface-container to-surface-container-high overflow-hidden">
+              <img
+                src="/images/feature-hook.png"
+                alt="Viral Hook Generator preview"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div class="p-8">
+              <h3 class="font-headline font-bold text-headline-md text-on-surface mb-3">Viral Hook Generator</h3>
+              <p class="text-body-md text-on-surface-variant mb-6 leading-relaxed">
+                The first 3 lines decide everything. Our AI analyzes thousands of top-performing hooks and crafts scroll-stopping openers tailored to your topic and audience.
+              </p>
+              <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                  <span class="text-body-sm text-on-surface">Pattern-matched against 10k+ viral posts</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                  <span class="text-body-sm text-on-surface">Multiple hook styles: question, bold claim, story</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 2: Tone-Aware Writing -->
+          <div class="group relative bg-surface-container-lowest border border-outline-variant/40 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 section-animate">
+            <div class="aspect-[16/10] bg-gradient-to-br from-surface-container to-surface-container-high overflow-hidden">
+              <img
+                src="/images/feature-tone.png"
+                alt="Tone-Aware Writing preview"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div class="p-8">
+              <h3 class="font-headline font-bold text-headline-md text-on-surface mb-3">Tone-Aware Writing</h3>
+              <p class="text-body-md text-on-surface-variant mb-6 leading-relaxed">
+                AI that adapts to your personal brand voice. Whether you're a straight-talking founder or a thought-leadership essayist, every post feels authentically you.
+              </p>
+              <!-- Toggle Switches Visual -->
+              <div class="flex flex-wrap gap-3">
+                <div class="flex items-center gap-2 bg-primary/8 rounded-full px-4 py-2">
+                  <div class="w-3 h-3 rounded-full bg-primary"></div>
+                  <span class="text-body-sm font-medium text-primary">Professional</span>
+                </div>
+                <div class="flex items-center gap-2 bg-surface-container rounded-full px-4 py-2">
+                  <div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+                  <span class="text-body-sm font-medium text-on-surface-variant">Casual</span>
+                </div>
+                <div class="flex items-center gap-2 bg-surface-container rounded-full px-4 py-2">
+                  <div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+                  <span class="text-body-sm font-medium text-on-surface-variant">Bold</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row: Two Smaller Feature Cards -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+
+          <!-- Feature 3: Smart Formatting -->
+          <div class="group relative bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-8 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 section-animate">
+            <div class="flex items-start gap-5">
+              <div class="w-14 h-14 rounded-2xl bg-tertiary/8 flex items-center justify-center flex-shrink-0 group-hover:bg-tertiary/15 transition-colors">
+                <span class="material-symbols-outlined text-tertiary text-3xl">layers</span>
+              </div>
+              <div>
+                <h3 class="font-headline font-bold text-lg text-on-surface mb-2">Smart Formatting</h3>
+                <p class="text-body-sm text-on-surface-variant leading-relaxed">
+                  Walls of text kill engagement. HookLink auto-structures your content with strategic line breaks, white space, and visual hierarchy that keeps readers scrolling.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature 4: Engagement-First CTA -->
+          <div class="group relative bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-8 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 section-animate">
+            <div class="flex items-start gap-5">
+              <div class="w-14 h-14 rounded-2xl bg-primary/8 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/15 transition-colors">
+                <span class="material-symbols-outlined text-primary text-3xl">trending_up</span>
+              </div>
+              <div>
+                <h3 class="font-headline font-bold text-lg text-on-surface mb-2">Engagement-First CTA</h3>
+                <p class="text-body-sm text-on-surface-variant leading-relaxed mb-4">
+                  Every post ends with purpose. Our AI crafts calls-to-action that convert readers into followers, subscribers, and customers.
+                </p>
+                <a href="/library.html" class="inline-flex items-center gap-1 text-body-sm font-semibold text-primary hover:underline underline-offset-4 transition-colors">
+                  Explore templates →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         CTA + TESTIMONIALS SECTION
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="py-unit-xl bg-inverse-surface relative overflow-hidden">
+      <!-- Decorative gradient -->
+      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-tertiary/8 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative max-w-[1280px] mx-auto px-4 md:px-margin-desktop text-center">
+
+        <div class="max-w-3xl mx-auto mb-16 section-animate">
+          <h2 class="font-headline text-headline-xl leading-[56px] tracking-[-0.02em] font-black text-white">
+            Join 2,500+ professionals<br />winning on LinkedIn.
+          </h2>
+          <p class="text-body-lg text-inverse-on-surface/70 mt-6 max-w-xl mx-auto">
+            From solo founders to enterprise teams — HookLink is the unfair advantage for anyone serious about LinkedIn growth.
+          </p>
+          <div class="mt-8">
+            <a href="/workspace.html" class="inline-flex items-center gap-2 bg-white text-primary px-10 py-4 rounded-xl font-bold text-sm tracking-wider hover:shadow-xl hover:shadow-black/20 transition-all duration-300 active:scale-95">
+              Start Your Free Trial
+            </a>
+          </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter section-animate">
+
+          <!-- Testimonial 1 -->
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-left hover:bg-white/8 transition-colors">
+            <div class="flex items-center gap-1 mb-4">
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+            </div>
+            <p class="text-body-md text-white/90 leading-relaxed mb-6">
+              "HookLink cut my content creation time from 2 hours to 10 minutes. My impressions went from 5K to 80K per month in 6 weeks."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-tertiary flex items-center justify-center text-white font-bold text-sm">SR</div>
+              <div>
+                <p class="text-body-sm font-semibold text-white">Sarah Rodriguez</p>
+                <p class="text-body-sm text-white/50">Founder, GrowthOps</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-left hover:bg-white/8 transition-colors">
+            <div class="flex items-center gap-1 mb-4">
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+            </div>
+            <p class="text-body-md text-white/90 leading-relaxed mb-6">
+              "I was skeptical of AI writing tools. HookLink changed my mind — every post sounds like me, just sharper. It's like having a ghostwriter who actually gets it."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-tertiary to-primary-container flex items-center justify-center text-white font-bold text-sm">MK</div>
+              <div>
+                <p class="text-body-sm font-semibold text-white">Marcus Kim</p>
+                <p class="text-body-sm text-white/50">CTO, Layerstack</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-left hover:bg-white/8 transition-colors">
+            <div class="flex items-center gap-1 mb-4">
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+              <span class="material-symbols-outlined text-amber-400 text-lg">star</span>
+            </div>
+            <p class="text-body-md text-white/90 leading-relaxed mb-6">
+              "We rolled HookLink out to our entire marketing team. Content quality became consistent overnight. Best tool investment we've made this year."
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-container to-tertiary-container flex items-center justify-center text-white font-bold text-sm">AL</div>
+              <div>
+                <p class="text-body-sm font-semibold text-white">Aisha Lawson</p>
+                <p class="text-body-sm text-white/50">VP Marketing, NeuralPay</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Mount (injected by JS) -->
+    <div id="footer-mount"></div>
+
+  </body>
+</html>
