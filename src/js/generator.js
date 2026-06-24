@@ -22,7 +22,7 @@ function handleGenerate() {
   btn.classList.add('opacity-80', 'pointer-events-none');
   btn.innerHTML = `
     <span class="material-symbols-outlined animate-spin">refresh</span>
-    <span>Processing...</span>
+    <span>Drafting...</span>
   `;
 
   // Activate AI pulse bar
@@ -33,7 +33,7 @@ function handleGenerate() {
     // Update button to success state
     btn.innerHTML = `
       <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">check_circle</span>
-      <span>Post Ready</span>
+      <span>Draft Ready</span>
     `;
     btn.classList.remove('opacity-80');
     btn.classList.add('bg-primary');
@@ -42,7 +42,7 @@ function handleGenerate() {
     pulseBar.classList.remove('active');
 
     // Show toast notification
-    showToast('Generation Complete! View in Post Previews.', 'auto_awesome');
+    showToast('Draft saved! Opening the editor...', 'edit_document');
 
     // After 5s — redirect to refinement page
     setTimeout(() => {

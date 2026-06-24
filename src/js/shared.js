@@ -1,5 +1,5 @@
 /**
- * HookLink AI — Shared Components
+ * HookLink — Shared Components
  * Reusable header and footer injection
  */
 
@@ -63,14 +63,14 @@ export function renderFooter() {
   footer.innerHTML = `
     <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-4 md:px-margin-desktop max-w-[1280px] mx-auto">
       <div class="col-span-1">
-        <span class="text-headline-md font-headline font-black text-on-surface">HookLink AI</span>
-        <p class="mt-4 text-body-sm text-on-surface-variant">Studio-Grade Content Mastery for high-performance creators.</p>
+        <span class="text-headline-md font-headline font-black text-on-surface">HookLink</span>
+        <p class="mt-4 text-body-sm text-on-surface-variant">A simple writing workspace for sharing your best ideas.</p>
       </div>
       <div class="space-y-4">
         <h4 class="text-label-md font-semibold text-primary uppercase tracking-wider">Product</h4>
         <ul class="space-y-2">
           <li><a class="text-body-sm text-on-surface-variant hover:underline decoration-primary underline-offset-4" href="/library.html">Templates</a></li>
-          <li><a class="text-body-sm text-on-surface-variant hover:underline decoration-primary underline-offset-4" href="/workspace.html">AI Styles</a></li>
+          <li><a class="text-body-sm text-on-surface-variant hover:underline decoration-primary underline-offset-4" href="/workspace.html">Tone Guide</a></li>
         </ul>
       </div>
       <div class="space-y-4">
@@ -89,7 +89,7 @@ export function renderFooter() {
       </div>
     </div>
     <div class="max-w-[1280px] mx-auto px-4 md:px-margin-desktop mt-12 pt-8 border-t border-outline-variant/20">
-      <p class="text-body-sm text-on-surface-variant opacity-80">© 2024 HookLink AI. Studio-Grade Content Mastery.</p>
+      <p class="text-body-sm text-on-surface-variant opacity-80">© 2024 HookLink. Write with clarity.</p>
     </div>
   `;
 
