@@ -121,3 +121,91 @@ document.querySelectorAll('.hook-copy-btn').forEach((btn) => {
     }
   });
 });
+
+// ═══════════════════════════════════════════════════════════════
+//  Dynamic State Loading (Phase 2)
+// ═══════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  const generatedPost = sessionStorage.getItem('hooklink_generated_post');
+  const generatedHooksRaw = sessionStorage.getItem('hooklink_generated_hooks');
+
+  if (generatedPost && postBody) {
+    postBody.innerText = generatedPost;
+  }
+
+  if (generatedHooksRaw) {
+    try {
+      const hooks = JSON.parse(generatedHooksRaw);
+      const hookCards = document.querySelectorAll('.hook-card');
+      
+      hooks.forEach((hook, index) => {
+        if (hookCards[index]) {
+          const titleEl = hookCards[index].querySelector('h4');
+          const textEl = hookCards[index].querySelector('p');
+          if (titleEl) titleEl.innerText = hook.title;
+          if (textEl) textEl.innerText = hook.text;
+        }
+      });
+    } catch(e) {
+      console.error('Failed to parse hooks from session', e);
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
+//  Interactive Mock Buttons
+// ═══════════════════════════════════════════════════════════════
+
+const publishBtn = document.getElementById('publishBtn');
+if (publishBtn) {
+  publishBtn.addEventListener('click', () => {
+    publishBtn.innerHTML = `
+      <span class="material-symbols-outlined animate-spin">refresh</span>
+      Publishing...
+    `;
+    setTimeout(() => {
+      showToast('Successfully published to LinkedIn!', 'check_circle');
+      publishBtn.innerHTML = `
+        <span class="material-symbols-outlined">check</span>
+        Published
+      `;
+      publishBtn.classList.replace('bg-primary', 'bg-tertiary');
+      setTimeout(() => { window.location.href = '/workspace.html'; }, 2000);
+    }, 1500);
+  });
+}
+
+const refineToneBtn = document.getElementById('refineToneBtn');
+if (refineToneBtn) {
+  refineToneBtn.addEventListener('click', () => {
+    showToast('Tone refinement requires backend API connection.', 'info');
+  });
+}
+
+const reactionBar = document.getElementById('reactionBar');
+const likeCountEl = document.getElementById('likeCount');
+const commentCountEl = document.getElementById('commentCount');
+let hasLiked = false;
+let likes = 842;
+let comments = 12;
+
+if (reactionBar) {
+  reactionBar.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    
+    if (action === 'like') {
+      hasLiked = !hasLiked;
+      likes += hasLiked ? 1 : -1;
+      if (likeCountEl) likeCountEl.innerText = `${hasLiked ? 'You and ' : ''}${likes} others`;
+      btn.classList.toggle('text-primary');
+    } else if (action === 'comment') {
+      comments++;
+      if (commentCountEl) commentCountEl.innerText = `${comments} comments • 4 shares`;
+      showToast('Opening comment editor...', 'comment');
+    } else {
+      showToast(`${action} action clicked.`, 'info');
+    }
+  });
+}

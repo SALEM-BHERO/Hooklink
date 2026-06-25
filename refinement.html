@@ -51,7 +51,7 @@
 
             <!-- Action Buttons -->
             <div class="flex items-center gap-2">
-              <button class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-body-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all">
+              <button id="refineToneBtn" class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-body-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all">
                 <span class="material-symbols-outlined text-[18px]">palette</span>
                 Refine Tone
               </button>
@@ -62,7 +62,7 @@
                 <span class="material-symbols-outlined text-[18px]">content_copy</span>
                 Copy
               </button>
-              <button class="flex items-center gap-1.5 px-5 py-2 rounded-xl text-body-sm font-semibold bg-primary text-on-primary hover:shadow-lg transition-all active:scale-95">
+              <button id="publishBtn" class="flex items-center gap-1.5 px-5 py-2 rounded-xl text-body-sm font-semibold bg-primary text-on-primary hover:shadow-lg transition-all active:scale-95">
                 <span class="material-symbols-outlined text-[18px]">publish</span>
                 Publish
               </button>
@@ -124,26 +124,26 @@ Stop guessing. Start writing.
                     <span class="flex items-center justify-center w-5 h-5 bg-tertiary rounded-full -ml-1.5">
                       <span class="material-symbols-outlined text-on-tertiary text-[12px]">rocket_launch</span>
                     </span>
-                    <span class="ml-1">842 others</span>
+                    <span class="ml-1" id="likeCount">842 others</span>
                   </div>
-                  <span>12 comments • 4 shares</span>
+                  <span id="commentCount">12 comments • 4 shares</span>
                 </div>
 
                 <!-- Action Bar -->
-                <div class="grid grid-cols-4 py-1">
-                  <button class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
+                <div class="grid grid-cols-4 py-1" id="reactionBar">
+                  <button data-action="like" class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
                     <span class="material-symbols-outlined text-[20px]">thumb_up</span>
                     Like
                   </button>
-                  <button class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
+                  <button data-action="comment" class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
                     <span class="material-symbols-outlined text-[20px]">comment</span>
                     Comment
                   </button>
-                  <button class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
+                  <button data-action="repost" class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
                     <span class="material-symbols-outlined text-[20px]">repeat</span>
                     Repost
                   </button>
-                  <button class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
+                  <button data-action="send" class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
                     <span class="material-symbols-outlined text-[20px]">send</span>
                     Send
                   </button>

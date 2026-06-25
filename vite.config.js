@@ -4,6 +4,11 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [tailwindcss()],
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3001'
+    }
+  },
   build: {
     rollupOptions: {
       input: {

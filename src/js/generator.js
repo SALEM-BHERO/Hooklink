@@ -11,25 +11,57 @@ renderHeader('workspace');
 renderFooter();
 
 // ── Generate Post Handler ──
-function handleGenerate() {
+async function handleGenerate() {
   const btn = document.getElementById('generateBtn');
   const pulseBar = document.getElementById('generationProgress');
+  const topicInput = document.querySelector('textarea[name="topic"]');
+  const goalInput = document.querySelector('input[name="goal"]:checked');
+  const toneInput = document.querySelector('input[name="tone"]:checked');
 
-  if (!btn || !pulseBar) return;
+  const providerInput = document.querySelector('select[name="provider"]');
+
+  if (!btn || !pulseBar || !topicInput || !goalInput || !toneInput || !providerInput) return;
+
+  const topic = topicInput.value.trim();
+  if (!topic) {
+    showToast('Please enter what you want to talk about.', 'error');
+    topicInput.focus();
+    return;
+  }
 
   // Disable button & show processing state
   btn.disabled = true;
   btn.classList.add('opacity-80', 'pointer-events-none');
-  btn.innerHTML = `
-    <span class="material-symbols-outlined animate-spin">refresh</span>
-    <span>Drafting...</span>
-  `;
+  
+  const updateBtnText = (text) => {
+    btn.innerHTML = `
+      <span class="material-symbols-outlined animate-spin">refresh</span>
+      <span>${text}</span>
+    `;
+  };
 
-  // Activate AI pulse bar
+  updateBtnText('Generating post...');
   pulseBar.classList.add('active');
 
-  // After 3s — generation "complete"
-  setTimeout(() => {
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        topic,
+        goal: goalInput.value,
+        tone: toneInput.value,
+        provider: providerInput.value
+      })
+    });
+
+    if (!res.ok) throw new Error('API Error');
+    const data = await res.json();
+
+    // Save generated content to session state
+    sessionStorage.setItem('hooklink_generated_post', data.postBody);
+    sessionStorage.setItem('hooklink_generated_hooks', JSON.stringify(data.hooks));
+
     // Update button to success state
     btn.innerHTML = `
       <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">check_circle</span>
@@ -38,17 +70,21 @@ function handleGenerate() {
     btn.classList.remove('opacity-80');
     btn.classList.add('bg-primary');
 
-    // Hide pulse bar
     pulseBar.classList.remove('active');
+    showToast('Draft ready! Opening the editor...', 'edit_document');
 
-    // Show toast notification
-    showToast('Draft saved! Opening the editor...', 'edit_document');
-
-    // After 5s — redirect to refinement page
     setTimeout(() => {
       window.location.href = '/refinement.html';
-    }, 5000);
-  }, 3000);
+    }, 1000);
+
+  } catch (error) {
+    console.error(error);
+    showToast('Generation failed. Is the backend running?', 'error');
+    btn.disabled = false;
+    btn.classList.remove('opacity-80', 'pointer-events-none');
+    updateBtnText('Start Drafting');
+    pulseBar.classList.remove('active');
+  }
 }
 
 // ── Expose to window for onclick ──
