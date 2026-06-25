@@ -1,17 +1,6 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
 import { Groq } from 'groq-sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import OpenAI from 'openai';
-
-dotenv.config();
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-const PORT = process.env.PORT || 3001;
 
 // Initialize clients conditionally based on available env vars
 let groq, genAI, deepseek;
@@ -31,7 +20,7 @@ if (process.env.DEEPSEEK_API_KEY) {
   });
 }
 
-const SYSTEM_PROMPT = `You are an expert LinkedIn ghostwriter. The user will provide a TOPIC, a GOAL, and a TONE.
+const SYSTEM_PROMPT = `You are an expert LinkedIn ghostwriter with a deep understanding of the Zimbabwean entrepreneurial landscape. The user will provide a TOPIC, a GOAL, and a TONE.
 You must output a highly engaging LinkedIn post based on these parameters. 
 Your output must be pure JSON with no markdown formatting. The JSON must match exactly this schema:
 {
@@ -52,7 +41,22 @@ Your output must be pure JSON with no markdown formatting. The JSON must match e
   ]
 }`;
 
-app.post('/api/generate', async (req, res) => {
+export default async function handler(req, res) {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+
+  // Handle preflight OPTIONS request
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
   try {
     const { topic, goal, tone, provider = 'groq' } = req.body;
 
@@ -100,20 +104,16 @@ app.post('/api/generate', async (req, res) => {
       return res.status(400).json({ error: 'Invalid provider selected' });
     }
 
-    // Clean markdown formatting if LLM incorrectly includes it (e.g. ```json ...)
-    if (jsonString.startsWith('\`\`\`json')) {
-      jsonString = jsonString.replace(/^\`\`\`json/m, '').replace(/\`\`\`$/m, '').trim();
+    // Clean markdown formatting if LLM incorrectly includes it
+    if (jsonString.startsWith('```json')) {
+      jsonString = jsonString.replace(/^```json/m, '').replace(/```$/m, '').trim();
     }
 
     const responseData = JSON.parse(jsonString);
-    res.json(responseData);
+    return res.status(200).json(responseData);
 
   } catch (error) {
     console.error('Error generating content:', error);
-    res.status(500).json({ error: 'Failed to generate content', details: error.message });
+    return res.status(500).json({ error: 'Failed to generate content', details: error.message });
   }
-});
-
-app.listen(PORT, () => {
-  console.log(`HookLink Backend running on http://localhost:${PORT}`);
-});
+}
