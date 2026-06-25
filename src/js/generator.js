@@ -18,9 +18,7 @@ async function handleGenerate() {
   const goalInput = document.querySelector('input[name="goal"]:checked');
   const toneInput = document.querySelector('input[name="tone"]:checked');
 
-  const providerInput = document.querySelector('select[name="provider"]');
-
-  if (!btn || !pulseBar || !topicInput || !goalInput || !toneInput || !providerInput) return;
+  if (!btn || !pulseBar || !topicInput || !goalInput || !toneInput) return;
 
   const topic = topicInput.value.trim();
   if (!topic) {
@@ -51,7 +49,7 @@ async function handleGenerate() {
         topic,
         goal: goalInput.value,
         tone: toneInput.value,
-        provider: providerInput.value
+        provider: 'groq'
       })
     });
 
