@@ -24,8 +24,7 @@ export function renderHeader(activePage = '') {
         <button id="mobileMenuBtn" class="md:hidden p-2 text-on-surface-variant hover:text-primary transition-colors">
           <span class="material-symbols-outlined">menu</span>
         </button>
-        <button class="hidden md:block text-on-surface-variant font-semibold hover:text-primary transition-colors text-sm tracking-wider">Sign In</button>
-        <button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-semibold text-sm tracking-wider hover:shadow-lg transition-all active:scale-95">Try Free</button>
+        <a href="/workspace.html" class="hidden md:block bg-primary text-on-primary px-6 py-2.5 rounded-xl font-semibold text-sm tracking-wider hover:shadow-lg transition-all active:scale-95">Start Writing</a>
       </div>
     </div>
     <!-- Mobile Menu -->
@@ -33,7 +32,7 @@ export function renderHeader(activePage = '') {
       <nav class="flex flex-col p-4 gap-2">
         <a href="/" class="nav-link py-3 px-4 rounded-lg hover:bg-surface-container-low ${activePage === 'home' ? 'active' : ''}">Features</a>
         <a href="/library.html" class="nav-link py-3 px-4 rounded-lg hover:bg-surface-container-low ${activePage === 'library' ? 'active' : ''}">Library</a>
-        <button class="mt-2 text-on-surface-variant font-semibold hover:text-primary transition-colors text-sm py-3">Sign In</button>
+        <a href="/workspace.html" class="mt-2 bg-primary text-on-primary text-center rounded-xl font-semibold text-sm py-3 hover:shadow-lg transition-all">Start Writing</a>
       </nav>
     </div>
   `;
