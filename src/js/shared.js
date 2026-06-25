@@ -16,7 +16,6 @@ export function renderHeader(activePage = '') {
         <a href="/" class="text-headline-md font-headline font-bold text-primary no-underline">HookLink</a>
         <nav class="hidden md:flex gap-6 items-center">
           <a href="/" class="nav-link ${activePage === 'home' ? 'active' : ''}">Features</a>
-          <a href="/" class="nav-link ${activePage === 'pricing' ? 'active' : ''}">Pricing</a>
           <a href="/library.html" class="nav-link ${activePage === 'library' ? 'active' : ''}">Library</a>
         </nav>
       </div>
@@ -33,7 +32,6 @@ export function renderHeader(activePage = '') {
     <div id="mobileMenu" class="md:hidden hidden absolute top-20 left-0 w-full bg-surface border-b border-outline-variant shadow-xl">
       <nav class="flex flex-col p-4 gap-2">
         <a href="/" class="nav-link py-3 px-4 rounded-lg hover:bg-surface-container-low ${activePage === 'home' ? 'active' : ''}">Features</a>
-        <a href="/" class="nav-link py-3 px-4 rounded-lg hover:bg-surface-container-low ${activePage === 'pricing' ? 'active' : ''}">Pricing</a>
         <a href="/library.html" class="nav-link py-3 px-4 rounded-lg hover:bg-surface-container-low ${activePage === 'library' ? 'active' : ''}">Library</a>
         <button class="mt-2 text-on-surface-variant font-semibold hover:text-primary transition-colors text-sm py-3">Sign In</button>
       </nav>
