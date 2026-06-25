@@ -5,18 +5,22 @@ import OpenAI from 'openai';
 // Initialize clients conditionally based on available env vars
 let groq, genAI, deepseek;
 
-if (process.env.GROQ_API_KEY) {
-  groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const groqKey = process.env.GROQ_API_KEY || process.env.GroqAPI;
+const geminiKey = process.env.GEMINI_API_KEY || process.env.GeminiAPi;
+const deepseekKey = process.env.DEEPSEEK_API_KEY || process.env.DeepAPI;
+
+if (groqKey) {
+  groq = new Groq({ apiKey: groqKey });
 }
 
-if (process.env.GEMINI_API_KEY) {
-  genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+if (geminiKey) {
+  genAI = new GoogleGenerativeAI(geminiKey);
 }
 
-if (process.env.DEEPSEEK_API_KEY) {
+if (deepseekKey) {
   deepseek = new OpenAI({
     baseURL: 'https://api.deepseek.com',
-    apiKey: process.env.DEEPSEEK_API_KEY
+    apiKey: deepseekKey
   });
 }
 
