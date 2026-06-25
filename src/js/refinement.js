@@ -186,8 +186,8 @@ const reactionBar = document.getElementById('reactionBar');
 const likeCountEl = document.getElementById('likeCount');
 const commentCountEl = document.getElementById('commentCount');
 let hasLiked = false;
-let likes = 842;
-let comments = 12;
+let likes = 0;
+let comments = 0;
 
 if (reactionBar) {
   reactionBar.addEventListener('click', (e) => {
@@ -202,7 +202,7 @@ if (reactionBar) {
       btn.classList.toggle('text-primary');
     } else if (action === 'comment') {
       comments++;
-      if (commentCountEl) commentCountEl.innerText = `${comments} comments • 4 shares`;
+      if (commentCountEl) commentCountEl.innerText = `${comments} comments`;
       showToast('Opening comment editor...', 'comment');
     } else {
       showToast(`${action} action clicked.`, 'info');
