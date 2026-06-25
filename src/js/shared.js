@@ -88,7 +88,7 @@ export function renderFooter() {
     </div>
     <div class="max-w-[1280px] mx-auto px-4 md:px-margin-desktop mt-12 pt-8 border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-4">
       <p class="text-body-sm text-on-surface-variant opacity-80">© 2024 HookLink. All rights reserved.</p>
-      <p class="text-body-sm text-on-surface-variant font-medium">Made by <span class="text-primary font-bold">Salem Gwashavanhu</span> of Muonde Technology.</p>
+      <p class="text-body-sm text-on-surface-variant font-medium">Made by <a href="https://salem-portfolio-psi.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-primary font-bold hover:underline">Salem Gwashavanhu</a> of Muonde Technology.</p>
     </div>
   `;
 
