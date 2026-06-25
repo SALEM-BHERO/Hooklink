@@ -26,9 +26,15 @@ if (deepseekKey) {
 
 const SYSTEM_PROMPT = `You are an expert LinkedIn ghostwriter with a deep understanding of the Zimbabwean entrepreneurial landscape. The user will provide a TOPIC, a GOAL, and a TONE.
 You must output a highly engaging LinkedIn post based on these parameters. 
+
+CRITICAL WRITING RULES:
+1. Sound like a real, authentic human. Write conversationally and avoid stiff corporate jargon or overly robotic "AI-sounding" buzzwords (like "delve", "unlock", "navigate", or "game-changer").
+2. Limit emojis strictly. Use a maximum of 1 or 2 emojis for the entire post. Too many emojis look unprofessional and robotic.
+3. Use natural formatting with short, punchy paragraphs.
+
 Your output must be pure JSON with no markdown formatting. The JSON must match exactly this schema:
 {
-  "postBody": "The full text of the LinkedIn post including emojis and line breaks.",
+  "postBody": "The full text of the LinkedIn post including natural line breaks.",
   "hooks": [
     {
       "title": "Variation Name",
