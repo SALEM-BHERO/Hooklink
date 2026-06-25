@@ -20,6 +20,22 @@ async function handleGenerate() {
 
   if (!btn || !pulseBar || !topicInput || !goalInput || !toneInput) return;
 
+  // Rate limiting (5 per day)
+  const today = new Date().toLocaleDateString();
+  const usageKey = 'hooklink_usage_date';
+  const countKey = 'hooklink_usage_count';
+  
+  if (localStorage.getItem(usageKey) !== today) {
+    localStorage.setItem(usageKey, today);
+    localStorage.setItem(countKey, '0');
+  }
+  
+  let currentCount = parseInt(localStorage.getItem(countKey) || '0');
+  if (currentCount >= 5) {
+    showToast('Daily limit reached. Please come back tomorrow!', 'error');
+    return;
+  }
+
   const topic = topicInput.value.trim();
   if (!topic) {
     showToast('Please enter what you want to talk about.', 'error');
@@ -55,6 +71,10 @@ async function handleGenerate() {
 
     if (!res.ok) throw new Error('API Error');
     const data = await res.json();
+
+    // Increment usage count
+    currentCount++;
+    localStorage.setItem(countKey, currentCount.toString());
 
     // Save generated content to session state
     sessionStorage.setItem('hooklink_generated_post', data.postBody);
