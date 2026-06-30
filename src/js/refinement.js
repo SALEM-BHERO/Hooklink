@@ -10,6 +10,23 @@ import { renderHeader, renderFooter, showToast } from './shared.js';
 renderHeader('library');
 renderFooter();
 
+// ── Localize Profile ──
+const profileNameEl = document.getElementById('profileName');
+const profileTitleEl = document.getElementById('profileTitle');
+if (profileNameEl && profileTitleEl) {
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  if (timeZone.startsWith('Africa/')) {
+    profileNameEl.textContent = 'Tadiwa Maphosa';
+    profileTitleEl.textContent = 'Founder @ HookLink AI | Scaling African Tech';
+  } else if (timeZone.startsWith('Europe/')) {
+    profileNameEl.textContent = 'Alex Sterling';
+    profileTitleEl.textContent = 'Founder @ HookLink AI | High-Performance Content Systems';
+  } else {
+    profileNameEl.textContent = 'Jordan Miller';
+    profileTitleEl.textContent = 'Founder @ HookLink AI | Digital Growth Strategist';
+  }
+}
+
 // ── DOM References ──
 const desktopViewBtn = document.getElementById('desktopViewBtn');
 const mobileViewBtn = document.getElementById('mobileViewBtn');
