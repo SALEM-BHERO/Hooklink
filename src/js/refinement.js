@@ -199,6 +199,53 @@ if (refineToneBtn) {
   });
 }
 
+const tryOtherIdeasBtn = document.getElementById('tryOtherIdeasBtn');
+if (tryOtherIdeasBtn) {
+  tryOtherIdeasBtn.addEventListener('click', async () => {
+    const originalText = tryOtherIdeasBtn.innerHTML;
+    tryOtherIdeasBtn.disabled = true;
+    tryOtherIdeasBtn.innerHTML = `
+      <span class="material-symbols-outlined animate-spin">refresh</span>
+      Generating Hooks...
+    `;
+    
+    try {
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic: postBody.innerText.substring(0, 500), 
+          goal: "Generate 3 alternative opening hooks for this exact post. Make them very different from each other.",
+          tone: "Professional"
+        })
+      });
+
+      if (!response.ok) throw new Error('API Error');
+      const data = await response.json();
+      
+      const hookCards = document.querySelectorAll('.hook-card');
+      data.hooks.forEach((hook, index) => {
+        if (hookCards[index]) {
+          const titleEl = hookCards[index].querySelector('h4') || hookCards[index].querySelector('span');
+          const textEl = hookCards[index].querySelector('p');
+          if (titleEl) titleEl.innerText = hook.title;
+          if (textEl) textEl.innerText = hook.text;
+        }
+      });
+      
+      // Update session storage so they persist if page refreshes
+      sessionStorage.setItem('hooklink_generated_hooks', JSON.stringify(data.hooks));
+      showToast('New hooks generated!', 'auto_awesome');
+    } catch (e) {
+      console.error(e);
+      showToast('Failed to generate new hooks.', 'error');
+    } finally {
+      tryOtherIdeasBtn.innerHTML = originalText;
+      tryOtherIdeasBtn.disabled = false;
+    }
+  });
+}
+
 const reactionBar = document.getElementById('reactionBar');
 const likeCountEl = document.getElementById('likeCount');
 const commentCountEl = document.getElementById('commentCount');
