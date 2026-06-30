@@ -12,6 +12,8 @@ export default defineConfig({
         workspace: resolve(__dirname, 'workspace.html'),
         refinement: resolve(__dirname, 'refinement.html'),
         library: resolve(__dirname, 'library.html'),
+        privacy: resolve(__dirname, 'privacy.html'),
+        terms: resolve(__dirname, 'terms.html'),
       },
     },
   },

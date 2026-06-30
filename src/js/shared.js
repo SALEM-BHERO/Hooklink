@@ -73,15 +73,14 @@ export function renderFooter() {
       <div class="space-y-4">
         <h4 class="text-label-md font-semibold text-primary uppercase tracking-wider">Support</h4>
         <ul class="space-y-2">
-          <li><a class="text-body-sm text-on-surface-variant hover:underline decoration-primary underline-offset-4" href="#">Privacy Policy</a></li>
-          <li><a class="text-body-sm text-on-surface-variant hover:underline decoration-primary underline-offset-4" href="#">Terms of Service</a></li>
+          <li><a class="text-body-sm text-on-surface-variant hover:underline decoration-primary underline-offset-4" href="/privacy.html">Privacy Policy</a></li>
+          <li><a class="text-body-sm text-on-surface-variant hover:underline decoration-primary underline-offset-4" href="/terms.html">Terms of Service</a></li>
         </ul>
       </div>
       <div class="space-y-4">
         <h4 class="text-label-md font-semibold text-primary uppercase tracking-wider">Connect</h4>
         <ul class="space-y-2">
-          <li><a class="text-body-sm text-on-surface-variant hover:underline decoration-primary underline-offset-4" href="#">Twitter</a></li>
-          <li><a class="text-body-sm text-on-surface-variant hover:underline decoration-primary underline-offset-4" href="#">LinkedIn</a></li>
+          <li><a class="text-body-sm text-on-surface-variant hover:underline decoration-primary underline-offset-4" href="https://www.linkedin.com/in/salem-gwashavanhu/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
         </ul>
       </div>
     </div>
