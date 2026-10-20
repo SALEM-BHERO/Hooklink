@@ -69,7 +69,10 @@ async function handleGenerate() {
       })
     });
 
-    if (!res.ok) throw new Error('API Error');
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.details || errorData.error || 'API Error');
+    }
     const data = await res.json();
 
     // Increment usage count
@@ -97,13 +100,7 @@ async function handleGenerate() {
 
   } catch (error) {
     console.error(error);
-    let errorMsg = 'Something went wrong. Please try again.';
-    if (error.message === 'API Error') {
-      errorMsg = 'The AI engine returned an error. Please try again in a moment.';
-    } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-      errorMsg = 'Could not reach the server. Check your internet connection.';
-    }
-    showToast(errorMsg, 'error');
+    showToast(error.message || 'Something went wrong. Please try again.', 'error');
     btn.disabled = false;
     btn.classList.remove('opacity-80', 'pointer-events-none');
     updateBtnText('Start Drafting');
