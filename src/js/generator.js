@@ -97,7 +97,13 @@ async function handleGenerate() {
 
   } catch (error) {
     console.error(error);
-    showToast('Generation failed. Is the backend running?', 'error');
+    let errorMsg = 'Something went wrong. Please try again.';
+    if (error.message === 'API Error') {
+      errorMsg = 'The AI engine returned an error. Please try again in a moment.';
+    } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+      errorMsg = 'Could not reach the server. Check your internet connection.';
+    }
+    showToast(errorMsg, 'error');
     btn.disabled = false;
     btn.classList.remove('opacity-80', 'pointer-events-none');
     updateBtnText('Start Drafting');
