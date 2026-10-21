@@ -3,18 +3,20 @@ import { escapeHtml } from './api.js';
 const BODY = (cls = '') =>
   `<div id="postBody" data-testid="post-body" contenteditable="true" class="whitespace-pre-line outline-none focus:ring-2 focus:ring-primary/10 rounded transition-all ${cls}"></div>`;
 const IMG = '/images/post-visual.png';
-const act = (action, icon, label = '', cls = '') =>
-  `<button data-action="${action}" data-testid="preview-action-${action}" class="preview-action flex items-center justify-center gap-1.5 py-2 rounded-lg hover:bg-black/5 transition-colors ${cls}"><i class="${icon}"></i>${label ? `<span>${label}</span>` : ''}</button>`;
+const act = (_action, icon, label = '', cls = '') =>
+  `<span class="flex items-center justify-center gap-1.5 py-2 ${cls}"><i class="${icon}"></i>${label ? `<span>${label}</span>` : ''}</span>`;
 
-const avatar = (size = 'w-10 h-10') => `<img src="/images/avatar.png" alt="" class="${size} rounded-full object-cover flex-shrink-0" />`;
+let initials = 'Y';
+const avatar = (size = 'w-10 h-10') =>
+  `<div class="${size} rounded-full flex-shrink-0 flex items-center justify-center bg-primary text-on-primary font-bold text-[14px]">${initials}</div>`;
 
 const linkedin = ({ name, title }) => `
   <div class="bg-white rounded-lg linkedin-shadow">
     <div class="flex items-start gap-3 p-4">${avatar('w-12 h-12')}
       <div class="flex-1 min-w-0">
-        <p class="text-body-sm font-bold text-on-surface">${name} <span class="font-normal text-on-surface-variant">• 1st</span></p>
+        <p class="text-body-sm font-bold text-on-surface">${name}</p>
         <p class="text-[12px] text-on-surface-variant leading-tight mt-0.5">${title}</p>
-        <p class="text-[12px] text-on-surface-variant mt-0.5">2h • <i class="fa-solid fa-earth-africa"></i></p>
+        <p class="text-[12px] text-on-surface-variant mt-0.5">Now • <i class="fa-solid fa-earth-africa"></i></p>
       </div><i class="fa-solid fa-ellipsis text-on-surface-variant"></i>
     </div>
     ${BODY('px-4 pb-3 text-body-sm text-on-surface')}
@@ -35,8 +37,7 @@ const instagram = ({ handle }) => `
       ${act('like', 'fa-regular fa-heart', '', 'px-2')}${act('comment', 'fa-regular fa-comment', '', 'px-2')}${act('send', 'fa-regular fa-paper-plane', '', 'px-2')}
       <span class="flex-1"></span>${act('save', 'fa-regular fa-bookmark', '', 'px-2')}
     </div>
-    <p class="px-3 text-[13px] font-semibold">1,204 likes</p>
-    <div class="px-3 pt-1 pb-4 text-[13px] text-[#262626]"><span class="font-semibold">${handle}</span> ${BODY('inline')}</div>
+        <div class="px-3 pt-1 pb-4 text-[13px] text-[#262626]"><span class="font-semibold">${handle}</span> ${BODY('inline')}</div>
   </div>`;
 
 const facebook = ({ name }) => `
@@ -47,7 +48,6 @@ const facebook = ({ name }) => `
     </div>
     ${BODY('px-4 pb-3 text-[15px] text-[#050505]')}
     <img src="${IMG}" alt="" class="w-full h-[300px] object-cover" />
-    <div class="flex justify-between px-4 py-2 text-[13px] text-[#65676B]"><span><i class="fa-solid fa-thumbs-up text-[#1877F2]"></i> 86</span><span>14 comments · 3 shares</span></div>
     <div class="grid grid-cols-3 mx-3 py-1 border-t border-black/10 text-[15px] font-semibold text-[#65676B]">
       ${act('like', 'fa-regular fa-thumbs-up', 'Like')}${act('comment', 'fa-regular fa-comment', 'Comment')}${act('share', 'fa-solid fa-share', 'Share')}
     </div>
@@ -56,11 +56,11 @@ const facebook = ({ name }) => `
 const x = ({ name, handle }) => `
   <div class="bg-white rounded-2xl border border-black/10 p-4 flex gap-3">${avatar()}
     <div class="flex-1 min-w-0">
-      <p class="text-[15px]"><span class="font-bold text-[#0F1419]">${name}</span> <i class="fa-solid fa-circle-check text-[#1D9BF0] text-[13px]"></i> <span class="text-[#536471]">@${handle} · now</span></p>
+      <p class="text-[15px]"><span class="font-bold text-[#0F1419]">${name}</span> <span class="text-[#536471]">@${handle} · now</span></p>
       ${BODY('text-[15px] text-[#0F1419] mt-0.5')}
       <img src="${IMG}" alt="" class="mt-3 w-full h-[260px] object-cover rounded-2xl border border-black/10" />
       <div class="flex justify-between mt-2 text-[13px] text-[#536471] max-w-[420px]">
-        ${act('reply', 'fa-regular fa-comment', '12')}${act('repost', 'fa-solid fa-retweet', '8')}${act('like', 'fa-regular fa-heart', '64')}${act('views', 'fa-solid fa-chart-simple', '2.1K')}${act('save', 'fa-regular fa-bookmark')}
+        ${act('reply', 'fa-regular fa-comment')}${act('repost', 'fa-solid fa-retweet')}${act('like', 'fa-regular fa-heart')}${act('views', 'fa-solid fa-chart-simple')}${act('save', 'fa-regular fa-bookmark')}
       </div>
     </div>
   </div>`;
@@ -69,12 +69,11 @@ const threads = ({ handle }) => `
   <div class="bg-white rounded-2xl border border-black/10 p-4 flex gap-3">
     <div class="flex flex-col items-center">${avatar('w-9 h-9')}<div class="w-[2px] flex-1 bg-black/10 mt-2 rounded"></div></div>
     <div class="flex-1 min-w-0">
-      <p class="text-[15px]"><span class="font-semibold">${handle}</span> <span class="text-[#999]">· 1m</span></p>
+      <p class="text-[15px]"><span class="font-semibold">${handle}</span> <span class="text-[#999]">· now</span></p>
       ${BODY('text-[15px] text-[#101010] mt-0.5')}
       <div class="flex gap-2 mt-3 text-[17px] text-[#101010]">
         ${act('like', 'fa-regular fa-heart', '', 'px-2')}${act('reply', 'fa-regular fa-comment', '', 'px-2')}${act('repost', 'fa-solid fa-retweet', '', 'px-2')}${act('send', 'fa-regular fa-paper-plane', '', 'px-2')}
       </div>
-      <p class="text-[13px] text-[#999] mt-1">9 replies · 41 likes</p>
     </div>
   </div>`;
 
@@ -98,23 +97,23 @@ const youtube = ({ name }) => `
   <div class="bg-white rounded-xl overflow-hidden border border-black/10">
     <div class="relative aspect-video bg-black">
       <img src="${IMG}" alt="" class="w-full h-full object-cover" />
-      <span class="absolute bottom-2 right-2 bg-black/80 text-white text-[12px] font-semibold px-1.5 rounded">8:42</span>
       <i class="fa-brands fa-youtube absolute inset-0 m-auto w-fit h-fit text-[56px] text-[#FF0000] drop-shadow"></i>
     </div>
     <div class="p-4">
       <p id="ytTitle" data-testid="youtube-title" class="text-[18px] font-bold text-[#0F0F0F] leading-snug"></p>
       <div class="flex items-center gap-3 mt-3">${avatar('w-9 h-9')}
-        <div class="flex-1"><p class="text-[14px] font-semibold">${name}</p><p class="text-[12px] text-[#606060]">12.4K subscribers</p></div>
-        <button data-action="subscribe" data-testid="preview-action-subscribe" class="preview-action bg-[#0F0F0F] text-white text-[14px] font-semibold px-4 py-2 rounded-full">Subscribe</button>
+        <div class="flex-1"><p class="text-[14px] font-semibold">${name}</p></div>
+        <span class="bg-[#0F0F0F] text-white text-[14px] font-semibold px-4 py-2 rounded-full">Subscribe</span>
       </div>
-      <div class="flex gap-2 mt-3 text-[14px]">${act('like', 'fa-regular fa-thumbs-up', '1.2K', 'bg-black/5 px-3 rounded-full')}${act('share', 'fa-solid fa-share', 'Share', 'bg-black/5 px-3 rounded-full')}</div>
-      <div class="mt-3 bg-black/5 rounded-xl p-3 text-[14px] text-[#0F0F0F]"><p class="font-semibold mb-1">1,024 views · Just now</p>${BODY()}</div>
+      <div class="flex gap-2 mt-3 text-[14px]">${act('like', 'fa-regular fa-thumbs-up', 'Like', 'bg-black/5 px-3 rounded-full')}${act('share', 'fa-solid fa-share', 'Share', 'bg-black/5 px-3 rounded-full')}</div>
+      <div class="mt-3 bg-black/5 rounded-xl p-3 text-[14px] text-[#0F0F0F]"><p class="font-semibold mb-1">Description</p>${BODY()}</div>
     </div>
   </div>`;
 
 const TEMPLATES = { linkedin, instagram, facebook, x, threads, tiktok, youtube };
 
 export function renderPreview(platform, profile) {
+  initials = escapeHtml((profile.name.match(/\b\w/g) || ['Y']).slice(0, 2).join('').toUpperCase());
   const safe = { name: escapeHtml(profile.name), title: escapeHtml(profile.title), handle: escapeHtml(profile.handle) };
   return (TEMPLATES[platform] || linkedin)(safe);
 }

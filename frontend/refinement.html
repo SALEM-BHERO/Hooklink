@@ -83,10 +83,18 @@
                 Copy
               </button>
               <button id="publishBtn" data-testid="publish-btn" class="flex items-center gap-1.5 px-5 py-2 rounded-xl text-body-sm font-semibold bg-primary text-on-primary hover:shadow-lg transition-all active:scale-95">
-                <span class="material-symbols-outlined text-[18px]">publish</span>
-                Publish
+                <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                <span id="publishLabel">Post on LinkedIn</span>
               </button>
             </div>
+          </div>
+
+          <!-- ── Preview identity ── -->
+          <div class="glass-panel rounded-xl p-unit-sm flex flex-wrap items-center gap-2" data-testid="profile-row">
+            <span class="text-[12px] font-bold tracking-widest text-on-surface-variant uppercase mr-1">Preview as</span>
+            <input id="profileNameInput" data-testid="profile-name-input" placeholder="Your name" class="flex-1 min-w-[120px] px-3 py-2 rounded-lg border border-outline-variant/40 bg-surface-container-lowest text-body-sm focus:outline-none focus:border-primary" />
+            <input id="profileHandleInput" data-testid="profile-handle-input" placeholder="handle" class="flex-1 min-w-[110px] px-3 py-2 rounded-lg border border-outline-variant/40 bg-surface-container-lowest text-body-sm focus:outline-none focus:border-primary" />
+            <input id="profileTitleInput" data-testid="profile-title-input" placeholder="Headline (LinkedIn)" class="flex-[2] min-w-[160px] px-3 py-2 rounded-lg border border-outline-variant/40 bg-surface-container-lowest text-body-sm focus:outline-none focus:border-primary" />
           </div>
 
           <!-- ── Post Preview Container ── -->
@@ -168,30 +176,12 @@
           </div>
 
           <!-- ── Post Analysis Panel ── -->
-          <div class="glass-panel rounded-xl p-unit-md flex flex-col gap-unit-md">
-            <h3 class="text-[12px] font-bold tracking-widest text-on-surface-variant uppercase">Readability</h3>
-
-            <!-- Authority Score -->
-            <div class="flex flex-col gap-2">
-              <div class="flex items-center justify-between">
-                <span class="text-body-sm font-semibold text-on-surface">Clarity</span>
-                <span class="text-body-sm font-bold text-primary">92%</span>
-              </div>
-              <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
-                <div class="h-full bg-primary rounded-full transition-all duration-700" style="width: 92%"></div>
-              </div>
+          <div class="glass-panel rounded-xl p-unit-md flex flex-col gap-unit-md" data-testid="analysis-panel">
+            <div class="flex items-center justify-between">
+              <h3 class="text-[12px] font-bold tracking-widest text-on-surface-variant uppercase">Post Analysis</h3>
+              <span class="text-[10px] font-bold tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-full uppercase">Live</span>
             </div>
-
-            <!-- Engagement Potential -->
-            <div class="flex flex-col gap-2">
-              <div class="flex items-center justify-between">
-                <span class="text-body-sm font-semibold text-on-surface">Impact</span>
-                <span class="text-body-sm font-bold text-tertiary">78%</span>
-              </div>
-              <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
-                <div class="h-full bg-tertiary rounded-full transition-all duration-700" style="width: 78%"></div>
-              </div>
-            </div>
+            <div id="analysisBody" class="flex flex-col gap-unit-md"></div>
           </div>
 
         </div>

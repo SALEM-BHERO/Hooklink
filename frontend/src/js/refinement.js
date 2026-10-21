@@ -1,7 +1,8 @@
 import '../styles/global.css';
 import { renderHeader, renderFooter, showToast } from './shared.js';
 import { api } from './api.js';
-import { platformIcon, platformOf } from './platforms.js';
+import { platformIcon, platformOf, splitThread } from './platforms.js';
+import { analyze, renderAnalysis } from './analysis.js';
 import { renderPreview } from './previews.js';
 
 renderHeader('workspace');
@@ -10,12 +11,8 @@ renderFooter();
 const draftId = new URLSearchParams(window.location.search).get('draft');
 let platform = 'linkedin';
 
-const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-const profile = tz.startsWith('Africa/')
-  ? { name: 'Tadiwa Maphosa', handle: 'tadiwa.builds', title: 'Founder @ HookLink AI | Scaling African Tech' }
-  : tz.startsWith('Europe/')
-    ? { name: 'Alex Sterling', handle: 'alexsterling', title: 'Founder @ HookLink AI | High-Performance Content Systems' }
-    : { name: 'Jordan Miller', handle: 'jordanmiller', title: 'Founder @ HookLink AI | Digital Growth Strategist' };
+const PROFILE_KEY = 'hooklink_profile';
+const profile = { name: 'Your Name', handle: 'yourhandle', title: 'Your headline', ...JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}') };
 
 const SAMPLE = `Good writing doesn't just happen. It takes practice and structure.
 
@@ -37,7 +34,7 @@ const hookCards = () => document.querySelectorAll('.hook-card');
 function updateMeta() {
   const p = platformOf(platform);
   const text = body().innerText;
-  const tweets = platform === 'x' ? text.split(/\n\s*\n/).filter((t) => /^\s*\d+\//.test(t)) : [];
+  const tweets = platform === 'x' ? splitThread(text) : [];
   const len = tweets.length > 1 ? Math.max(...tweets.map((t) => t.trim().length)) : text.trim().length;
   charCount.textContent = tweets.length > 1
     ? `${tweets.length}-post thread · longest ${len} / ${p.limit}`
@@ -45,6 +42,7 @@ function updateMeta() {
   charCount.classList.toggle('text-error', len > p.limit);
   const yt = document.getElementById('ytTitle');
   if (yt) yt.textContent = text.split('\n')[0];
+  document.getElementById('analysisBody').innerHTML = renderAnalysis(analyze(text, platform));
 }
 
 function mountPreview(text) {
@@ -52,9 +50,21 @@ function mountPreview(text) {
   body().innerText = text;
   body().addEventListener('input', updateMeta);
   document.getElementById('platformBadge').innerHTML = `${platformIcon(platform)} ${platformOf(platform).label}`;
+  document.getElementById('publishLabel').textContent = `Post on ${platformOf(platform).label}`;
   document.querySelector('[data-testid="hooks-panel-title"]').textContent = platform === 'youtube' ? 'Title Variations' : 'Opening Variations';
   updateMeta();
 }
+
+// Preview identity (saved in this browser)
+[['profileNameInput', 'name'], ['profileHandleInput', 'handle'], ['profileTitleInput', 'title']].forEach(([id, key]) => {
+  const input = document.getElementById(id);
+  input.value = profile[key];
+  input.addEventListener('change', () => {
+    profile[key] = input.value.trim() || profile[key];
+    localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    mountPreview(body().innerText);
+  });
+});
 
 document.querySelectorAll('.hook-card').forEach((card, i) => {
   card.dataset.testid = `hook-card-${i}`;
@@ -196,25 +206,21 @@ tryOtherIdeasBtn.addEventListener('click', () => withBusy(tryOtherIdeasBtn, 'Gen
   showToast(`New hooks generated · ${data.usage.remaining} left today`, 'auto_awesome');
 }));
 
-// Publish (mock)
-const publishBtn = document.getElementById('publishBtn');
-publishBtn.addEventListener('click', async () => {
-  publishBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Publishing...';
-  await saveDraft(true);
-  setTimeout(() => {
-    showToast(`Successfully published to ${platformOf(platform).label}!`, 'check_circle');
-    publishBtn.innerHTML = '<span class="material-symbols-outlined">check</span> Published';
-    publishBtn.classList.replace('bg-primary', 'bg-tertiary');
-    setTimeout(() => { window.location.href = '/workspace.html'; }, 2000);
-  }, 1500);
-});
-
-// Preview interaction mocks
-postCanvas.addEventListener('click', (e) => {
-  const btn = e.target.closest('.preview-action');
-  if (!btn) return;
-  btn.classList.toggle('!text-[#E0245E]');
-  btn.querySelector('i')?.classList.toggle('fa-solid');
+// Publish: open the real platform with the post pre-filled (or copied for apps without text sharing)
+document.getElementById('publishBtn').addEventListener('click', () => {
+  const p = platformOf(platform);
+  const text = body().innerText.trim();
+  const thread = platform === 'x' ? splitThread(text) : [];
+  const shareText = thread.length > 1 ? thread[0].trim() : text;
+  navigator.clipboard.writeText(text).catch(() => {});
+  window.open(p.share(shareText), '_blank', 'noopener');
+  saveDraft(true);
+  showToast(
+    p.prefill
+      ? (thread.length > 1 ? `Opened X with post 1 — full thread copied to paste the rest` : `Opened ${p.label} with your post ready to publish`)
+      : `Post copied — paste it into ${p.label} to publish`,
+    'open_in_new',
+  );
 });
 
 loadDraft();
