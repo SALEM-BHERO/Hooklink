@@ -2,6 +2,7 @@ import os
 from datetime import datetime, timezone
 
 from fastapi import HTTPException, Request
+from pymongo.errors import DuplicateKeyError
 
 from core.db import db
 
@@ -23,11 +24,16 @@ async def get_usage(ip: str) -> dict:
     return {"used": used, "limit": DAILY_LIMIT, "remaining": max(DAILY_LIMIT - used, 0)}
 
 
-async def ensure_quota(ip: str) -> None:
-    if (await get_usage(ip))["remaining"] <= 0:
+async def reserve(ip: str) -> None:
+    key = {"ip": ip, "date": _today()}
+    res = await db.usage.update_one({**key, "count": {"$lt": DAILY_LIMIT}}, {"$inc": {"count": 1}})
+    if res.modified_count:
+        return
+    try:
+        await db.usage.insert_one({**key, "count": 1})
+    except DuplicateKeyError:
         raise HTTPException(429, "Daily limit reached. Please come back tomorrow!")
 
 
-async def consume(ip: str) -> dict:
-    await db.usage.update_one({"ip": ip, "date": _today()}, {"$inc": {"count": 1}}, upsert=True)
-    return await get_usage(ip)
+async def refund(ip: str) -> None:
+    await db.usage.update_one({"ip": ip, "date": _today(), "count": {"$gt": 0}}, {"$inc": {"count": -1}})

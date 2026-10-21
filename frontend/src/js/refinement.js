@@ -2,7 +2,7 @@ import '../styles/global.css';
 import { renderHeader, renderFooter, showToast } from './shared.js';
 import { api } from './api.js';
 
-renderHeader('library');
+renderHeader('workspace');
 renderFooter();
 
 const draftId = new URLSearchParams(window.location.search).get('draft');

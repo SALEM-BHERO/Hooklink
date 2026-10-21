@@ -17,7 +17,8 @@ export async function api(path, { method = 'GET', body } = {}) {
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    throw new Error(typeof data.detail === 'string' ? data.detail : 'Please check your input and try again.');
+    if (typeof data.detail === 'string') throw new Error(data.detail);
+    throw new Error(res.status >= 500 ? 'Service is temporarily unavailable. Please try again.' : 'Please check your input and try again.');
   }
   return data;
 }

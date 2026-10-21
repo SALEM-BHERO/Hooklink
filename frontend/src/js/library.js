@@ -21,6 +21,8 @@ const viewingCount = document.getElementById('viewingCount');
 
 let state = { category: 'all', q: '', loaded: 0, total: 0 };
 let items = [];
+let requestSeq = 0;
+let loading = false;
 
 const num = (n) => `#${String(n).padStart(2, '0')}`;
 
@@ -63,10 +65,15 @@ function renderFooterState() {
 }
 
 async function fetchPage(reset) {
-  if (reset) { state.loaded = 0; items = []; }
-  const params = new URLSearchParams({ category: state.category, q: state.q, skip: state.loaded, limit: PAGE });
+  if (!reset && loading) return;
+  const seq = ++requestSeq;
+  loading = true;
+  const skip = reset ? 0 : state.loaded;
+  const params = new URLSearchParams({ category: state.category, q: state.q, skip, limit: PAGE });
   try {
     const data = await api(`/library?${params}`);
+    if (seq !== requestSeq) return;
+    if (reset) items = [];
     items = items.concat(data.items);
     state.total = data.total;
     state.loaded = items.length;
@@ -74,7 +81,9 @@ async function fetchPage(reset) {
     if (reset) hookGrid.innerHTML = html; else hookGrid.insertAdjacentHTML('beforeend', html);
     renderFooterState();
   } catch (e) {
-    showToast(e.message, 'error');
+    if (seq === requestSeq) showToast(e.message, 'error');
+  } finally {
+    if (seq === requestSeq) loading = false;
   }
 }
 

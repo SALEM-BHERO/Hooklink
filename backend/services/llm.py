@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import re
 
@@ -41,7 +42,7 @@ def _key(*names):
 async def _groq(system: str, user: str) -> str:
     key = _key("GROQ_API_KEY")
     if not key:
-        raise HTTPException(500, "Groq API key not configured")
+        raise HTTPException(503, "Groq API key not configured")
     res = await AsyncGroq(api_key=key).chat.completions.create(
         model="openai/gpt-oss-120b",
         messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
@@ -53,7 +54,7 @@ async def _groq(system: str, user: str) -> str:
 async def _deepseek(system: str, user: str) -> str:
     key = _key("DEEPSEEK_API_KEY")
     if not key:
-        raise HTTPException(500, "DeepSeek API key not configured")
+        raise HTTPException(503, "DeepSeek API key not configured")
     client = AsyncOpenAI(api_key=key, base_url="https://api.deepseek.com")
     res = await client.chat.completions.create(
         model="deepseek-chat",
@@ -66,7 +67,7 @@ async def _deepseek(system: str, user: str) -> str:
 async def _gemini(system: str, user: str) -> str:
     key = _key("GEMINI_API_KEY")
     if not key:
-        raise HTTPException(500, "Gemini API key not configured")
+        raise HTTPException(503, "Gemini API key not configured")
     gclient = genai.Client(api_key=key)
     res = await gclient.aio.models.generate_content(
         model="gemini-3.8-flash",
@@ -85,23 +86,26 @@ async def complete_json(provider: str, system: str, user: str) -> dict:
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(502, f"AI provider error: {e}")
+        logging.exception("AI provider %s failed", provider)
+        status = getattr(e, "status_code", None) or getattr(e, "code", None)
+        msg = "is busy right now" if status in (429, 503) else "is unavailable right now"
+        raise HTTPException(503, f"The {provider.title()} AI service {msg}. Please try again shortly.")
     raw = re.sub(r"^```(?:json)?|```$", "", (raw or "").strip(), flags=re.M).strip()
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
-        raise HTTPException(502, "AI returned an invalid response. Please try again.")
+        raise HTTPException(503, "AI returned an invalid response. Please try again.")
 
 
 def parse_hooks(data: dict) -> list:
     hooks = data.get("hooks")
     if not isinstance(hooks, list) or not hooks:
-        raise HTTPException(502, "AI response missing hooks. Please try again.")
+        raise HTTPException(503, "AI response missing hooks. Please try again.")
     return [{"title": str(h.get("title", "Variation")), "text": str(h.get("text", ""))} for h in hooks[:3]]
 
 
 def parse_body(data: dict) -> str:
     body = data.get("postBody")
     if not isinstance(body, str) or not body.strip():
-        raise HTTPException(502, "AI response missing post body. Please try again.")
+        raise HTTPException(503, "AI response missing post body. Please try again.")
     return body.strip()

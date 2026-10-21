@@ -1,0 +1,46 @@
+{
+  "summary": "Full backend (pytest, 22 tests, 21 pass) + UI e2e (workspace, refinement, library, landing; desktop + mobile check) for HookLink AI on FastAPI+Mongo. All core features work end to end with real Groq: generate -> redirect -> refinement loads the draft, apply hook, save persists, refine tone persists, regenerate hooks persists, Recent Drafts open/delete, the mocked publish redirects, library pagination/filters/search/copy, newsletter subscribe/duplicate, and the 429 daily limit in the API and UI toast. One real issue: when the AI provider fails, the API returns 502, and Cloudflare at the public ingress replaces that 502 response body with its own HTML page. So the JSON detail never reaches the browser, and users see the generic 'Please check your input and try again.'",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "POST /api/generate, /api/hooks/regenerate, /api/refine-tone (provider errors)", "issue": "services/llm.py raises HTTPException(502, ...) for provider/parse errors. Through the public URL, Cloudflare replaces the 502 response body with an HTML error page (content-type text/html, server: cloudflare). On localhost:8001 the JSON detail is correct. As a result the frontend api.js cannot parse the detail and shows a misleading 'Please check your input and try again.' for any LLM failure, including Groq outages and invalid-JSON responses.", "priority": "HIGH"}
+    ],
+    "minor": [
+      {"endpoint": "services/llm.py complete_json", "issue": "The raw provider exception is sent to the client (e.g. \"Error code: 402 - {'error': {'message': 'Insufficient Balance (request_id...)'}}\"). Log it on the server and return a friendly message instead."},
+      {"endpoint": "services/rate_limit.py", "issue": "ensure_quota then consume is check-then-act (not atomic). Several requests sent at the same time from one IP can go over 5/day. Also, the count went up by one more than expected during one UI session (it showed 4 after 3 successful calls). I could not reproduce this: a single isolated call increments by exactly 1."},
+      {"endpoint": "services/llm.py _gemini", "issue": "Model name 'gemini-3.8-flash': please confirm it is a valid model ID. It currently fails with 503/502 (external)."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "refinement.js header", "issue": "renderHeader('library') highlights the 'Library' nav item on the refinement/editor page. It should be 'workspace' or none.", "selector": "header nav", "priority": "LOW"}
+    ],
+    "integration_issues": [
+      {"flow": "AI error surfacing", "issue": "Because of the Cloudflare 502 page replacement, AI failures show a generic 'check your input' toast. The real cause is not shown.", "affected_selectors": ["[data-testid=generate-btn]", "[data-testid=refine-tone-btn]", "[data-testid=try-other-ideas-btn]"]},
+      {"flow": "Library search", "issue": "Debounced search has no request cancellation or sequencing. A slow earlier response can overwrite newer results, and double-clicking Load More can append duplicate pages (no in-flight guard).", "affected_selectors": ["[data-testid=library-search-input]", "[data-testid=load-more-btn]"]}
+    ],
+    "design_issues": [
+      {"screen": "library.html grid", "issues": ["The featured card (#03, col-span-2) leaves an empty grid cell top-right in row 1 on desktop. Consider grid-flow-dense or a different featured placement."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/test_hooklink_api.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "Change the AI-provider failure status from 502 to a code that Cloudflare does not intercept (e.g. 503 with a JSON body, or 424/400-class), or make api.js handle non-JSON 5xx with a message like 'AI service unavailable, please retry'. Then retest.",
+    "Do not send raw provider exception text to clients",
+    "Make the quota check+increment atomic, e.g. find_one_and_update with {count: {$lt: limit}} plus upsert, and roll back on failure",
+    "refinement.js: fix the active nav highlight",
+    "library.js: guard Load More while a request is in flight, and ignore stale search responses"
+  ],
+  "critical_code_review_comments": [
+    "502 from FastAPI is replaced by the Cloudflare ingress; this is the main UX bug for error handling",
+    "Rate-limit race condition (check then increment)",
+    "X-Client-Id is a localStorage UUID with no auth, so drafts are tied to one browser. This is acceptable for the MVP but should be documented.",
+    "Code is modular and clean; _id is correctly mapped to id, and Pydantic validation is in place (422 for bad tone/email/limit)"
+  ],
+  "updated_files": ["/app/backend/tests/test_hooklink_api.py"],
+  "success_rate": {"backend": "95% (21/22; the failing test is the 502 JSON detail through the public URL)", "frontend": "100% of tested flows functional"},
+  "seed_data_creation": "None kept. The TEST_ drafts, test_ subscribers and usage collection were cleaned after testing.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Run: REACT_APP_BACKEND_URL=<url> pytest /app/backend/tests/test_hooklink_api.py (uses 3 Groq calls; the session fixture resets db.usage before and after). The rate-limit test sets usage count=5 in Mongo directly, with no LLM call. To trigger a provider failure for free, use provider 'deepseek' (402). The UI uses the localStorage key hooklink_client_id; set it to open drafts from another session. test_failed_provider_no_quota will pass once the 502/Cloudflare issue is fixed.",
+  "rca of the issue": "Repro: curl -i -X POST $URL/api/generate -H 'X-Client-Id: t' -d '{\"topic\":\"x\",\"provider\":\"deepseek\"}' returns HTTP 502, text/html, server: cloudflare. The same request on localhost:8001 returns 502 application/json {detail: 'AI provider error: ...'}. Cloudflare replaces origin 502/504 bodies with its own error page. Fix: use a different status (503 passes through in most setups; verify) or handle non-JSON in api.js. Quota itself is correctly NOT consumed on failure (verified)."
+}

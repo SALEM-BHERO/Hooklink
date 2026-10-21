@@ -1,12 +1,24 @@
+from contextlib import asynccontextmanager
+
 from bson import ObjectId
 from fastapi import APIRouter, Header, Request
 
 from core.db import db
 from models import Draft, GenerateRequest, RefineToneRequest, RegenerateHooksRequest, now_iso
 from services import llm
-from services.rate_limit import client_ip, consume, ensure_quota, get_usage
+from services.rate_limit import client_ip, get_usage, refund, reserve
 
 router = APIRouter()
+
+
+@asynccontextmanager
+async def quota(ip: str):
+    await reserve(ip)
+    try:
+        yield
+    except Exception:
+        await refund(ip)
+        raise
 
 
 async def _update_draft(draft_id, client_id, fields: dict):
@@ -25,33 +37,33 @@ async def usage(request: Request):
 @router.post("/generate")
 async def generate(body: GenerateRequest, request: Request, x_client_id: str = Header(...)):
     ip = client_ip(request)
-    await ensure_quota(ip)
-    user = f"TOPIC: {body.topic}\nGOAL: {llm.GOAL_LABELS[body.goal]}\nTONE: {body.tone}"
-    data = await llm.complete_json(body.provider, llm.GENERATE_PROMPT, user)
-    draft = Draft(
-        client_id=x_client_id, topic=body.topic, goal=body.goal, tone=body.tone,
-        provider=body.provider, post_body=llm.parse_body(data), hooks=llm.parse_hooks(data),
-    )
-    res = await db.drafts.insert_one(draft.to_mongo())
+    async with quota(ip):
+        user = f"TOPIC: {body.topic}\nGOAL: {llm.GOAL_LABELS[body.goal]}\nTONE: {body.tone}"
+        data = await llm.complete_json(body.provider, llm.GENERATE_PROMPT, user)
+        draft = Draft(
+            client_id=x_client_id, topic=body.topic, goal=body.goal, tone=body.tone,
+            provider=body.provider, post_body=llm.parse_body(data), hooks=llm.parse_hooks(data),
+        )
+        res = await db.drafts.insert_one(draft.to_mongo())
     draft.id = str(res.inserted_id)
-    return {"draft": draft.to_api(), "usage": await consume(ip)}
+    return {"draft": draft.to_api(), "usage": await get_usage(ip)}
 
 
 @router.post("/hooks/regenerate")
 async def regenerate_hooks(body: RegenerateHooksRequest, request: Request, x_client_id: str = Header(...)):
     ip = client_ip(request)
-    await ensure_quota(ip)
-    data = await llm.complete_json(body.provider, llm.HOOKS_PROMPT, f"POST:\n{body.post_body}")
-    hooks = llm.parse_hooks(data)
+    async with quota(ip):
+        data = await llm.complete_json(body.provider, llm.HOOKS_PROMPT, f"POST:\n{body.post_body}")
+        hooks = llm.parse_hooks(data)
     await _update_draft(body.draft_id, x_client_id, {"hooks": hooks, "post_body": body.post_body})
-    return {"hooks": hooks, "usage": await consume(ip)}
+    return {"hooks": hooks, "usage": await get_usage(ip)}
 
 
 @router.post("/refine-tone")
 async def refine_tone(body: RefineToneRequest, request: Request, x_client_id: str = Header(...)):
     ip = client_ip(request)
-    await ensure_quota(ip)
-    data = await llm.complete_json(body.provider, llm.REFINE_PROMPT, f"TONE: {body.tone}\nPOST:\n{body.post_body}")
-    post_body = llm.parse_body(data)
+    async with quota(ip):
+        data = await llm.complete_json(body.provider, llm.REFINE_PROMPT, f"TONE: {body.tone}\nPOST:\n{body.post_body}")
+        post_body = llm.parse_body(data)
     await _update_draft(body.draft_id, x_client_id, {"post_body": post_body, "tone": body.tone})
-    return {"post_body": post_body, "usage": await consume(ip)}
+    return {"post_body": post_body, "usage": await get_usage(ip)}
