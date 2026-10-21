@@ -1,4 +1,3 @@
-from contextlib import asynccontextmanager
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -7,28 +6,15 @@ load_dotenv(Path(__file__).parent / ".env")
 
 import os  # noqa: E402
 
-from fastapi import APIRouter, FastAPI  # noqa: E402
+from fastapi import APIRouter, Depends, FastAPI  # noqa: E402
 from starlette.middleware.cors import CORSMiddleware  # noqa: E402
 
-from core.db import client, db  # noqa: E402
+from core.setup import ensure_ready  # noqa: E402
 from routes import ai, drafts, library, newsletter  # noqa: E402
-from seed import seed_library  # noqa: E402
 
+app = FastAPI(title="HookLink API")
 
-@asynccontextmanager
-async def lifespan(_app: FastAPI):
-    await db.drafts.create_index([("client_id", 1), ("created_at", -1)])
-    await db.usage.create_index([("ip", 1), ("date", 1)], unique=True)
-    await db.subscribers.create_index("email", unique=True)
-    await db.library_hooks.create_index("number")
-    await seed_library()
-    yield
-    client.close()
-
-
-app = FastAPI(title="HookLink API", lifespan=lifespan)
-
-api = APIRouter(prefix="/api")
+api = APIRouter(prefix="/api", dependencies=[Depends(ensure_ready)])
 
 
 @api.get("/")

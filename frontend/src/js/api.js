@@ -1,4 +1,4 @@
-const BASE = `${import.meta.env.REACT_APP_BACKEND_URL}/api`;
+const BASE = `${import.meta.env.REACT_APP_BACKEND_URL || ''}/api`;
 
 export function clientId() {
   let id = localStorage.getItem('hooklink_client_id');
