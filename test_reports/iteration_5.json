@@ -1,0 +1,17 @@
+{
+  "summary": "Re-checked the iteration 4 follow-up fixes on the refinement page with Playwright on the public URL, using the seeded TEST_ui drafts (7 platforms). All checks passed. (1) Refine Tone menu: at 390px it is inside the screen (x 25-217) and every option is fully visible; at 1920px it is right-anchored (x 320-512). elementFromPoint shows the option is the topmost element. A real click on tone-option-professional sent exactly 1 /api/refine-tone request (the route was intercepted, so no Groq call), the body was rewritten and the toast appeared, at both sizes. (2) The readability value shows '52/100' and '76/100'. The length value still shows '%' ('28%', '4%'). (3) The handle '@myhandle' is saved as 'myhandle'. X and TikTok show '@myhandle' with no '@@'. Threads and Instagram show 'myhandle' (they never show '@'). The value persists after a reload. Clearing the handle or name input and then blurring restores the stored value in both the input and the preview. (4) profile-title-input is visible only for LinkedIn and hidden for the other 6 platforms. (5) Regression: the publish-btn label is 'Post on <Platform>' and the correct URL opens for all 7 platforms. No horizontal overflow at 390px (scrollWidth 390). 0 console errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": ["/app/backend/tests/seed_ui_drafts.js"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "refinement.js publish: navigator.clipboard.writeText is still not awaited and its errors are silently swallowed (carried over from iteration 4, low priority).",
+    "refinement.js profile change handler: using replace(/^$/, '') for fields other than the handle is a confusing no-op. A conditional would be clearer (cosmetic)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "skipped (frontend only)", "frontend": "100%"},
+  "seed_data_creation": "Ran seed_ui_drafts.js (client_id TEST_ui). Cleaned up afterwards: TEST_ui drafts deleted and db.usage reset.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Seed with: mongosh --quiet hooklink /app/backend/tests/seed_ui_drafts.js and set localStorage hooklink_client_id='TEST_ui'. Stub window.open via add_init_script to capture publish URLs. Use page.route('**/api/refine-tone') to test tone options without spending Groq calls. Threads and Instagram previews show the handle without '@' by design."
+}

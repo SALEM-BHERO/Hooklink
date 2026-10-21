@@ -29,8 +29,14 @@ GET /api/, GET /api/usage, POST /api/generate, POST /api/hooks/regenerate, POST 
 
 - Final regression iteration_3: backend 43/43, frontend 100%; privacy/terms copy updated for multi-platform + server storage
 
+## Real actions (2026-06, iterations 4-5)
+- Publish replaced by real "Post on <Platform>": copies post + opens LinkedIn/X/Threads share intents with prefilled text; opens Instagram/Facebook/TikTok Studio/YouTube Studio (paste)
+- All fake buttons/counts removed from previews; "Preview as" name/handle/headline (localStorage) + initials avatar
+- Live Post Analysis (src/js/analysis.js): Flesch readability, length fit vs platform ideal, hashtags vs range, emojis, words, read time
+- Tested: iteration_4 + iteration_5 frontend 100%
+
 ## Mocked
-- Publish to LinkedIn, reactions bar, readability scores (UI only)
+- None
 
 ## Known external issues
 - Gemini 503 high demand (intermittent); DeepSeek 402 insufficient balance
