@@ -20,6 +20,13 @@ GET /api/, GET /api/usage, POST /api/generate, POST /api/hooks/regenerate, POST 
 - Full backend rebuild + frontend wiring; atomic quota reserve/refund; friendly 503 AI errors
 - Tested: iteration_1 (21/22 pass; issues fixed after)
 
+## Multi-platform (2026-06, iteration 2)
+- Platforms: LinkedIn, Instagram, Facebook, X, Threads, TikTok (script+caption), YouTube (title+description)
+- Workspace platform picker; platform-specific prompt rules (services/llm.py PLATFORM_RULES)
+- Refinement: per-platform mock previews (src/js/previews.js), platform badge, char limits (X thread aware)
+- Library: 30 hooks tagged with platforms + platform filter (GET /api/library?platform=)
+- Tested: iteration_2 backend 43/43, frontend ~95% (mobile overflow fixed after)
+
 ## Mocked
 - Publish to LinkedIn, reactions bar, readability scores (UI only)
 
@@ -27,5 +34,5 @@ GET /api/, GET /api/usage, POST /api/generate, POST /api/hooks/regenerate, POST 
 - Gemini 503 high demand (intermittent); DeepSeek 402 insufficient balance
 
 ## Backlog
-- P1: provider picker in UI; real LinkedIn publishing (OAuth)
+- P1: provider picker in UI; "adapt this draft to another platform" one-click; real publishing (OAuth per platform)
 - P2: real readability scoring; newsletter emails (Resend/SendGrid); admin view of subscribers

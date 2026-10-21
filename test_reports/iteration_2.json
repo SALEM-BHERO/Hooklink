@@ -1,0 +1,38 @@
+{
+  "summary": "Tested the multi-platform feature (LinkedIn, Instagram, Facebook, X, Threads, TikTok, YouTube) on the backend and frontend. Backend: the new test_platforms.py passes 21/21, with 8 real Groq calls: generate for instagram/youtube/facebook/threads/x/tiktok, regenerate for youtube and refine for x. The regression file test_hooklink_api.py also passes 22/22 after I updated it for the 30-hook library and the 503 error status. Each generated output follows its platform's rules: Instagram gets 6+ hashtags; YouTube puts the title on the first line and includes Chapters with 0:00; Facebook includes a question; Threads stays under 600 chars; X stays within 280 or a numbered thread with each tweet under 280; TikTok has HOOK/SCRIPT/CTA/CAPTION. An invalid platform returns 422 on all 3 AI endpoints. The library has 30 hooks, each with a platforms list, and the platform filter combines correctly with category and q. Frontend: the Workspace platform picker (default linkedin, hint text updates, icons in Recent Drafts) works. A real UI generate for instagram sent platform=instagram, redirected to /refinement.html?draft=<id> and rendered the Instagram preview. On Refinement, I checked the previews and badges for all 7 platforms using drafts inserted into Mongo. The char-count shows len/limit and the X thread format '3-post thread · longest N / 280'; it turns red over the limit after editing. The YouTube title follows the first line, both after apply-hook and while typing. Save, copy, preview-action toggles, Desktop/Mobile, refine-tone (real) and try-other-ideas (real) all work, and the sample shows LinkedIn when no draft is given. In the Library, the platform filters, icons, combined category + search, and load-more all work. One real bug: the refinement page overflows horizontally on mobile.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/library?platform=<unknown>", "issue": "An unknown platform value returns 200 with an empty list instead of a 422 validation error. It is harmless, but it is not consistent with the Literal validation used on the AI endpoints."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "refinement.html toolbar (mobile 390px)", "issue": "Horizontal page overflow: documentElement.scrollWidth is 478 on a 390 viewport. The action row (Refine Tone/Save/Copy/Publish) is a 'flex items-center gap-2' container without flex-wrap, so it is about 444px wide and widens the card. Publish is clipped off-screen, and #previewContainer/#postCanvas expand to 462px. This happens on every platform, including the sample. Workspace and Library do not overflow.", "selector": "#publishBtn parent div.flex.items-center.gap-2", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "refinement YouTube preview", "issues": ["The title (first line) appears both in youtube-title and again as the first line of the description box. Consider hiding the first line in the description, or keep it if this is intentional for editing."]},
+      {"screen": "refinement TikTok", "issues": ["apply-hook replaces the whole first line. For TikTok, that removes the 'HOOK (0-3s):' label, because regenerated hooks are plain openers. Consider keeping the label prefix when applying a hook."]},
+      {"screen": "library filters", "issues": ["The active platform pill is dark (bg-on-background) while the active category pill is blue. This is a minor visual inconsistency, possibly intentional."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/test_platforms.py", "/app/backend/tests/test_hooklink_api.py", "/app/test_reports/pytest/pytest_platforms.xml", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "refinement.html: add flex-wrap (and/or reduce padding on small screens) to the action buttons row and the toolbar, so there is no horizontal overflow at 390px and Publish stays visible",
+    "Optional: when applying a hook to a TikTok draft, keep the 'HOOK (0-3s):' prefix",
+    "Optional: validate the platform query param on /api/library"
+  ],
+  "critical_code_review_comments": [
+    "Backend platform support is clean: a Literal Platform type on all request models, PLATFORM_RULES injected into each prompt, and Draft.platform defaulting to linkedin for older drafts",
+    "Previews use innerText for body content and escapeHtml for profile data, so there is no XSS risk from LLM output",
+    "refinement.js updateMeta: thread detection only counts blocks that start with 'N/'. A single long X tweet over 280 shows red correctly; a thread with an unnumbered intro block ignores that block when computing the longest length (edge case).",
+    "The publish mock redirects to the workspace after 2s, as before (not retested this iteration)"
+  ],
+  "updated_files": ["/app/backend/tests/test_hooklink_api.py (library total 24 -> 30, category count >= 6, provider failure 502 -> 503)", "/app/backend/tests/test_platforms.py (new)"],
+  "success_rate": {"backend": "100% (43/43 across both files)", "frontend": "~95% (all flows work; one mobile layout overflow)"},
+  "seed_data_creation": "Temporarily inserted 7 TEST_ui drafts (one per platform) into the Mongo drafts collection; they were deleted after testing along with the TEST_ drafts and usage. The demo drafts were left untouched.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Run each pytest file separately, because each one resets db.usage on its own: REACT_APP_BACKEND_URL=<url> pytest /app/backend/tests/test_platforms.py (8 Groq calls, resets usage before each test) and test_hooklink_api.py (3 Groq calls). To test previews without the LLM, insert drafts with client_id TEST_ui and set localStorage hooklink_client_id='TEST_ui'. Library counts: total 30; per platform: linkedin 18, instagram 15, x 13, tiktok 11, youtube 11, facebook 10, threads 10."
+}

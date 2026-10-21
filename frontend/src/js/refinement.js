@@ -152,7 +152,8 @@ async function copyText(text, msg) {
 hookCards().forEach((card) => {
   card.querySelector('.apply-hook-btn').addEventListener('click', () => {
     const lines = body().innerText.split('\n');
-    lines[0] = card.querySelector('.hook-text').innerText;
+    const label = lines[0].match(/^HOOK[^:]{0,15}:\s*/i)?.[0] || '';
+    lines[0] = label + card.querySelector('.hook-text').innerText;
     setBody(lines.join('\n'));
     showToast('Hook applied to draft', 'auto_awesome');
     saveDraft(true);

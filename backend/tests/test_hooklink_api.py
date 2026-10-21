@@ -32,13 +32,13 @@ def test_health():
 class TestLibrary:
     def test_all(self):
         d = requests.get(f"{BASE_URL}/api/library", params={"category": "all", "q": "", "skip": 0, "limit": 8}).json()
-        assert d["total"] == 24 and len(d["items"]) == 8
+        assert d["total"] == 30 and len(d["items"]) == 8
         assert "_id" not in d["items"][0] and d["items"][0]["number"] == 1
 
     @pytest.mark.parametrize("cat", ["curiosity-gap", "the-listicle", "the-controversy", "technical-insight"])
     def test_category(self, cat):
         d = requests.get(f"{BASE_URL}/api/library", params={"category": cat, "limit": 50}).json()
-        assert d["total"] == 6 and all(i["category"] == cat for i in d["items"])
+        assert d["total"] >= 6 and all(i["category"] == cat for i in d["items"])
 
     def test_search(self):
         d = requests.get(f"{BASE_URL}/api/library", params={"q": "Harare"}).json()
@@ -138,7 +138,7 @@ class TestAIAndDrafts:
     def test_failed_provider_no_quota(self):
         before = requests.get(f"{BASE_URL}/api/usage").json()["used"]
         r = requests.post(f"{BASE_URL}/api/generate", headers=H, timeout=90, json={"topic": "x", "provider": "deepseek"})
-        assert r.status_code == 502 and isinstance(r.json()["detail"], str)
+        assert r.status_code == 503 and isinstance(r.json()["detail"], str)
         assert requests.get(f"{BASE_URL}/api/usage").json()["used"] == before
 
     def test_delete(self):

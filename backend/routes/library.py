@@ -1,5 +1,7 @@
 import re
 
+from typing import Literal
+
 from fastapi import APIRouter, Query
 
 from core.db import db
@@ -11,7 +13,7 @@ router = APIRouter(prefix="/library")
 @router.get("")
 async def list_hooks(
     category: str = "all",
-    platform: str = "all",
+    platform: Literal["all", "linkedin", "instagram", "facebook", "x", "threads", "tiktok", "youtube"] = "all",
     q: str = "",
     skip: int = Query(0, ge=0),
     limit: int = Query(8, ge=1, le=50),
