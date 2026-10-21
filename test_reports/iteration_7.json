@@ -1,0 +1,17 @@
+{
+  "summary": "Re-tested the iteration-6 HIGH bug (cold-start seed race). It is FIXED. I wrote /app/backend/tests/coldstart_race_check.py, which runs 13 scenarios against a fresh DB (hooklink_fresh) using `uvicorn api.index:app` and all pass. (1) Single-process cold start, 5 runs with 20/30/50/50/40 concurrent first requests mixing /api/library, /api/ and /api/usage. (2) Two uvicorn processes (8099 and 8098) cold-starting together against the same DB, 4 runs with 50 concurrent requests. (3) Migration from a DB with 95 docs (each of 1-30 three times, plus numbers 31-35) and a non-unique number_1 index, 2 single-process runs and 1 two-process run. (4) A unique index already present plus extra docs above 30. In every scenario the DB ended with exactly 30 docs, numbered exactly 1..30, with number_1 unique=true, every /api/library total was 30, and every response was 200. The uvicorn stderr logs had no errors or tracebacks. Regression: test_hooklink_api.py + test_platforms.py passed 43/43 against the public URL. UI smoke: library.html shows 'Viewing 8 of 30 ideas' with 0 console errors. Cleanup: the test DBs were dropped (only admin, config, hooklink and local remain) and hooklink usage was reset. The main hooklink DB has 30 hooks and a unique number_1 index.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": ["/app/backend/tests/coldstart_race_check.py", "/app/backend/tests/test_hooklink_api.py", "/app/backend/tests/test_platforms.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "seed._ensure_unique_number fallback: if a duplicated DB is cold-started by several instances at once, one instance can run delete_many({}) after another has already upserted and served a request. That gives a brief window where /api/library may return total 0 until the re-upsert finishes. It self-heals within milliseconds and never goes above 30. I did not observe it in testing. It only affects the one-time migration path.",
+    "ensure_ready has no asyncio.Lock, so concurrent requests in one process each run the (now idempotent) seed. This is correct but redundant work on cold start. A lock is optional."
+  ],
+  "updated_files": ["/app/backend/tests/coldstart_race_check.py"],
+  "success_rate": {"backend": "100% (43/43 pytest + 13/13 cold-start scenarios)", "frontend": "100% (smoke)"},
+  "seed_data_creation": "None persisted. Temporary hooklink_fresh DB was created and dropped by the check script.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Run `cd /app/backend/tests && /root/.venv/bin/python coldstart_race_check.py` to re-verify cold-start and migration safety. It uses ports 8099/8098 and drops hooklink_fresh. Reset usage afterwards: mongosh --quiet hooklink --eval 'db.usage.deleteMany({})'."
+}

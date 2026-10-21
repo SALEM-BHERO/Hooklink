@@ -38,8 +38,12 @@ GET /api/, GET /api/usage, POST /api/generate, POST /api/hooks/regenerate, POST 
 ## Mocked
 - None
 
-## Deployment prep (2026-06)
-- frontend/vercel.json (Vercel root dir = frontend), render.yaml + backend/Procfile (backend on Render/Railway), backend/requirements-deploy.txt (slim, no Emergent-only packages), .env.example files, README deploy guide; .env files git-ignored
+## Vercel deployment (2026-06, iterations 6-7)
+- Single Vercel project: root vercel.json builds frontend -> frontend/dist; api/index.py (Python Function) serves backend FastAPI app; rewrite /api/(.*) -> /api/index; root requirements.txt (slim)
+- Serverless-safe backend: lazy per-event-loop Motor client (core/db.py); lifespan replaced by ensure_ready() dependency (core/setup.py); concurrency-safe idempotent library seed (unique index + upserts)
+- Frontend uses same-origin /api when REACT_APP_BACKEND_URL is unset (Vercel)
+- Env vars on Vercel: MONGO_URL, DB_NAME, CORS_ORIGINS, DAILY_GENERATION_LIMIT, GROQ_API_KEY, GEMINI_API_KEY, DEEPSEEK_API_KEY; DB = MongoDB Atlas
+- Tested: iteration_7 backend 43/43 + 13/13 cold-start scenarios
 
 ## Known external issues
 - Gemini 503 high demand (intermittent); DeepSeek 402 insufficient balance
