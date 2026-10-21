@@ -1,6 +1,7 @@
 import '../styles/global.css';
 import { renderHeader, renderFooter, showToast } from './shared.js';
 import { api, escapeHtml } from './api.js';
+import { PLATFORMS, platformIcon } from './platforms.js';
 
 renderHeader('workspace');
 renderFooter();
@@ -17,7 +18,7 @@ function draftItem(d) {
   return `
     <li class="draft-item group flex items-start gap-3 p-3 rounded-xl hover:bg-surface-container-low transition-colors" data-id="${d.id}" data-testid="draft-item-${d.id}">
       <a href="/refinement.html?draft=${d.id}" class="flex-1 min-w-0 no-underline" data-testid="draft-open-${d.id}">
-        <p class="text-body-sm font-semibold text-on-surface truncate">${escapeHtml(d.topic)}</p>
+        <p class="text-body-sm font-semibold text-on-surface truncate">${platformIcon(d.platform)} ${escapeHtml(d.topic)}</p>
         <p class="text-[12px] text-on-surface-variant mt-0.5 capitalize">${date} · ${escapeHtml(d.tone)}</p>
       </a>
       <button class="draft-delete-btn opacity-60 group-hover:opacity-100 p-1 rounded-md text-on-surface-variant hover:text-error transition-opacity" title="Delete draft" data-testid="draft-delete-${d.id}">
@@ -57,6 +58,7 @@ async function handleGenerate() {
   const topicInput = document.querySelector('textarea[name="topic"]');
   const goalInput = document.querySelector('input[name="goal"]:checked');
   const toneInput = document.querySelector('input[name="tone"]:checked');
+  const platformInput = document.querySelector('input[name="platform"]:checked');
 
   const topic = topicInput.value.trim();
   if (!topic) {
@@ -76,7 +78,7 @@ async function handleGenerate() {
   try {
     const { draft, usage } = await api('/generate', {
       method: 'POST',
-      body: { topic, goal: goalInput.value, tone: toneInput.value, provider: 'groq' },
+      body: { topic, goal: goalInput.value, tone: toneInput.value, platform: platformInput.value, provider: 'groq' },
     });
     renderUsage(usage);
     setBtn('check_circle', 'Draft Ready');
@@ -103,6 +105,23 @@ document.querySelectorAll('.option-card input[type="radio"]').forEach((input) =>
     input.nextElementSibling?.classList.add('border-primary', 'bg-surface-container');
   });
 });
+
+const HINTS = {
+  linkedin: 'Professional post · 150-300 words · 3-5 hashtags',
+  instagram: 'Caption with a scroll-stopping first line · CTA · 8-15 hashtags',
+  facebook: 'Warm community post · ends with a question',
+  x: 'Single tweet (280 chars) or a short numbered thread',
+  threads: 'Casual post up to 500 characters',
+  tiktok: '30-60s video script with on-screen cues + caption',
+  youtube: 'Video title + description with chapters',
+};
+const hintEl = document.getElementById('platformHint');
+const showHint = () => {
+  const id = document.querySelector('input[name="platform"]:checked').value;
+  hintEl.innerHTML = `${platformIcon(id)} <span class="ml-1">${PLATFORMS[id].label}: ${HINTS[id]}</span>`;
+};
+document.querySelectorAll('input[name="platform"]').forEach((i) => i.addEventListener('change', showHint));
+showHint();
 
 api('/usage').then(renderUsage).catch(() => {});
 loadDrafts();

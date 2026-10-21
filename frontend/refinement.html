@@ -15,6 +15,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   </head>
   <body>
     <!-- ═══ Header Mount ═══ -->
@@ -47,6 +48,12 @@
                 <span class="material-symbols-outlined text-[18px]">smartphone</span>
                 Mobile
               </button>
+            </div>
+
+            <!-- Platform meta -->
+            <div class="flex items-center gap-3">
+              <span id="platformBadge" data-testid="platform-badge" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container text-body-sm font-semibold"></span>
+              <span id="charCount" data-testid="char-count" class="text-[12px] font-mono text-on-surface-variant"></span>
             </div>
 
             <!-- Action Buttons -->
@@ -84,86 +91,7 @@
 
           <!-- ── Post Preview Container ── -->
           <div id="previewContainer" class="flex justify-center py-unit-md">
-            <div id="postCanvas" class="w-full max-w-[552px] bg-white linkedin-shadow rounded-lg transition-all duration-300">
-
-              <!-- LinkedIn Profile Header -->
-              <div class="flex items-start gap-3 p-4">
-                <img src="/images/avatar.png" alt="Alex Sterling" class="w-12 h-12 rounded-full object-cover flex-shrink-0" />
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center gap-1">
-                    <a href="#" id="profileName" class="text-body-sm font-bold text-on-surface hover:text-primary transition-colors no-underline">Alex Sterling</a>
-                    <span class="text-body-sm text-on-surface-variant">• 1st</span>
-                  </div>
-                  <p id="profileTitle" class="text-[12px] text-on-surface-variant leading-tight mt-0.5">Founder @ HookLink AI | High-Performance Content Systems</p>
-                  <p class="text-[12px] text-on-surface-variant leading-tight mt-0.5">2h • 🌐</p>
-                </div>
-                <button class="text-on-surface-variant hover:text-primary flex-shrink-0">
-                  <span class="material-symbols-outlined text-[20px]">more_horiz</span>
-                </button>
-              </div>
-
-              <!-- Post Content (editable) -->
-              <div
-                id="postBody"
-                data-testid="post-body"
-                contenteditable="true"
-                class="px-4 pb-3 text-body-sm text-on-surface whitespace-pre-line outline-none focus:ring-2 focus:ring-primary/10 rounded transition-all"
->Good writing doesn't just happen. It takes practice and structure. 🏗️
-
-Many people spend hours waiting for inspiration to strike. But the most consistent writers rely on simple systems.
-
-Here is the 3-step framework we use to write clearly:
-
-1. The Opening: Does the first line make people want to read more?
-2. The Value: Are you teaching something useful?
-3. The Next Step: Is it clear what the reader should do?
-
-Stop guessing. Start writing.
-
-#ContentStrategy #PersonalBranding #WritingTips</div>
-
-              <!-- Post Image -->
-              <div class="mt-1">
-                <img src="/images/post-visual.png" alt="Post visual" class="w-full h-[300px] object-cover" />
-              </div>
-
-              <!-- LinkedIn Interaction Mockup -->
-              <div class="px-4 pt-3 pb-1">
-                <!-- Reaction Row -->
-                <div class="flex items-center justify-between text-[12px] text-on-surface-variant pb-2 border-b border-outline-variant/30">
-                  <div class="flex items-center gap-1">
-                    <span class="flex items-center justify-center w-5 h-5 bg-primary rounded-full">
-                      <span class="material-symbols-outlined text-on-primary text-[12px]">thumb_up</span>
-                    </span>
-                    <span class="flex items-center justify-center w-5 h-5 bg-tertiary rounded-full -ml-1.5">
-                      <span class="material-symbols-outlined text-on-tertiary text-[12px]">rocket_launch</span>
-                    </span>
-                    <span class="ml-1" id="likeCount">0 others</span>
-                  </div>
-                  <span id="commentCount">0 comments</span>
-                </div>
-
-                <!-- Action Bar -->
-                <div class="grid grid-cols-4 py-1" id="reactionBar">
-                  <button data-action="like" class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
-                    <span class="material-symbols-outlined text-[20px]">thumb_up</span>
-                    Like
-                  </button>
-                  <button data-action="comment" class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
-                    <span class="material-symbols-outlined text-[20px]">comment</span>
-                    Comment
-                  </button>
-                  <button data-action="repost" class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
-                    <span class="material-symbols-outlined text-[20px]">repeat</span>
-                    Repost
-                  </button>
-                  <button data-action="send" class="flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-[13px] font-semibold">
-                    <span class="material-symbols-outlined text-[20px]">send</span>
-                    Send
-                  </button>
-                </div>
-              </div>
-            </div>
+            <div id="postCanvas" data-testid="post-canvas" class="w-full max-w-[552px] transition-all duration-300"></div>
           </div>
         </div>
 

@@ -38,11 +38,11 @@ async def usage(request: Request):
 async def generate(body: GenerateRequest, request: Request, x_client_id: str = Header(...)):
     ip = client_ip(request)
     async with quota(ip):
-        user = f"TOPIC: {body.topic}\nGOAL: {llm.GOAL_LABELS[body.goal]}\nTONE: {body.tone}"
-        data = await llm.complete_json(body.provider, llm.GENERATE_PROMPT, user)
+        user = f"PLATFORM: {body.platform}\nTOPIC: {body.topic}\nGOAL: {llm.GOAL_LABELS[body.goal]}\nTONE: {body.tone}"
+        data = await llm.complete_json(body.provider, llm.generate_prompt(body.platform), user)
         draft = Draft(
             client_id=x_client_id, topic=body.topic, goal=body.goal, tone=body.tone,
-            provider=body.provider, post_body=llm.parse_body(data), hooks=llm.parse_hooks(data),
+            provider=body.provider, platform=body.platform, post_body=llm.parse_body(data), hooks=llm.parse_hooks(data),
         )
         res = await db.drafts.insert_one(draft.to_mongo())
     draft.id = str(res.inserted_id)
@@ -53,7 +53,7 @@ async def generate(body: GenerateRequest, request: Request, x_client_id: str = H
 async def regenerate_hooks(body: RegenerateHooksRequest, request: Request, x_client_id: str = Header(...)):
     ip = client_ip(request)
     async with quota(ip):
-        data = await llm.complete_json(body.provider, llm.HOOKS_PROMPT, f"POST:\n{body.post_body}")
+        data = await llm.complete_json(body.provider, llm.hooks_prompt(body.platform), f"POST:\n{body.post_body}")
         hooks = llm.parse_hooks(data)
     await _update_draft(body.draft_id, x_client_id, {"hooks": hooks, "post_body": body.post_body})
     return {"hooks": hooks, "usage": await get_usage(ip)}
@@ -63,7 +63,7 @@ async def regenerate_hooks(body: RegenerateHooksRequest, request: Request, x_cli
 async def refine_tone(body: RefineToneRequest, request: Request, x_client_id: str = Header(...)):
     ip = client_ip(request)
     async with quota(ip):
-        data = await llm.complete_json(body.provider, llm.REFINE_PROMPT, f"TONE: {body.tone}\nPOST:\n{body.post_body}")
+        data = await llm.complete_json(body.provider, llm.refine_prompt(body.platform), f"TONE: {body.tone}\nPOST:\n{body.post_body}")
         post_body = llm.parse_body(data)
     await _update_draft(body.draft_id, x_client_id, {"post_body": post_body, "tone": body.tone})
     return {"post_body": post_body, "usage": await get_usage(ip)}

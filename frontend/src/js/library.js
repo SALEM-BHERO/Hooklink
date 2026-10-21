@@ -1,6 +1,7 @@
 import '../styles/global.css';
 import { renderHeader, renderFooter, showToast } from './shared.js';
 import { api, escapeHtml } from './api.js';
+import { platformIcon, platformOf } from './platforms.js';
 
 renderHeader('library');
 renderFooter();
@@ -19,12 +20,13 @@ const searchInput = document.getElementById('searchInput');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
 const viewingCount = document.getElementById('viewingCount');
 
-let state = { category: 'all', q: '', loaded: 0, total: 0 };
+let state = { category: 'all', platform: 'all', q: '', loaded: 0, total: 0 };
 let items = [];
 let requestSeq = 0;
 let loading = false;
 
 const num = (n) => `#${String(n).padStart(2, '0')}`;
+const tags = (h) => `<div class="flex items-center gap-2 mb-4" data-testid="hook-platforms-${h.number}">${(h.platforms || []).map((p) => `<span title="${platformOf(p).label}">${platformIcon(p, 'text-[15px]')}</span>`).join('')}</div>`;
 
 const copyBtn = (h, featured) => featured
   ? `<button class="copy-btn flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-on-primary text-body-sm font-semibold hover:shadow-lg transition-all active:scale-95" data-testid="copy-hook-${h.number}"><span class="material-symbols-outlined text-[18px]">content_copy</span>Copy Idea</button>`
@@ -39,6 +41,7 @@ function card(h) {
         <div class="flex items-center gap-3">${badge}<span class="px-3 py-1 rounded-lg bg-tertiary text-on-tertiary text-xs font-bold uppercase tracking-wider">Editor's Pick</span></div>
         <span class="text-body-sm text-on-surface-variant/60 font-mono">${num(h.number)}</span>
       </div>
+      ${tags(h)}
       <h3 class="text-headline-md font-headline font-bold text-on-surface mt-3 mb-3">${escapeHtml(h.title || '')}</h3>
       <p class="hook-text text-on-surface-variant italic leading-relaxed text-body-lg mb-4">&ldquo;${escapeHtml(h.text)}&rdquo;</p>
       <p class="text-body-sm text-on-surface-variant/70 mb-6"><span class="font-semibold text-on-surface-variant">Why it works:</span> ${escapeHtml(h.why || '')}</p>
@@ -51,6 +54,7 @@ function card(h) {
   return `
     <div class="hook-card flex flex-col bg-white border border-outline-variant/40 rounded-xl p-6 hover:shadow-lg transition-all" data-number="${h.number}" data-testid="hook-card-${h.number}">
       <div class="flex items-center justify-between mb-4">${badge}<span class="text-body-sm text-on-surface-variant/60 font-mono">${num(h.number)}</span></div>
+      ${tags(h)}
       <p class="hook-text text-on-surface-variant italic leading-relaxed text-body-md mb-6">&ldquo;${escapeHtml(h.text)}&rdquo;</p>
       <div class="flex items-center justify-between mt-auto">
         <div class="flex items-center gap-2 text-body-sm text-on-surface-variant/80"><span class="material-symbols-outlined text-[18px] text-primary">bookmark</span><span>${escapeHtml(h.theme)}</span></div>
@@ -69,7 +73,7 @@ async function fetchPage(reset) {
   const seq = ++requestSeq;
   loading = true;
   const skip = reset ? 0 : state.loaded;
-  const params = new URLSearchParams({ category: state.category, q: state.q, skip, limit: PAGE });
+  const params = new URLSearchParams({ category: state.category, platform: state.platform, q: state.q, skip, limit: PAGE });
   try {
     const data = await api(`/library?${params}`);
     if (seq !== requestSeq) return;
@@ -98,6 +102,20 @@ filterRow.addEventListener('click', (e) => {
     p.classList.toggle('text-on-surface-variant', !on);
   });
   state.category = pill.dataset.filter;
+  fetchPage(true);
+});
+
+document.getElementById('platformRow').addEventListener('click', (e) => {
+  const pill = e.target.closest('.platform-pill');
+  if (!pill) return;
+  document.querySelectorAll('.platform-pill').forEach((p) => {
+    const on = p === pill;
+    p.classList.toggle('bg-on-background', on);
+    p.classList.toggle('text-on-primary', on);
+    p.classList.toggle('bg-surface-container-lowest', !on);
+    p.classList.toggle('text-on-surface-variant', !on);
+  });
+  state.platform = pill.dataset.platform;
   fetchPage(true);
 });
 

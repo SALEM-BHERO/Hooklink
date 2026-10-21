@@ -15,6 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   </head>
   <body>
     <!-- ═══ Header Mount ═══ -->
@@ -50,6 +51,18 @@
         <button data-filter="the-listicle" data-testid="filter-the-listicle" class="filter-pill px-4 py-2 rounded-xl border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:border-primary/40">The Listicle</button>
         <button data-filter="the-controversy" data-testid="filter-the-controversy" class="filter-pill px-4 py-2 rounded-xl border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:border-primary/40">The Controversy</button>
         <button data-filter="technical-insight" data-testid="filter-technical-insight" class="filter-pill px-4 py-2 rounded-xl border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:border-primary/40">Technical Insight</button>
+      </section>
+
+      <!-- ── Platform Filter ── -->
+      <section class="-mt-4 mb-10 flex flex-wrap gap-2" id="platformRow" data-testid="platform-filter-row">
+        <button data-platform="all" data-testid="platform-filter-all" class="platform-pill px-3 py-1.5 rounded-full border border-outline-variant/40 text-body-sm font-semibold transition-all bg-on-background text-on-primary">All platforms</button>
+        <button data-platform="linkedin" data-testid="platform-filter-linkedin" class="platform-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:border-primary/40"><i class="fa-brands fa-linkedin" style="color:#0A66C2"></i>LinkedIn</button>
+        <button data-platform="instagram" data-testid="platform-filter-instagram" class="platform-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:border-primary/40"><i class="fa-brands fa-instagram" style="color:#E1306C"></i>Instagram</button>
+        <button data-platform="facebook" data-testid="platform-filter-facebook" class="platform-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:border-primary/40"><i class="fa-brands fa-facebook" style="color:#1877F2"></i>Facebook</button>
+        <button data-platform="x" data-testid="platform-filter-x" class="platform-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:border-primary/40"><i class="fa-brands fa-x-twitter" style="color:#0F1419"></i>X</button>
+        <button data-platform="threads" data-testid="platform-filter-threads" class="platform-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:border-primary/40"><i class="fa-brands fa-threads" style="color:#101010"></i>Threads</button>
+        <button data-platform="tiktok" data-testid="platform-filter-tiktok" class="platform-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:border-primary/40"><i class="fa-brands fa-tiktok" style="color:#FE2C55"></i>TikTok</button>
+        <button data-platform="youtube" data-testid="platform-filter-youtube" class="platform-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant/40 text-body-sm font-semibold transition-all bg-surface-container-lowest text-on-surface-variant hover:border-primary/40"><i class="fa-brands fa-youtube" style="color:#FF0000"></i>YouTube</button>
       </section>
 
       <!-- ── Hook Cards Grid ── -->

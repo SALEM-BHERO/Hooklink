@@ -9,6 +9,7 @@ PyObjectId = Annotated[str, BeforeValidator(lambda v: str(v) if isinstance(v, Ob
 Provider = Literal["groq", "gemini", "deepseek"]
 Tone = Literal["professional", "storytelling", "contrarian", "technical"]
 Goal = Literal["brand", "news", "hiring"]
+Platform = Literal["linkedin", "instagram", "facebook", "x", "threads", "tiktok", "youtube"]
 
 
 def now_iso() -> str:
@@ -41,6 +42,7 @@ class Draft(BaseDocument):
     goal: str
     tone: str
     provider: str
+    platform: str = "linkedin"
     post_body: str
     hooks: List[Hook]
     created_at: str = Field(default_factory=now_iso)
@@ -54,6 +56,7 @@ class LibraryHook(BaseDocument):
     text: str
     theme: str
     featured: bool = False
+    platforms: List[str] = []
     title: Optional[str] = None
     why: Optional[str] = None
 
@@ -67,12 +70,14 @@ class GenerateRequest(BaseModel):
     topic: str = Field(min_length=1, max_length=3000)
     goal: Goal = "brand"
     tone: Tone = "professional"
+    platform: Platform = "linkedin"
     provider: Provider = "groq"
 
 
 class RegenerateHooksRequest(BaseModel):
     post_body: str = Field(min_length=1, max_length=6000)
     draft_id: Optional[str] = None
+    platform: Platform = "linkedin"
     provider: Provider = "groq"
 
 
@@ -80,6 +85,7 @@ class RefineToneRequest(BaseModel):
     post_body: str = Field(min_length=1, max_length=6000)
     tone: Tone
     draft_id: Optional[str] = None
+    platform: Platform = "linkedin"
     provider: Provider = "groq"
 
 

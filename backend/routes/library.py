@@ -11,6 +11,7 @@ router = APIRouter(prefix="/library")
 @router.get("")
 async def list_hooks(
     category: str = "all",
+    platform: str = "all",
     q: str = "",
     skip: int = Query(0, ge=0),
     limit: int = Query(8, ge=1, le=50),
@@ -18,6 +19,8 @@ async def list_hooks(
     query = {}
     if category != "all":
         query["category"] = category
+    if platform != "all":
+        query["platforms"] = platform
     if q.strip():
         rx = {"$regex": re.escape(q.strip()), "$options": "i"}
         query["$or"] = [{"text": rx}, {"theme": rx}, {"title": rx}, {"category_label": rx}]
