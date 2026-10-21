@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: hooklink-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements-deploy.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: MONGO_URL
+        sync: false
+      - key: DB_NAME
+        value: hooklink
+      - key: CORS_ORIGINS
+        sync: false
+      - key: DAILY_GENERATION_LIMIT
+        value: "5"
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: DEEPSEEK_API_KEY
+        sync: false

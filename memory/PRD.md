@@ -38,6 +38,9 @@ GET /api/, GET /api/usage, POST /api/generate, POST /api/hooks/regenerate, POST 
 ## Mocked
 - None
 
+## Deployment prep (2026-06)
+- frontend/vercel.json (Vercel root dir = frontend), render.yaml + backend/Procfile (backend on Render/Railway), backend/requirements-deploy.txt (slim, no Emergent-only packages), .env.example files, README deploy guide; .env files git-ignored
+
 ## Known external issues
 - Gemini 503 high demand (intermittent); DeepSeek 402 insufficient balance
 
