@@ -13,6 +13,8 @@ class _Database:
     def _db(self):
         loop = asyncio.get_running_loop()
         if self._loop is not loop:
+            if self._client is not None:
+                self._client.close()
             self._client = AsyncIOMotorClient(os.environ["MONGO_URL"])
             self._loop = loop
         return self._client[os.environ["DB_NAME"]]

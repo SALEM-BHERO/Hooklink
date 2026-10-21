@@ -1,3 +1,6 @@
+from pymongo import UpdateOne
+from pymongo.errors import BulkWriteError, OperationFailure
+
 from core.db import db
 
 LABELS = {
@@ -41,16 +44,34 @@ HOOKS = [
 ]
 
 
-async def seed_library():
-    current = await db.library_hooks.count_documents({"platforms": {"$exists": True}})
-    if current == len(HOOKS):
-        return
-    await db.library_hooks.delete_many({})
-    docs = []
+def _docs():
     for i, (cat, text, theme, platforms) in enumerate(HOOKS, start=1):
         doc = {"number": i, "category": cat, "category_label": LABELS[cat], "text": text, "theme": theme, "featured": i == 3, "platforms": platforms.split(",")}
         if i == 3:
             doc["title"] = "The Honest Take"
             doc["why"] = "Challenges the status quo and positions you as a thoughtful observer."
-        docs.append(doc)
-    await db.library_hooks.insert_many(docs)
+        yield doc
+
+
+async def _ensure_unique_number():
+    info = await db.library_hooks.index_information()
+    if info.get("number_1", {}).get("unique"):
+        return
+    try:
+        if "number_1" in info:
+            await db.library_hooks.drop_index("number_1")
+        await db.library_hooks.create_index("number", unique=True)
+    except OperationFailure:
+        await db.library_hooks.delete_many({})
+        await db.library_hooks.create_index("number", unique=True)
+
+
+async def seed_library():
+    # Idempotent and safe when several cold starts run it at the same time
+    await _ensure_unique_number()
+    ops = [UpdateOne({"number": d["number"]}, {"$set": d}, upsert=True) for d in _docs()]
+    try:
+        await db.library_hooks.bulk_write(ops, ordered=False)
+    except BulkWriteError:
+        pass
+    await db.library_hooks.delete_many({"number": {"$gt": len(HOOKS)}})

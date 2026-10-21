@@ -1,0 +1,29 @@
+{
+  "summary": "Regression check after the serverless refactor (lazy Motor proxy, ensure_ready dependency, api/index.py entrypoint). Backend: 43/43 pytest passed against the public URL. This covers health, usage, generate on all 7 platforms with real Groq calls, hooks/regenerate, refine-tone, drafts CRUD and client isolation, library filters and pagination, newsletter, refund on provider failure, and the 429 limit with the unique-index-based reserve. Fresh-DB auto-setup: ran uvicorn api.index:app on port 8099 with DB_NAME=hooklink_fresh. The first /api/library returned 200 with total 30 and 8 items. All indexes were created: usage {ip,date} unique, subscribers email unique, drafts {client_id, created_at}, library_hooks number. BUG FOUND: when many requests hit a cold process at the same time, the library seed is duplicated. In 3 cold-start runs with 20 concurrent requests, the DB ended up with 90, 60 and 120 library_hooks. Responses reported total 0, 20, 40 ... 200. With only 5 concurrent requests it stayed at 30. UI smoke on the preview URL: workspace shows 5 of 5 and the 7 seeded drafts. The library shows 'Viewing 8 of 30 ideas' and Load More goes to 16 of 30. Clicking a draft opens refinement.html?draft=... with the LinkedIn preview and analysis. All API calls go to the same origin /api and return 200. 0 console errors.",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "core/setup.py ensure_ready + seed.py seed_library (any first /api request on a cold instance)", "issue": "Race on cold start. Concurrent first requests all see _ready=False. Each runs count -> delete_many -> insert_many at the same time, so 30 hooks become 60-120 docs. /api/library then returns wrong totals and duplicate cards until a later cold start re-seeds. On Vercel, separate instances can also cold-start in parallel, so an in-process lock alone is not enough.", "priority": "HIGH"}
+    ],
+    "minor": [
+      {"endpoint": "core/db.py", "issue": "When the event loop changes, a new AsyncIOMotorClient is created and the old one is never closed. This can leak connections on serverless runtimes that use a new loop per invocation. Close the previous client before replacing it."}
+    ]
+  },
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": ["/app/backend/tests/test_hooklink_api.py", "/app/backend/tests/test_platforms.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "Make seed_library idempotent and safe under concurrency on every instance. Create a unique index on library_hooks.number. Seed with bulk_write UpdateOne({'number': i}, {'$set': doc}, upsert=True) instead of delete_many + insert_many, and remove extra docs with delete_many({'number': {'$gt': len(HOOKS)}}). Also guard ensure_ready with an asyncio.Lock so concurrent requests in one process await a single setup.",
+    "Optional: in core/db.py, close the previous Motor client when the loop changes."
+  ],
+  "critical_code_review_comments": [
+    "setup.py: _ready is set only after seeding succeeds. That is good, because a failure retries on the next request. But there is no lock, so N concurrent cold requests run setup N times (see the critical issue above).",
+    "library_hooks 'number' index is not unique, so nothing at the DB level prevents duplicates.",
+    "Tests need REACT_APP_BACKEND_URL exported in the shell (it is read from the environment, not from frontend/.env). Export it before running pytest.",
+    "Carried over: refinement.js does not await navigator.clipboard.writeText (low priority)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "43/43 pytest passed (100%); fresh-DB setup works for sequential requests but fails the concurrent cold-start check", "frontend": "100%"},
+  "seed_data_creation": "Used seed_ui_drafts.js (TEST_ui) and then deleted those drafts. db.usage reset. hooklink_fresh dropped and the port 8099 server killed. hooklink.library_hooks = 30.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Run pytest with: export REACT_APP_BACKEND_URL=<frontend/.env value>. To reproduce the race: drop hooklink_fresh, start uvicorn api.index:app --port 8099 with DB_NAME=hooklink_fresh, send 20 concurrent curl requests to /api/library?limit=50, then count library_hooks (expected 30). Repeat 3 times. Drop hooklink_fresh afterwards."
+}
