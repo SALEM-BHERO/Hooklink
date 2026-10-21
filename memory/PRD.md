@@ -27,6 +27,8 @@ GET /api/, GET /api/usage, POST /api/generate, POST /api/hooks/regenerate, POST 
 - Library: 30 hooks tagged with platforms + platform filter (GET /api/library?platform=)
 - Tested: iteration_2 backend 43/43, frontend ~95% (mobile overflow fixed after)
 
+- Final regression iteration_3: backend 43/43, frontend 100%; privacy/terms copy updated for multi-platform + server storage
+
 ## Mocked
 - Publish to LinkedIn, reactions bar, readability scores (UI only)
 

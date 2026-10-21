@@ -51,9 +51,13 @@ class TestLibraryPlatforms:
         d2 = requests.get(f"{BASE_URL}/api/library", params={"platform": "youtube", "q": "Harare", "limit": 50}).json()
         assert all("youtube" in i["platforms"] for i in d2["items"])
 
-    def test_unknown_platform_empty(self):
-        d = requests.get(f"{BASE_URL}/api/library", params={"platform": "myspace"}).json()
-        assert d["total"] == 0 and d["items"] == []
+    def test_unknown_platform_rejected(self):
+        # platform param is validated with Literal -> 422 for unknown, 200 for valid
+        r = requests.get(f"{BASE_URL}/api/library", params={"platform": "bogus"})
+        assert r.status_code == 422
+        for p in ["linkedin", "instagram", "facebook", "x", "threads", "tiktok", "youtube"]:
+            r2 = requests.get(f"{BASE_URL}/api/library", params={"platform": p})
+            assert r2.status_code == 200 and r2.json()["total"] > 0
 
 
 # Validation
