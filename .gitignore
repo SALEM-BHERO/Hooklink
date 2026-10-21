@@ -29,3 +29,9 @@ backend/.env
 frontend/.env
 __pycache__/
 *.pyc
+.env.*
+*.env
+credentials.json
+*.pem
+*.key
+.credentials
