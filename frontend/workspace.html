@@ -52,6 +52,7 @@
                 </label>
                 <textarea
                   name="topic"
+                  data-testid="topic-input"
                   class="w-full h-32 bg-surface-container-low border border-outline-variant rounded-xl p-4 text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none transition-all"
                   placeholder="e.g., Lessons from my first startup failure..."
                 ></textarea>
@@ -74,7 +75,7 @@
                       checked
                     />
                     <label
-                      for="goalBrand"
+                      for="goalBrand" data-testid="goal-option-brand"
                       class="flex flex-col items-center gap-3 p-5 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center"
                     >
                       <span class="material-symbols-outlined text-3xl text-primary">auto_awesome</span>
@@ -92,7 +93,7 @@
                       class="sr-only"
                     />
                     <label
-                      for="goalNews"
+                      for="goalNews" data-testid="goal-option-news"
                       class="flex flex-col items-center gap-3 p-5 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center"
                     >
                       <span class="material-symbols-outlined text-3xl text-primary">newspaper</span>
@@ -110,7 +111,7 @@
                       class="sr-only"
                     />
                     <label
-                      for="goalHiring"
+                      for="goalHiring" data-testid="goal-option-hiring"
                       class="flex flex-col items-center gap-3 p-5 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center"
                     >
                       <span class="material-symbols-outlined text-3xl text-primary">group_add</span>
@@ -137,7 +138,7 @@
                       checked
                     />
                     <label
-                      for="toneProfessional"
+                      for="toneProfessional" data-testid="tone-option-professional"
                       class="flex items-center justify-center p-4 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center"
                     >
                       <span class="text-label-md text-on-surface font-semibold">Professional</span>
@@ -154,7 +155,7 @@
                       class="sr-only"
                     />
                     <label
-                      for="toneStorytelling"
+                      for="toneStorytelling" data-testid="tone-option-storytelling"
                       class="flex items-center justify-center p-4 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center"
                     >
                       <span class="text-label-md text-on-surface font-semibold">Storytelling</span>
@@ -171,7 +172,7 @@
                       class="sr-only"
                     />
                     <label
-                      for="toneContrarian"
+                      for="toneContrarian" data-testid="tone-option-contrarian"
                       class="flex items-center justify-center p-4 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center"
                     >
                       <span class="text-label-md text-on-surface font-semibold">Contrarian</span>
@@ -188,7 +189,7 @@
                       class="sr-only"
                     />
                     <label
-                      for="toneTechnical"
+                      for="toneTechnical" data-testid="tone-option-technical"
                       class="flex items-center justify-center p-4 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center"
                     >
                       <span class="text-label-md text-on-surface font-semibold">Technical</span>
@@ -201,18 +202,31 @@
               <button
                 type="button"
                 id="generateBtn"
+                data-testid="generate-btn"
                 onclick="handleGenerate()"
                 class="w-full bg-on-background text-on-primary py-5 rounded-xl font-semibold text-body-md flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 cursor-pointer"
               >
                 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">draw</span>
                 <span>Start Drafting</span>
               </button>
+              <p id="usageRemaining" data-testid="usage-remaining" class="text-center text-body-sm text-on-surface-variant -mt-6"></p>
             </form>
           </div>
         </div>
 
         <!-- ── Right Column: Sidebar ── -->
         <div class="lg:col-span-4 space-y-gutter">
+
+          <!-- Recent Drafts -->
+          <div class="glass-panel rounded-2xl p-6" data-testid="recent-drafts-panel">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="material-symbols-outlined text-primary">history</span>
+              <h3 class="text-headline-md font-headline text-on-surface">Recent Drafts</h3>
+            </div>
+            <ul id="draftsList" class="space-y-1" data-testid="drafts-list">
+              <li class="text-body-sm text-on-surface-variant p-3">Loading drafts...</li>
+            </ul>
+          </div>
 
           <!-- Authority Guide -->
           <div class="glass-panel rounded-2xl p-6">

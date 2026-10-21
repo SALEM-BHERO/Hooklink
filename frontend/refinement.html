@@ -51,18 +51,31 @@
 
             <!-- Action Buttons -->
             <div class="flex items-center gap-2">
-              <button id="refineToneBtn" class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-body-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all">
-                <span class="material-symbols-outlined text-[18px]">palette</span>
-                Refine Tone
+              <div class="relative">
+                <button id="refineToneBtn" data-testid="refine-tone-btn" class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-body-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all">
+                  <span class="material-symbols-outlined text-[18px]">palette</span>
+                  Refine Tone
+                </button>
+                <div id="toneMenu" data-testid="tone-menu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-outline-variant/40 rounded-xl shadow-xl p-1.5 z-40">
+                  <button data-tone="professional" data-testid="tone-option-professional" class="tone-option w-full text-left px-3 py-2 rounded-lg text-body-sm hover:bg-surface-container-low">Professional</button>
+                  <button data-tone="storytelling" data-testid="tone-option-storytelling" class="tone-option w-full text-left px-3 py-2 rounded-lg text-body-sm hover:bg-surface-container-low">Storytelling</button>
+                  <button data-tone="contrarian" data-testid="tone-option-contrarian" class="tone-option w-full text-left px-3 py-2 rounded-lg text-body-sm hover:bg-surface-container-low">Contrarian</button>
+                  <button data-tone="technical" data-testid="tone-option-technical" class="tone-option w-full text-left px-3 py-2 rounded-lg text-body-sm hover:bg-surface-container-low">Technical</button>
+                </div>
+              </div>
+              <button id="saveBtn" data-testid="save-draft-btn" class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-body-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all">
+                <span class="material-symbols-outlined text-[18px]">save</span>
+                Save
               </button>
               <button
                 id="copyBtn"
+                data-testid="copy-post-btn"
                 class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-body-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all"
               >
                 <span class="material-symbols-outlined text-[18px]">content_copy</span>
                 Copy
               </button>
-              <button id="publishBtn" class="flex items-center gap-1.5 px-5 py-2 rounded-xl text-body-sm font-semibold bg-primary text-on-primary hover:shadow-lg transition-all active:scale-95">
+              <button id="publishBtn" data-testid="publish-btn" class="flex items-center gap-1.5 px-5 py-2 rounded-xl text-body-sm font-semibold bg-primary text-on-primary hover:shadow-lg transition-all active:scale-95">
                 <span class="material-symbols-outlined text-[18px]">publish</span>
                 Publish
               </button>
@@ -92,6 +105,7 @@
               <!-- Post Content (editable) -->
               <div
                 id="postBody"
+                data-testid="post-body"
                 contenteditable="true"
                 class="px-4 pb-3 text-body-sm text-on-surface whitespace-pre-line outline-none focus:ring-2 focus:ring-primary/10 rounded transition-all"
 >Good writing doesn't just happen. It takes practice and structure. 🏗️
@@ -218,7 +232,7 @@ Stop guessing. Start writing.
               </div>
 
               <!-- Generate More Button -->
-              <button id="tryOtherIdeasBtn" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-body-sm font-semibold text-on-surface-variant border border-dashed border-outline-variant hover:border-primary hover:text-primary transition-all mt-1">
+              <button id="tryOtherIdeasBtn" data-testid="try-other-ideas-btn" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-body-sm font-semibold text-on-surface-variant border border-dashed border-outline-variant hover:border-primary hover:text-primary transition-all mt-1">
                 <span class="material-symbols-outlined text-[18px]">refresh</span>
                 Try Other Ideas
               </button>
