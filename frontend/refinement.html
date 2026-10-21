@@ -31,7 +31,7 @@
         <div class="lg:col-span-8 flex flex-col gap-unit-lg">
 
           <!-- ── Toolbar Glass Panel ── -->
-          <div class="glass-panel rounded-xl p-unit-sm flex flex-wrap items-center justify-between gap-unit-sm">
+          <div class="glass-panel relative z-30 rounded-xl p-unit-sm flex flex-wrap items-center justify-between gap-unit-sm">
             <!-- View Mode Toggle -->
             <div class="flex items-center bg-surface-container rounded-full p-1 gap-1">
               <button
@@ -63,7 +63,7 @@
                   <span class="material-symbols-outlined text-[18px]">palette</span>
                   Refine Tone
                 </button>
-                <div id="toneMenu" data-testid="tone-menu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-outline-variant/40 rounded-xl shadow-xl p-1.5 z-40">
+                <div id="toneMenu" data-testid="tone-menu" class="hidden absolute left-0 sm:left-auto sm:right-0 mt-2 w-48 bg-white border border-outline-variant/40 rounded-xl shadow-xl p-1.5 z-40">
                   <button data-tone="professional" data-testid="tone-option-professional" class="tone-option w-full text-left px-3 py-2 rounded-lg text-body-sm hover:bg-surface-container-low">Professional</button>
                   <button data-tone="storytelling" data-testid="tone-option-storytelling" class="tone-option w-full text-left px-3 py-2 rounded-lg text-body-sm hover:bg-surface-container-low">Storytelling</button>
                   <button data-tone="contrarian" data-testid="tone-option-contrarian" class="tone-option w-full text-left px-3 py-2 rounded-lg text-body-sm hover:bg-surface-container-low">Contrarian</button>

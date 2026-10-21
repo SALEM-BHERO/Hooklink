@@ -50,6 +50,7 @@ function mountPreview(text) {
   body().innerText = text;
   body().addEventListener('input', updateMeta);
   document.getElementById('platformBadge').innerHTML = `${platformIcon(platform)} ${platformOf(platform).label}`;
+  document.getElementById('profileTitleInput').classList.toggle('hidden', platform !== 'linkedin');
   document.getElementById('publishLabel').textContent = `Post on ${platformOf(platform).label}`;
   document.querySelector('[data-testid="hooks-panel-title"]').textContent = platform === 'youtube' ? 'Title Variations' : 'Opening Variations';
   updateMeta();
@@ -60,7 +61,9 @@ function mountPreview(text) {
   const input = document.getElementById(id);
   input.value = profile[key];
   input.addEventListener('change', () => {
-    profile[key] = input.value.trim() || profile[key];
+    const value = input.value.trim().replace(key === 'handle' ? /^@+/ : /^$/, '');
+    if (value) profile[key] = value;
+    input.value = profile[key];
     localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
     mountPreview(body().innerText);
   });

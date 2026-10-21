@@ -1,0 +1,30 @@
+{
+  "summary": "Tested only the refinement page frontend after the 'remove mocked buttons' changes, using Playwright on the public URL with drafts seeded in Mongo for all 7 platforms, plus 2 real Groq calls. No mocked buttons remain: 0 data-action/.preview-action/buttons/links in the previews and no fake counts on any platform. Clicking the icons does nothing. publish-btn reads 'Post on <Platform>' and opens the correct URL for all 7 platforms. LinkedIn and Threads put the full post in the text param; X puts in only '1/ ...' for threads. A real popup opened linkedin.com (redirected to login when logged out). The clipboard holds the full post, the toast text is correct, and the draft is saved with 1 PUT per click. Preview-as inputs re-render the name, headline, handle and initials avatar (TM), keep the edited body, persist in localStorage after a reload, and are XSS-safe. Post Analysis updates live: hashtags went 1->4 and turned red only outside the range, emojis counted, a long text took length fit to 0%, readability stays within 0-100. Regressions passed: apply-hook (TikTok HOOK label kept), save, copy, desktop/mobile toggle, no horizontal overflow at 390px, workspace generate -> refinement (Threads), library filters, newsletter. Found and fixed 1 HIGH regression: the new Preview-as row (profile-row) was blocking clicks on the Refine Tone dropdown. No JS console errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Refine Tone dropdown", "issue": "FIXED by testing agent. The new profile-row glass-panel was drawn on top of the toolbar's tone menu, so the tone options could not be clicked and no /api/refine-tone request was sent. RCA: both panels are .glass-panel (backdrop-filter makes each one its own stacking context), and profile-row comes later in the page, so it paints over the toolbar's z-40 menu. Fix: added 'relative z-30' to the toolbar panel in refinement.html. Verified that refine tone now rewrites the post and the analysis updates (words 25->148).", "selector": "[data-testid='tone-option-professional']", "priority": "HIGH"},
+      {"component": "Refine Tone dropdown (mobile 390px)", "issue": "The menu is anchored right-0 and runs off the left edge of the screen, so option labels are cut off ('Professional' shows as 'rofessional'). It is still clickable. Use left-0 on small screens (e.g. 'left-0 sm:left-auto sm:right-0').", "selector": "#toneMenu", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Post Analysis", "issues": ["The Flesch reading ease score is shown with a '%' sign (e.g. 52%), but it is a score, not a percentage. Show it as '52/100' or '52'."]},
+      {"screen": "Preview as", "issues": ["Clearing an input leaves it blank while the preview and localStorage keep the old value. Restore the input to the stored value.", "If the user types a handle with '@', X/TikTok show '@@handle'. Strip a leading '@'.", "The headline input is shown for every platform but only the LinkedIn preview uses it."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/seed_ui_drafts.js"],
+  "action_items": [
+    "Review the z-index fix in refinement.html (toolbar panel now 'relative z-30') and keep it",
+    "Optional: anchor the tone menu left on mobile; drop the '%' on the readability score; strip a leading '@' from the handle; restore the input value when a profile field is cleared"
+  ],
+  "critical_code_review_comments": [
+    "refinement.js publish: navigator.clipboard.writeText is not awaited before window.open. This works in Chromium, but on Safari the clipboard write can fail once focus moves to the new tab, and the error is silently swallowed (.catch(() => {})). The toast still says 'Post copied'. Consider awaiting the copy, or showing a fallback message when it fails.",
+    "window.open(..., 'noopener') returns null, so there is no way to detect a popup blocker. Acceptable, but consider adding a fallback link in the toast."
+  ],
+  "updated_files": ["/app/frontend/refinement.html"],
+  "success_rate": {"backend": "skipped (frontend only)", "frontend": "100% after fix (1 HIGH regression found and fixed)"},
+  "seed_data_creation": "Ran seed_ui_drafts.js (client_id TEST_ui). Cleaned up afterwards: TEST_ui drafts deleted, TEST_iter4 subscriber deleted, db.usage reset.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Seed with: mongosh --quiet hooklink /app/backend/tests/seed_ui_drafts.js, then set localStorage hooklink_client_id='TEST_ui'. To capture publish URLs, override window.open with an add_init_script stub. Grant clipboard-read/write for the origin. Toasts have no data-testid. Do not use force=True on tone options: it clicks the screen point, which is dispatched to whatever is on top. Groq calls used: 2 (refine tone, workspace generate)."
+}

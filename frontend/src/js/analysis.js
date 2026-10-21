@@ -31,11 +31,11 @@ export function analyze(text, platform) {
   };
 }
 
-const bar = (id, label, value, note, color) => `
+const bar = (id, label, value, note, color, unit = '%') => `
   <div class="flex flex-col gap-2" data-testid="analysis-${id}">
     <div class="flex items-center justify-between">
       <span class="text-body-sm font-semibold text-on-surface">${label}</span>
-      <span class="text-body-sm font-bold ${color}" data-testid="analysis-${id}-value">${value}%</span>
+      <span class="text-body-sm font-bold ${color}" data-testid="analysis-${id}-value">${value}${unit}</span>
     </div>
     <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
       <div class="h-full rounded-full transition-all duration-700 ${color.replace('text-', 'bg-')}" style="width:${value}%"></div>
@@ -51,7 +51,7 @@ const stat = (id, label, value, ok = true) => `
 
 export function renderAnalysis(a) {
   return `
-    ${bar('readability', 'Readability', a.flesch, `${a.level} (Flesch reading ease)`, 'text-primary')}
+    ${bar('readability', 'Readability', a.flesch, `${a.level} (Flesch reading ease)`, 'text-primary', '/100')}
     ${bar('length', 'Length fit', a.lengthFit, `${a.lengthNote} · ideal ${a.min.toLocaleString()}-${a.max.toLocaleString()} chars`, a.lengthFit >= 80 ? 'text-tertiary' : 'text-error')}
     <div class="grid grid-cols-2 gap-2">
       ${stat('hashtags', `Hashtags (${a.tagRange[0]}-${a.tagRange[1]})`, a.hashtags, a.tagsOk)}
