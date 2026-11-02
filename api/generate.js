@@ -2,28 +2,6 @@ import { Groq } from 'groq-sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import OpenAI from 'openai';
 
-// Initialize clients conditionally based on available env vars
-let groq, genAI, deepseek;
-
-const groqKey = process.env.GROQ_API_KEY || process.env.GroqAPI;
-const geminiKey = process.env.GEMINI_API_KEY || process.env.GeminiAPi;
-const deepseekKey = process.env.DEEPSEEK_API_KEY || process.env.DeepAPI;
-
-if (groqKey) {
-  groq = new Groq({ apiKey: groqKey });
-}
-
-if (geminiKey) {
-  genAI = new GoogleGenerativeAI(geminiKey);
-}
-
-if (deepseekKey) {
-  deepseek = new OpenAI({
-    baseURL: 'https://api.deepseek.com',
-    apiKey: deepseekKey
-  });
-}
-
 const SYSTEM_PROMPT = `You are an expert LinkedIn ghostwriter with a deep understanding of the Zimbabwean entrepreneurial landscape. The user will provide a TOPIC, a GOAL, and a TONE.
 You must output a highly engaging LinkedIn post based on these parameters. 
 
@@ -53,8 +31,7 @@ Your output must be pure JSON with no markdown formatting. The JSON must match e
 }`;
 
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  // Safe CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
@@ -69,38 +46,85 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { topic, goal, tone, provider = 'groq' } = req.body;
+    // Safely parse body if sent as string or undefined
+    let body = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch {
+        return res.status(400).json({ error: 'Invalid JSON payload' });
+      }
+    }
+    body = body || {};
 
-    if (!topic) {
+    const { topic, goal, tone, provider = 'groq' } = body;
+
+    if (!topic || !topic.trim()) {
       return res.status(400).json({ error: 'Topic is required' });
     }
 
-    const userPrompt = `TOPIC: ${topic}\nGOAL: ${goal}\nTONE: ${tone}`;
+    const userPrompt = `TOPIC: ${topic}\nGOAL: ${goal || 'General Engagement'}\nTONE: ${tone || 'Authentic'}`;
     let jsonString = '';
 
     if (provider === 'groq') {
-      if (!groq) return res.status(500).json({ error: 'Groq API Key not configured' });
-      const chatCompletion = await groq.chat.completions.create({
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: userPrompt }
-        ],
-        model: 'llama-3.3-70b-versatile',
-        response_format: { type: 'json_object' }
-      });
+      const groqKey = (process.env.GROQ_API_KEY || process.env.GroqAPI || '').trim();
+      if (!groqKey) {
+        return res.status(500).json({ error: 'Groq API Key not configured in Vercel environment variables.' });
+      }
+
+      const groq = new Groq({ apiKey: groqKey });
+      let chatCompletion;
+
+      try {
+        // Try high-capacity model first
+        chatCompletion = await groq.chat.completions.create({
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            { role: 'user', content: userPrompt }
+          ],
+          model: 'llama-3.3-70b-versatile',
+          response_format: { type: 'json_object' }
+        });
+      } catch (primaryErr) {
+        console.warn('llama-3.3-70b busy or failed, falling back to llama-3.1-8b-instant:', primaryErr?.message);
+        // Fallback to lightning-fast 8B model if 70B is overloaded/unavailable
+        chatCompletion = await groq.chat.completions.create({
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            { role: 'user', content: userPrompt }
+          ],
+          model: 'llama-3.1-8b-instant',
+          response_format: { type: 'json_object' }
+        });
+      }
+
       jsonString = chatCompletion.choices[0]?.message?.content;
     } 
     else if (provider === 'gemini') {
-      if (!genAI) return res.status(500).json({ error: 'Gemini API Key not configured' });
+      const geminiKey = (process.env.GEMINI_API_KEY || process.env.GeminiAPi || '').trim();
+      if (!geminiKey) {
+        return res.status(500).json({ error: 'Gemini API Key not configured in Vercel environment variables.' });
+      }
+
+      const genAI = new GoogleGenerativeAI(geminiKey);
       const model = genAI.getGenerativeModel({ 
-        model: "gemini-2.5-flash",
-        generationConfig: { responseMimeType: "application/json" }
+        model: 'gemini-1.5-flash',
+        generationConfig: { responseMimeType: 'application/json' }
       });
-      const result = await model.generateContent(SYSTEM_PROMPT + "\n\n" + userPrompt);
+      const result = await model.generateContent(SYSTEM_PROMPT + '\n\n' + userPrompt);
       jsonString = result.response.text();
     }
     else if (provider === 'deepseek') {
-      if (!deepseek) return res.status(500).json({ error: 'DeepSeek API Key not configured' });
+      const deepseekKey = (process.env.DEEPSEEK_API_KEY || process.env.DeepAPI || '').trim();
+      if (!deepseekKey) {
+        return res.status(500).json({ error: 'DeepSeek API Key not configured in Vercel environment variables.' });
+      }
+
+      const deepseek = new OpenAI({
+        baseURL: 'https://api.deepseek.com',
+        apiKey: deepseekKey
+      });
+
       const response = await deepseek.chat.completions.create({
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
@@ -115,9 +139,15 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid provider selected' });
     }
 
-    // Clean markdown formatting if LLM incorrectly includes it
+    if (!jsonString) {
+      throw new Error('Empty response received from AI model');
+    }
+
+    // Clean markdown formatting if LLM includes it
     if (jsonString.startsWith('```json')) {
       jsonString = jsonString.replace(/^```json/m, '').replace(/```$/m, '').trim();
+    } else if (jsonString.startsWith('```')) {
+      jsonString = jsonString.replace(/^```/m, '').replace(/```$/m, '').trim();
     }
 
     const responseData = JSON.parse(jsonString);
@@ -125,6 +155,10 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Error generating content:', error);
-    return res.status(500).json({ error: 'Failed to generate content', details: error.message });
+    const message = error.message || 'Unknown error';
+    return res.status(500).json({ 
+      error: 'Failed to generate content', 
+      details: message 
+    });
   }
 }
