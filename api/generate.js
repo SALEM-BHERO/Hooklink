@@ -75,14 +75,29 @@ export default async function handler(req, res) {
       const groq = new Groq({ apiKey: groqKey });
       let chatCompletion;
 
-      chatCompletion = await groq.chat.completions.create({
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: userPrompt }
-        ],
-        model: 'llama-3.3-70b-versatile',
-        response_format: { type: 'json_object' }
-      });
+      try {
+        chatCompletion = await groq.chat.completions.create({
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            { role: 'user', content: userPrompt }
+          ],
+          model: 'llama-3.3-70b-versatile',
+          response_format: { type: 'json_object' }
+        });
+      } catch (err) {
+        let available = [];
+        try {
+          const list = await groq.models.list();
+          available = list.data.map(m => m.id);
+        } catch (listErr) {
+          available = ['Could not fetch models: ' + listErr.message];
+        }
+        return res.status(500).json({
+          error: 'Groq Model Error',
+          details: err.message,
+          available_models: available
+        });
+      }
 
       jsonString = chatCompletion.choices[0]?.message?.content;
     } 
