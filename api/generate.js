@@ -81,21 +81,18 @@ export default async function handler(req, res) {
             { role: 'system', content: SYSTEM_PROMPT },
             { role: 'user', content: userPrompt }
           ],
-          model: 'llama-3.3-70b-versatile',
+          model: 'openai/gpt-oss-120b',
           response_format: { type: 'json_object' }
         });
-      } catch (err) {
-        let available = [];
-        try {
-          const list = await groq.models.list();
-          available = list.data.map(m => m.id);
-        } catch (listErr) {
-          available = ['Could not fetch models: ' + listErr.message];
-        }
-        return res.status(500).json({
-          error: 'Groq Model Error',
-          details: err.message,
-          available_models: available
+      } catch (primaryErr) {
+        console.warn('gpt-oss-120b busy, falling back to gpt-oss-20b:', primaryErr?.message);
+        chatCompletion = await groq.chat.completions.create({
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            { role: 'user', content: userPrompt }
+          ],
+          model: 'openai/gpt-oss-20b',
+          response_format: { type: 'json_object' }
         });
       }
 
