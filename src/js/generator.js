@@ -57,6 +57,11 @@ async function handleGenerate() {
   updateBtnText('Generating post...');
   pulseBar.classList.add('active');
 
+  const platformInput = document.querySelector('input[name="platform"]:checked');
+  const platform = platformInput ? platformInput.value : 'linkedin';
+  const specificDetailInput = document.querySelector('input[name="specificDetail"]');
+  const specificDetail = specificDetailInput ? specificDetailInput.value.trim() : '';
+
   try {
     const res = await fetch('/api/generate', {
       method: 'POST',
@@ -65,6 +70,8 @@ async function handleGenerate() {
         topic,
         goal: goalInput.value,
         tone: toneInput.value,
+        platform,
+        specificDetail,
         provider: 'groq'
       })
     });
@@ -82,6 +89,7 @@ async function handleGenerate() {
     // Save generated content to session state
     sessionStorage.setItem('hooklink_generated_post', data.postBody);
     sessionStorage.setItem('hooklink_generated_hooks', JSON.stringify(data.hooks));
+    sessionStorage.setItem('hooklink_platform', platform);
 
     // Update button to success state
     btn.innerHTML = `
@@ -127,6 +135,18 @@ document.querySelectorAll('.option-card input[type="radio"]').forEach((input) =>
     const selectedLabel = input.nextElementSibling;
     if (selectedLabel) {
       selectedLabel.classList.add('border-primary', 'bg-surface-container');
+    }
+  });
+});
+
+// ── Quick Idea Chips Click Handler ──
+document.querySelectorAll('.idea-chip').forEach((chip) => {
+  chip.addEventListener('click', () => {
+    const topicInput = document.getElementById('topicInput');
+    const prompt = chip.getAttribute('data-prompt');
+    if (topicInput && prompt) {
+      topicInput.value = prompt;
+      topicInput.focus();
     }
   });
 });

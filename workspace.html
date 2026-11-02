@@ -45,22 +45,103 @@
             <!-- Generator Form -->
             <form id="generatorForm" class="mt-8 space-y-10">
 
-              <!-- Step 1: Topic -->
+              <!-- Step 1: Target Platform -->
               <div>
-                <label class="block text-label-md text-primary uppercase tracking-widest mb-4">
-                  01. What do you want to talk about?
+                <div class="flex items-center justify-between mb-3">
+                  <label class="block text-label-md text-primary uppercase tracking-widest">
+                    01. Target Platform
+                  </label>
+                  <span class="text-xs text-on-surface-variant font-medium">Formats & tone adapt automatically</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                  <!-- LinkedIn -->
+                  <div class="option-card">
+                    <input type="radio" name="platform" id="platformLinkedIn" value="linkedin" class="sr-only" checked />
+                    <label for="platformLinkedIn" class="flex flex-col items-center justify-center p-3.5 rounded-xl border border-primary bg-surface-container cursor-pointer hover:border-primary transition-all text-center">
+                      <span class="text-xl mb-1">💼</span>
+                      <span class="text-label-md text-on-surface font-semibold">LinkedIn</span>
+                    </label>
+                  </div>
+
+                  <!-- Instagram -->
+                  <div class="option-card">
+                    <input type="radio" name="platform" id="platformInstagram" value="instagram" class="sr-only" />
+                    <label for="platformInstagram" class="flex flex-col items-center justify-center p-3.5 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center">
+                      <span class="text-xl mb-1">📸</span>
+                      <span class="text-label-md text-on-surface font-semibold">Instagram</span>
+                    </label>
+                  </div>
+
+                  <!-- Facebook -->
+                  <div class="option-card">
+                    <input type="radio" name="platform" id="platformFacebook" value="facebook" class="sr-only" />
+                    <label for="platformFacebook" class="flex flex-col items-center justify-center p-3.5 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center">
+                      <span class="text-xl mb-1">👥</span>
+                      <span class="text-label-md text-on-surface font-semibold">Facebook</span>
+                    </label>
+                  </div>
+
+                  <!-- X / Twitter -->
+                  <div class="option-card">
+                    <input type="radio" name="platform" id="platformTwitter" value="twitter" class="sr-only" />
+                    <label for="platformTwitter" class="flex flex-col items-center justify-center p-3.5 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center">
+                      <span class="text-xl mb-1">𝕏</span>
+                      <span class="text-label-md text-on-surface font-semibold">Twitter / X</span>
+                    </label>
+                  </div>
+
+                  <!-- Threads -->
+                  <div class="option-card">
+                    <input type="radio" name="platform" id="platformThreads" value="threads" class="sr-only" />
+                    <label for="platformThreads" class="flex flex-col items-center justify-center p-3.5 rounded-xl border border-outline-variant cursor-pointer hover:border-primary/50 hover:bg-surface-container-low transition-all text-center">
+                      <span class="text-xl mb-1">🧵</span>
+                      <span class="text-label-md text-on-surface font-semibold">Threads</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 2: Topic -->
+              <div>
+                <label class="block text-label-md text-primary uppercase tracking-widest mb-3">
+                  02. What do you want to talk about?
                 </label>
                 <textarea
                   name="topic"
+                  id="topicInput"
                   class="w-full h-32 bg-surface-container-low border border-outline-variant rounded-xl p-4 text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none transition-all"
-                  placeholder="e.g., Lessons from my first startup failure..."
+                  placeholder="e.g., Lessons from scaling a bootstrap team in Zimbabwe..."
                 ></textarea>
+
+                <!-- Quick Idea Chips -->
+                <div class="mt-3 flex flex-wrap items-center gap-2">
+                  <span class="text-xs text-on-surface-variant font-medium">Quick starters:</span>
+                  <button type="button" class="idea-chip text-xs bg-surface-container-low hover:bg-primary/10 hover:text-primary border border-outline-variant/60 rounded-full px-3 py-1 text-on-surface-variant transition-colors" data-prompt="A hard lesson I learned last week from a real mistake">💡 Lesson Learned</button>
+                  <button type="button" class="idea-chip text-xs bg-surface-container-low hover:bg-primary/10 hover:text-primary border border-outline-variant/60 rounded-full px-3 py-1 text-on-surface-variant transition-colors" data-prompt="An unpopular truth most founders or professionals in my industry refuse to admit">🔥 Unpopular Opinion</button>
+                  <button type="button" class="idea-chip text-xs bg-surface-container-low hover:bg-primary/10 hover:text-primary border border-outline-variant/60 rounded-full px-3 py-1 text-on-surface-variant transition-colors" data-prompt="Behind the scenes breakdown of how we solve daily operational roadblocks">🚀 Behind The Scenes</button>
+                  <button type="button" class="idea-chip text-xs bg-surface-container-low hover:bg-primary/10 hover:text-primary border border-outline-variant/60 rounded-full px-3 py-1 text-on-surface-variant transition-colors" data-prompt="3 essential tools and habits that save me 10 hours every week">🛠️ Daily Systems</button>
+                </div>
               </div>
 
-              <!-- Step 2: Goal -->
+              <!-- Step 3: Real-Life Specific Anchor (Kills AI Sound) -->
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <label class="block text-label-md text-primary uppercase tracking-widest">
+                    03. Real-Life Detail or Moment <span class="text-xs normal-case text-on-surface-variant font-normal">(Optional, but makes it 100% human)</span>
+                  </label>
+                </div>
+                <input
+                  type="text"
+                  name="specificDetail"
+                  class="w-full bg-surface-container-low border border-outline-variant rounded-xl px-4 py-3 text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
+                  placeholder="e.g., 'At 7pm on Friday, our payment gateway went down during month-end'"
+                />
+              </div>
+
+              <!-- Step 4: Goal -->
               <div>
                 <label class="block text-label-md text-primary uppercase tracking-widest mb-4">
-                  02. What is the goal?
+                  04. What is the goal?
                 </label>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <!-- Building Brand -->
@@ -120,10 +201,10 @@
                 </div>
               </div>
 
-              <!-- Step 3: Tone -->
+              <!-- Step 5: Tone -->
               <div>
                 <label class="block text-label-md text-primary uppercase tracking-widest mb-4">
-                  03. How should it sound?
+                  05. How should it sound?
                 </label>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <!-- Professional -->
