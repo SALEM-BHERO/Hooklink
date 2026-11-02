@@ -75,28 +75,14 @@ export default async function handler(req, res) {
       const groq = new Groq({ apiKey: groqKey });
       let chatCompletion;
 
-      try {
-        // Try high-capacity model first
-        chatCompletion = await groq.chat.completions.create({
-          messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
-            { role: 'user', content: userPrompt }
-          ],
-          model: 'llama-3.3-70b-versatile',
-          response_format: { type: 'json_object' }
-        });
-      } catch (primaryErr) {
-        console.warn('llama-3.3-70b busy or failed, falling back to llama-3.1-8b-instant:', primaryErr?.message);
-        // Fallback to lightning-fast 8B model if 70B is overloaded/unavailable
-        chatCompletion = await groq.chat.completions.create({
-          messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
-            { role: 'user', content: userPrompt }
-          ],
-          model: 'llama-3.1-8b-instant',
-          response_format: { type: 'json_object' }
-        });
-      }
+      chatCompletion = await groq.chat.completions.create({
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: userPrompt }
+        ],
+        model: 'llama-3.3-70b-versatile',
+        response_format: { type: 'json_object' }
+      });
 
       jsonString = chatCompletion.choices[0]?.message?.content;
     } 
