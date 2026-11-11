@@ -51,6 +51,7 @@
 
             <!-- Action Buttons -->
             <div class="flex items-center gap-2">
+              <span id="aiTellBadge" class="hidden items-center gap-1 text-xs font-semibold px-2.5 py-1.5 rounded-lg border transition-all"></span>
               <span id="charCountBadge" class="hidden sm:inline-flex items-center text-xs font-medium text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-lg border border-outline-variant/30">
                 0 chars
               </span>
@@ -137,6 +138,15 @@ Here is the 3-step framework we use to write clearly:
 Stop guessing. Start writing.
 
 #ContentStrategy #PersonalBranding #WritingTips</div>
+
+              <!-- LinkedIn "...see more" Cut-Off Guide & Warning -->
+              <div id="seeMoreGuide" class="px-4 py-2 border-t border-dashed border-primary/30 bg-primary/5 flex items-center justify-between text-[11px] text-primary transition-all">
+                <span class="flex items-center gap-1.5 font-bold">
+                  <span class="material-symbols-outlined text-[15px]">smartphone</span>
+                  Mobile "...see more" Cut-Off (140-210 chars)
+                </span>
+                <span id="seeMoreWarning" class="font-semibold text-on-surface-variant text-[11px]">Calculating hook length...</span>
+              </div>
 
               <!-- Post Image -->
               <div class="mt-1" id="postImageContainer">

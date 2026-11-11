@@ -1,0 +1,2361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_dashboard" name="shell-type"/>
+  <title>MERIDIAN — Institutional Financial & Macro Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin:0; padding:0; }
+      body { overscroll-behavior:none; }
+      main > :first-child { margin-top:0 !important; }
+      main > :last-child { margin-bottom:0 !important; }
+    }
+    ::-webkit-scrollbar { display:none; }
+    .custom-scroll::-webkit-scrollbar { display: block; width: 6px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #c6c6cd; border-radius: 3px; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary": "#ffffff",
+            "surface-tint": "#565e74",
+            "on-surface": "#0b1c30",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#bec6e0",
+            "inverse-on-surface": "#eaf1ff",
+            "on-tertiary-fixed-variant": "#005049",
+            "tertiary": "#000000",
+            "on-tertiary-container": "#0c9488",
+            "surface-bright": "#f8f9ff",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed": "#00201d",
+            "secondary-fixed-dim": "#93ccff",
+            "on-surface-variant": "#45464d",
+            "tertiary-container": "#00201d",
+            "outline-variant": "#c6c6cd",
+            "outline": "#76777d",
+            "surface-variant": "#d3e4fe",
+            "secondary-fixed": "#cce5ff",
+            "on-secondary-fixed": "#001d31",
+            "tertiary-fixed-dim": "#6bd8cb",
+            "primary-container": "#131b2e",
+            "surface-container-highest": "#d3e4fe",
+            "surface-container-high": "#dce9ff",
+            "on-background": "#0b1c30",
+            "on-primary-fixed-variant": "#3f465c",
+            "primary-fixed": "#dae2fd",
+            "on-primary-fixed": "#131b2e",
+            "on-error": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface": "#f8f9ff",
+            "error-container": "#ffdad6",
+            "on-secondary-container": "#00476e",
+            "secondary": "#006398",
+            "inverse-surface": "#213145",
+            "surface-container": "#e5eeff",
+            "secondary-container": "#5bb8fe",
+            "on-error-container": "#93000a",
+            "surface-container-low": "#eff4ff",
+            "inverse-primary": "#bec6e0",
+            "tertiary-fixed": "#89f5e7",
+            "on-secondary-fixed-variant": "#004b73",
+            "surface-dim": "#cbdbf5",
+            "on-primary-container": "#7c839b",
+            "background": "#f8f9ff",
+            "primary": "#000000",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "gutter-desktop": "1.25rem",
+            "gutter": "1rem",
+            "margin": "1rem",
+            "space-lg": "1rem",
+            "space-md": "0.75rem",
+            "space-xl": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin-desktop": "1.5rem"
+          },
+          "fontFamily": {
+            "numeric-metric": ["Inter"],
+            "mono-hash": ["JetBrains Mono"],
+            "mono-provenance": ["JetBrains Mono"],
+            "headline-md": ["Inter"],
+            "headline-xl": ["Inter"],
+            "numeric-table": ["Inter"],
+            "body-md": ["Inter"],
+            "label-caps": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "numeric-metric": ["1.25rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "mono-hash": ["0.625rem", { "lineHeight": "0.75rem", "fontWeight": "400" }],
+            "mono-provenance": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-md": ["1.125rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "numeric-table": ["0.75rem", { "lineHeight": "1rem", "fontWeight": "500" }],
+            "body-md": ["0.8125rem", { "lineHeight": "1.25rem", "fontWeight": "400" }],
+            "label-caps": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.05em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1rem", "fontWeight": "400" }],
+            "headline-sm": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-lg": ["0.9375rem", { "lineHeight": "1.5rem", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
+
+  <!-- ═════════════════════════════════════════════════════════════════════ -->
+  <!-- 1. TOP GLOBAL APPLICATION HEADER                                       -->
+  <!-- ═════════════════════════════════════════════════════════════════════ -->
+  <header class="fixed top-0 left-0 right-0 h-16 bg-surface-container-lowest z-40 flex items-center justify-between px-margin-desktop shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-outline-variant/30">
+    <div class="flex items-center gap-space-lg flex-shrink-0">
+      <!-- Brand & Version -->
+      <div class="flex items-center gap-space-sm cursor-pointer" onclick="navigateTo('market-radar')">
+        <div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-on-primary font-headline-md font-bold shadow-sm">
+          <span class="text-secondary-fixed">M</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-tight">MERIDIAN</span>
+          <span class="font-mono-provenance text-mono-provenance text-on-surface-variant uppercase">Intel Core v4.8</span>
+        </div>
+      </div>
+      <div class="h-6 w-px bg-outline-variant"></div>
+
+      <!-- Institutional Tenant Switcher -->
+      <div class="flex items-center gap-space-sm px-space-sm py-space-xs rounded bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+        <div class="flex flex-col text-left">
+          <span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-space-xs">
+            First Capital Bank Zimbabwe (FCB)
+            <span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span>
+          </span>
+          <span class="font-label-caps text-label-caps text-secondary uppercase">Institutional Tier 1 Tenant</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Market Ticker (Desktop) -->
+    <div class="hidden xl:flex items-center gap-space-md px-space-md py-space-xs bg-surface-container-low rounded border border-outline-variant/20">
+      <div class="flex items-center gap-space-xs">
+        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">RBZ Policy Rate</span>
+        <span class="font-mono-provenance text-mono-provenance text-on-surface font-semibold">20.00%</span>
+      </div>
+      <div class="h-3 w-px bg-outline-variant"></div>
+      <div class="flex items-center gap-space-xs">
+        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">USD/ZWG Mid</span>
+        <span class="font-mono-provenance text-mono-provenance text-on-surface font-semibold">26.8520</span>
+      </div>
+      <div class="h-3 w-px bg-outline-variant"></div>
+      <div class="flex items-center gap-space-xs">
+        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">ZiG M2</span>
+        <span class="font-mono-provenance text-mono-provenance text-on-tertiary-container font-semibold">+3.4%</span>
+      </div>
+      <div class="h-3 w-px bg-outline-variant"></div>
+      <div class="flex items-center gap-space-xs">
+        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Parallel Spread</span>
+        <span class="font-mono-provenance text-mono-provenance text-secondary font-semibold">3.1%</span>
+      </div>
+    </div>
+
+    <!-- Omnisearch Trigger -->
+    <div class="flex-1 max-w-md mx-space-lg hidden md:block">
+      <div onclick="openSearchModal()" class="flex items-center gap-space-sm bg-surface-container-low px-space-md py-space-xs rounded text-on-surface-variant cursor-pointer hover:bg-surface-container transition-colors border border-outline-variant/20">
+        <span class="material-symbols-outlined text-[18px]">search</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant flex-1 text-left">Search circulars, indicators, evidence, claims...</span>
+        <kbd class="font-mono-hash text-mono-hash bg-surface-container px-space-xs py-0.5 rounded text-on-surface-variant border border-outline-variant/40">Cmd+K</kbd>
+      </div>
+    </div>
+
+    <!-- Actions & User Identity -->
+    <div class="flex items-center gap-space-md flex-shrink-0">
+      <button onclick="openIngestModal()" class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors font-headline-sm text-headline-sm" type="button">
+        <span class="material-symbols-outlined text-[18px]">file_upload</span>
+        <span>Ingest Source</span>
+      </button>
+      <button onclick="navigateTo('reports-&-briefings')" class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-primary text-on-primary hover:bg-primary-container transition-colors font-headline-sm text-headline-sm shadow-sm" type="button">
+        <span class="material-symbols-outlined text-[18px]">add_chart</span>
+        <span>Create Report</span>
+      </button>
+
+      <div class="relative flex items-center justify-center p-space-xs text-on-surface-variant hover:text-on-surface cursor-pointer" onclick="toggleNotifications()" title="Notifications">
+        <span class="material-symbols-outlined text-[22px]">notifications</span>
+        <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error animate-pulse"></span>
+      </div>
+
+      <div class="h-6 w-px bg-outline-variant"></div>
+
+      <!-- User Avatar -->
+      <div class="flex items-center gap-space-sm cursor-pointer" onclick="navigateTo('settings')">
+        <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs shadow-sm">
+          TM
+        </div>
+        <div class="hidden 2xl:flex flex-col text-left">
+          <span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Dr. T. Moyo</span>
+          <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Chief Risk & Strategy Officer</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═════════════════════════════════════════════════════════════════════ -->
+  <!-- 2. GLOBAL LEFT NAVIGATION SIDEBAR                                      -->
+  <!-- ═════════════════════════════════════════════════════════════════════ -->
+  <aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest z-30 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-r border-outline-variant/30">
+    <div class="flex flex-col py-space-md overflow-y-auto">
+      <div class="px-space-lg mb-space-sm">
+        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Intelligence Workspace</span>
+      </div>
+      <nav class="flex flex-col gap-0.5 px-space-sm" id="sidebarNav">
+        <!-- 1. Market Radar -->
+        <a href="#market-radar" onclick="navigateTo('market-radar', event)" class="nav-item flex items-center gap-space-md px-space-md py-space-sm rounded transition-colors bg-primary-container text-on-primary-container font-headline-sm" data-path="market-radar">
+          <span class="material-symbols-outlined text-[20px]">radar</span>
+          <span>Market Radar</span>
+        </a>
+        <!-- 2. Intelligence Feed -->
+        <a href="#intelligence-feed" onclick="navigateTo('intelligence-feed', event)" class="nav-item flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-body-md text-body-md" data-path="intelligence-feed">
+          <span class="material-symbols-outlined text-[20px]">bolt</span>
+          <span>Intelligence Feed</span>
+        </a>
+        <!-- 3. Evidence Review -->
+        <a href="#evidence-review" onclick="navigateTo('evidence-review', event)" class="nav-item flex items-center justify-between px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-body-md text-body-md" data-path="evidence-review">
+          <div class="flex items-center gap-space-md">
+            <span class="material-symbols-outlined text-[20px]">verified_user</span>
+            <span>Evidence Review</span>
+          </div>
+          <span id="evidencePendingBadge" class="font-mono-provenance text-mono-provenance px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-semibold">5 Pending</span>
+        </a>
+        <!-- 4. Competitor Benchmarking -->
+        <a href="#competitor-benchmarking" onclick="navigateTo('competitor-benchmarking', event)" class="nav-item flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-body-md text-body-md" data-path="competitor-benchmarking">
+          <span class="material-symbols-outlined text-[20px]">query_stats</span>
+          <span>Competitor Benchmarking</span>
+        </a>
+        <!-- 5. Economic Indicators -->
+        <a href="#economic-indicators" onclick="navigateTo('economic-indicators', event)" class="nav-item flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-body-md text-body-md" data-path="economic-indicators">
+          <span class="material-symbols-outlined text-[20px]">monitoring</span>
+          <span>Economic Indicators</span>
+        </a>
+        <!-- 6. Source Registry & Health -->
+        <a href="#source-registry-&-health" onclick="navigateTo('source-registry-&-health', event)" class="nav-item flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-body-md text-body-md" data-path="source-registry-&-health">
+          <span class="material-symbols-outlined text-[20px]">dns</span>
+          <span>Source Registry & Health</span>
+        </a>
+        <!-- 7. Reports & Briefings -->
+        <a href="#reports-&-briefings" onclick="navigateTo('reports-&-briefings', event)" class="nav-item flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-body-md text-body-md" data-path="reports-&-briefings">
+          <span class="material-symbols-outlined text-[20px]">description</span>
+          <span>Reports & Briefings</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Tenant Security & Infrastructure Status Panel -->
+    <div class="p-space-md flex flex-col gap-space-sm bg-surface-container-low border-t border-outline-variant/30">
+      <div class="flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-[16px] text-on-tertiary-container">lock</span>
+        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Tenant Security:</span>
+        <span class="font-mono-provenance text-mono-provenance text-on-tertiary-container font-semibold">RLS Active</span>
+      </div>
+      <div class="flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-[16px] text-secondary">cloud_done</span>
+        <div class="flex flex-col">
+          <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">PostgreSQL Ledger:</span>
+          <span class="font-mono-provenance text-mono-provenance text-on-surface">Synchronized (HRE-DC1)</span>
+        </div>
+      </div>
+      <div class="h-px w-full bg-outline-variant my-space-xs"></div>
+      <a href="#settings" onclick="navigateTo('settings', event)" class="nav-item flex items-center gap-space-sm px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md text-body-md" data-path="settings">
+        <span class="material-symbols-outlined text-[18px]">settings</span>
+        <span>Settings & Governance</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ═════════════════════════════════════════════════════════════════════ -->
+  <!-- 3. MAIN DYNAMIC VIEWPORT CONTAINER                                     -->
+  <!-- ═════════════════════════════════════════════════════════════════════ -->
+  <div class="pl-64">
+    <main class="relative pt-16 min-h-screen bg-surface w-full px-gutter-desktop">
+
+      <!-- =============================================================== -->
+      <!-- VIEW 1: MARKET RADAR                                            -->
+      <!-- =============================================================== -->
+      <section id="view-market-radar" class="view-panel flex flex-col w-full pb-space-xl">
+        <!-- Top Control Bar / Page Banner -->
+        <div class="flex flex-col gap-space-md mb-space-lg pt-space-md">
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+            <div class="flex flex-col">
+              <div class="flex items-center gap-space-sm">
+                <span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded bg-primary-container text-on-primary-container font-mono-provenance text-mono-provenance tracking-wider uppercase">
+                  <span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container animate-pulse"></span>
+                  LIVE RADAR FEED
+                </span>
+                <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">NODE: HRE-SOUTH-DC1</span>
+              </div>
+              <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">Market Radar: Zimbabwe Banking & Macro Intelligence</h1>
+              <p class="font-body-md text-body-md text-on-surface-variant">Real-time synthesized regulatory policy, liquidity signals, and institutional market monitoring.</p>
+            </div>
+            <!-- Quick Action Buttons -->
+            <div class="flex items-center gap-space-sm flex-wrap">
+              <div class="flex items-center gap-space-xs px-space-sm py-1.5 rounded bg-surface-container-low text-on-surface-variant font-mono-provenance text-mono-provenance border border-outline-variant/30">
+                <span class="material-symbols-outlined text-[16px] text-on-tertiary-container">sync</span>
+                <span id="radarLastSync">Last sync: 2 mins ago</span>
+              </div>
+              <button class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors font-headline-sm text-headline-sm shadow-sm" id="refreshBtn" onclick="triggerLiveRefresh()" type="button">
+                <span class="material-symbols-outlined text-[18px]">cached</span>
+                <span>Live Refresh</span>
+              </button>
+              <button onclick="navigateTo('reports-&-briefings')" class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-primary text-on-primary hover:bg-primary-container transition-colors font-headline-sm text-headline-sm shadow-md" type="button">
+                <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                <span>Generate Executive Briefing</span>
+              </button>
+            </div>
+          </div>
+          <!-- Filter Tray -->
+          <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md p-space-md rounded-lg bg-surface-container-lowest shadow-sm border border-outline-variant/20">
+            <div class="flex flex-wrap items-center gap-space-sm">
+              <div class="flex items-center gap-1.5 pr-space-sm text-on-surface-variant">
+                <span class="material-symbols-outlined text-[18px]">tune</span>
+                <span class="font-label-caps text-label-caps uppercase">Filters</span>
+              </div>
+              <!-- Timeframe selector -->
+              <div class="flex items-center rounded bg-surface-container-low p-0.5" id="timeframeFilter">
+                <button class="px-space-sm py-1 rounded text-body-sm font-headline-sm bg-surface-container-lowest text-on-surface shadow-sm" type="button">Last 7 Days</button>
+                <button class="px-space-sm py-1 rounded text-body-sm font-headline-sm text-on-surface-variant hover:text-on-surface" type="button">30 Days</button>
+                <button class="px-space-sm py-1 rounded text-body-sm font-headline-sm text-on-surface-variant hover:text-on-surface" type="button">Q3 2026</button>
+                <button class="px-space-sm py-1 rounded text-body-sm font-headline-sm text-on-surface-variant hover:text-on-surface" type="button">YTD</button>
+              </div>
+              <!-- Sector selector -->
+              <div class="relative">
+                <select class="appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm pl-space-md pr-8 py-1.5 rounded cursor-pointer outline-none border border-outline-variant/30">
+                  <option>Sector: Monetary Policy</option>
+                  <option>Sector: Commercial Banking</option>
+                  <option>Sector: Payments & Settlement</option>
+                  <option>Sector: Currency & FX</option>
+                  <option>Sector: All Sectors</option>
+                </select>
+                <span class="material-symbols-outlined absolute right-2 top-2 text-[16px] text-on-surface-variant pointer-events-none">expand_more</span>
+              </div>
+              <!-- Scope selector -->
+              <div class="relative">
+                <select class="appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm pl-space-md pr-8 py-1.5 rounded cursor-pointer outline-none border border-outline-variant/30">
+                  <option>Scope: Public + FCB Private Overlay</option>
+                  <option>Scope: Central Bank (RBZ Only)</option>
+                  <option>Scope: Competitor Public Filings</option>
+                </select>
+                <span class="material-symbols-outlined absolute right-2 top-2 text-[16px] text-on-surface-variant pointer-events-none">shield</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-space-sm self-end md:self-auto font-mono-provenance text-mono-provenance text-on-surface-variant">
+              <span class="inline-block w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+              <span>INDEXING: 1,489 RBZ & ZIMSTAT GAZETTES</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1. Executive KPI Summary Cards (4 Across) -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-lg">
+          <!-- Card 1: RBZ Policy Rate -->
+          <div class="flex flex-col justify-between p-space-md rounded-lg bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-outline-variant/20">
+            <div class="absolute -right-3 -top-3 w-16 h-16 rounded-full bg-secondary-fixed/30 pointer-events-none"></div>
+            <div class="flex items-center justify-between mb-space-sm">
+              <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">RBZ Policy Rate</span>
+              <span class="font-mono-provenance text-mono-provenance px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant">CIRCULAR 04/26</span>
+            </div>
+            <div class="flex items-baseline justify-between mb-space-xs">
+              <span class="font-headline-xl text-headline-xl text-on-surface font-numeric-metric">20.00%</span>
+              <span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-provenance text-mono-provenance">
+                <span class="material-symbols-outlined text-[14px]">horizontal_rule</span>
+                Unchanged
+              </span>
+            </div>
+            <div class="flex flex-col gap-1 pt-space-xs text-on-surface-variant">
+              <div class="flex items-center justify-between font-body-sm text-body-sm">
+                <span>MPC Stance</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface">Target Stability</span>
+              </div>
+              <div class="flex items-center justify-between font-mono-provenance text-mono-provenance text-secondary">
+                <span>Next MPC Window:</span>
+                <span>18 Dec 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Interbank FX -->
+          <div class="flex flex-col justify-between p-space-md rounded-lg bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-outline-variant/20">
+            <div class="absolute -right-3 -top-3 w-16 h-16 rounded-full bg-surface-variant/30 pointer-events-none"></div>
+            <div class="flex items-center justify-between mb-space-sm">
+              <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Interbank FX (USD/ZWG)</span>
+              <span class="font-mono-provenance text-mono-provenance px-space-xs py-0.5 rounded bg-surface-container-low text-secondary">WB / IMF PEER</span>
+            </div>
+            <div class="flex items-baseline justify-between mb-space-xs">
+              <span class="font-headline-xl text-headline-xl text-on-surface font-numeric-metric">26.8520</span>
+              <span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-mono-provenance text-mono-provenance">
+                <span class="material-symbols-outlined text-[14px]">trending_up</span>
+                +0.42% 7d
+              </span>
+            </div>
+            <div class="flex flex-col gap-1 pt-space-xs text-on-surface-variant">
+              <div class="flex items-center justify-between font-body-sm text-body-sm">
+                <span>Interbank 24h Vol</span>
+                <span class="font-mono-provenance text-mono-provenance text-on-surface font-semibold">$18.42M USD</span>
+              </div>
+              <div class="flex items-center justify-between font-mono-provenance text-mono-provenance">
+                <span>Parallel Premium:</span>
+                <span class="text-on-tertiary-container font-medium">3.1% (Tolerable)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Sector NPL -->
+          <div class="flex flex-col justify-between p-space-md rounded-lg bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-outline-variant/20">
+            <div class="absolute -right-3 -top-3 w-16 h-16 rounded-full bg-secondary-fixed-dim/20 pointer-events-none"></div>
+            <div class="flex items-center justify-between mb-space-sm">
+              <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Sector Non-Performing Loans</span>
+              <span class="font-mono-provenance text-mono-provenance px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant">BENCHMARK 5.0%</span>
+            </div>
+            <div class="flex items-baseline justify-between mb-space-xs">
+              <span class="font-headline-xl text-headline-xl text-on-surface font-numeric-metric">3.82%</span>
+              <span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded bg-surface-container-highest text-secondary font-mono-provenance text-mono-provenance">
+                <span class="material-symbols-outlined text-[14px]">trending_down</span>
+                -0.15% QoQ
+              </span>
+            </div>
+            <div class="flex flex-col gap-1 pt-space-xs text-on-surface-variant">
+              <div class="flex items-center justify-between font-body-sm text-body-sm">
+                <span>FCB Portfolio NPL</span>
+                <span class="font-headline-sm text-headline-sm text-on-tertiary-container">2.64% (Outperforming)</span>
+              </div>
+              <div class="flex items-center justify-between font-mono-provenance text-mono-provenance">
+                <span>Total Provisions Cov:</span>
+                <span class="text-on-surface font-medium">118.4%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Pending Intelligence Reviews -->
+          <div onclick="navigateTo('evidence-review')" class="flex flex-col justify-between p-space-md rounded-lg bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-outline-variant/20 cursor-pointer">
+            <div class="absolute -right-3 -top-3 w-16 h-16 rounded-full bg-error-container/40 pointer-events-none"></div>
+            <div class="flex items-center justify-between mb-space-sm">
+              <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Pending Evidence Reviews</span>
+              <span class="font-mono-provenance text-mono-provenance px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-semibold">HUMAN-IN-THE-LOOP</span>
+            </div>
+            <div class="flex items-baseline justify-between mb-space-xs">
+              <span class="font-headline-xl text-headline-xl text-on-surface font-numeric-metric">5 Drafts</span>
+              <span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-mono-provenance text-mono-provenance">
+                <span class="material-symbols-outlined text-[14px]">priority_high</span>
+                High Impact
+              </span>
+            </div>
+            <div class="flex flex-col gap-1 pt-space-xs text-on-surface-variant">
+              <div class="flex items-center justify-between font-body-sm text-body-sm">
+                <span>Audit SLA Target</span>
+                <span class="font-headline-sm text-headline-sm text-error">&lt; 45 Mins</span>
+              </div>
+              <div class="flex items-center justify-between font-mono-provenance text-mono-provenance">
+                <span>RBZ + ZIMSTAT:</span>
+                <span class="text-on-surface font-medium">2 Urgent Actions &rarr;</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Two-Column Intelligence & Market Dynamics Grid (65% / 35%) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+          <!-- LEFT COLUMN: Main Regulatory Signals & Macro Dynamics (8 Cols) -->
+          <div class="lg:col-span-8 flex flex-col gap-space-lg">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm p-space-md rounded-lg bg-surface-container-lowest shadow-sm border border-outline-variant/20">
+              <div class="flex items-center gap-space-sm">
+                <span class="material-symbols-outlined text-secondary text-[24px]">verified</span>
+                <div>
+                  <h2 class="font-headline-md text-headline-md text-on-surface">High-Priority Market Signals & Regulatory Directives</h2>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Validated extractions with line-item citations and systemic impact flags</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-space-xs">
+                <span class="font-mono-provenance text-mono-provenance px-space-sm py-1 rounded bg-surface-container-low text-on-surface border border-outline-variant/30">3 Signals Active</span>
+              </div>
+            </div>
+
+            <!-- Signal 1 -->
+            <article class="p-space-lg rounded-lg bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-md border border-outline-variant/20">
+              <div class="flex flex-wrap items-start justify-between gap-space-sm">
+                <div class="flex flex-wrap items-center gap-space-xs">
+                  <span class="px-space-sm py-0.5 rounded text-mono-provenance font-mono-provenance bg-surface-container text-on-surface-variant uppercase">
+                    Tier 1 Source: RBZ
+                  </span>
+                  <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full text-mono-provenance font-mono-provenance bg-surface-container-high text-on-tertiary-container">
+                    <span class="material-symbols-outlined text-[13px]">check_circle</span>
+                    Approved Extraction
+                  </span>
+                  <span class="px-space-sm py-0.5 rounded text-mono-provenance font-mono-provenance bg-secondary-fixed text-on-secondary-fixed font-semibold">
+                    Direct Impact: Capital Adequacy
+                  </span>
+                </div>
+                <div class="flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-surface-container-low text-on-tertiary-container font-mono-provenance text-mono-provenance">
+                  <span class="material-symbols-outlined text-[15px]">verified_user</span>
+                  <span>98% Confidence</span>
+                </div>
+              </div>
+              <div>
+                <h3 class="font-headline-md text-headline-md text-on-surface mb-1">
+                  RBZ Monetary Policy Circular No. 04/2026: Revision of Capital Adequacy Stress-Testing Guidelines for Tier 1 Commercial Banks
+                </h3>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Directs domestic systemically important commercial banks (D-SIBs) including First Capital Bank, CBZ, and Stanbic to adjust baseline stress scenarios for foreign currency exposures and ZiG clearing velocity. Mandates secondary tier capital reserves buffer of 250 bps above the standard 12% requirement starting Q4 2026.
+                </p>
+              </div>
+              <!-- Citations -->
+              <div class="flex flex-wrap items-center gap-space-xs p-space-sm rounded bg-surface-container-low">
+                <span class="font-label-caps text-label-caps text-on-surface-variant uppercase flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">link</span>
+                  Evidence Citations (3):
+                </span>
+                <a onclick="inspectCitation('RBZ-MPC-CIR-04-26.pdf')" class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded bg-surface-container-lowest text-secondary font-mono-provenance text-mono-provenance hover:bg-surface-container transition-colors cursor-pointer">
+                  <span class="material-symbols-outlined text-[13px]">description</span>
+                  RBZ-MPC-CIR-04-26.pdf (p.4, ¶2)
+                </a>
+                <a onclick="inspectCitation('Annexure B')" class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded bg-surface-container-lowest text-secondary font-mono-provenance text-mono-provenance hover:bg-surface-container transition-colors cursor-pointer">
+                  <span class="material-symbols-outlined text-[13px]">description</span>
+                  Annexure B: D-SIB Capital Surcharge (p.11)
+                </a>
+              </div>
+              <!-- Metrics Callout -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs text-on-surface">
+                <div class="p-space-sm rounded bg-surface-container-low flex flex-col">
+                  <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">New Min Tier-1 Ratio</span>
+                  <span class="font-numeric-metric text-numeric-metric font-semibold mt-1">14.50%</span>
+                  <span class="font-body-sm text-body-sm text-on-tertiary-container">+250 bps surcharge</span>
+                </div>
+                <div class="p-space-sm rounded bg-surface-container-low flex flex-col">
+                  <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">FCB Current Ratio</span>
+                  <span class="font-numeric-metric text-numeric-metric font-semibold mt-1 text-on-tertiary-container">17.20%</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant">Adequately buffered (+2.70%)</span>
+                </div>
+                <div class="p-space-sm rounded bg-surface-container-low flex flex-col">
+                  <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Implementation Deadline</span>
+                  <span class="font-mono-provenance text-mono-provenance text-on-surface font-semibold mt-1">31 OCTOBER 2026</span>
+                  <span class="font-body-sm text-body-sm text-error">Audit Schedule Set</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Signal 2 -->
+            <article class="p-space-lg rounded-lg bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-md border border-outline-variant/20">
+              <div class="flex flex-wrap items-start justify-between gap-space-sm">
+                <div class="flex flex-wrap items-center gap-space-xs">
+                  <span class="px-space-sm py-0.5 rounded text-mono-provenance font-mono-provenance bg-surface-container text-on-surface-variant uppercase">
+                    Tier 1 Source: ZIMSTAT
+                  </span>
+                  <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full text-mono-provenance font-mono-provenance bg-surface-container-high text-on-tertiary-container">
+                    <span class="material-symbols-outlined text-[13px]">check_circle</span>
+                    Approved
+                  </span>
+                  <span class="px-space-sm py-0.5 rounded text-mono-provenance font-mono-provenance bg-surface-container-highest text-on-secondary-container">
+                    Macro Indicator
+                  </span>
+                </div>
+                <div class="flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-surface-container-low text-on-tertiary-container font-mono-provenance text-mono-provenance">
+                  <span class="material-symbols-outlined text-[15px]">verified_user</span>
+                  <span>99% Confidence</span>
+                </div>
+              </div>
+              <div>
+                <h3 class="font-headline-md text-headline-md text-on-surface mb-1">
+                  ZIMSTAT Q3 Inflation Metrics: Blend MoM Decelerates to 0.7%, Weighted YoY Basket Stabilized
+                </h3>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Composite Consumer Price Index for the month shows anchoring effects of the Reserve Bank gold-backed currency anchor (ZiG). Food and non-alcoholic beverages contributed 0.28 percentage points, reflecting disciplined reserve money trajectory.
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center gap-space-xs p-space-sm rounded bg-surface-container-low">
+                <span class="font-label-caps text-label-caps text-on-surface-variant uppercase flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">link</span>
+                  Evidence Citations (1):
+                </span>
+                <a onclick="inspectCitation('ZIMSTAT_CPI_REPORT_SEPT_2026.xlsx')" class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded bg-surface-container-lowest text-secondary font-mono-provenance text-mono-provenance hover:bg-surface-container transition-colors cursor-pointer">
+                  <span class="material-symbols-outlined text-[13px]">table_chart</span>
+                  ZIMSTAT_CPI_REPORT_SEPT_2026.xlsx (Tab 3: Weighted Deflator)
+                </a>
+              </div>
+            </article>
+
+            <!-- Macro Trend Chart Card -->
+            <section class="p-space-lg rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-space-md border border-outline-variant/20">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+                <div>
+                  <div class="flex items-center gap-space-xs">
+                    <span class="material-symbols-outlined text-secondary text-[20px]">ssid_chart</span>
+                    <h3 class="font-headline-md text-headline-md text-on-surface">Liquidity Velocity & Reserve Money (M2 vs Zimswitch Volume)</h3>
+                  </div>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Correlation between Central Bank aggregate liquidity and clearing velocity</p>
+                </div>
+                <div class="flex items-center gap-space-xs bg-surface-container-low p-0.5 rounded" id="chartSpanControls">
+                  <button class="px-space-sm py-1 rounded text-body-sm font-headline-sm text-on-surface-variant hover:text-on-surface" onclick="setChartSpan(this, '3M')" type="button">3M</button>
+                  <button class="px-space-sm py-1 rounded text-body-sm font-headline-sm bg-surface-container-lowest text-on-surface shadow-sm font-semibold" onclick="setChartSpan(this, '6M')" type="button">6M</button>
+                  <button class="px-space-sm py-1 rounded text-body-sm font-headline-sm text-on-surface-variant hover:text-on-surface" onclick="setChartSpan(this, '1Y')" type="button">1Y</button>
+                </div>
+              </div>
+
+              <!-- SVG Inline Chart -->
+              <div class="relative w-full bg-surface-container-low p-space-md rounded-lg overflow-hidden border border-outline-variant/20">
+                <div class="flex items-center justify-between font-mono-provenance text-mono-provenance text-on-surface-variant mb-2">
+                  <span>INDEX BASE = 100 (JUNE 2026)</span>
+                  <div class="flex items-center gap-space-md">
+                    <span class="flex items-center gap-1 text-secondary">
+                      <span class="w-3 h-0.5 bg-secondary inline-block"></span>
+                      ZWG Reserve M2 Stock
+                    </span>
+                    <span class="flex items-center gap-1 text-on-tertiary-container">
+                      <span class="w-3 h-0.5 bg-on-tertiary-container inline-block"></span>
+                      Zimswitch Clearing Vol
+                    </span>
+                  </div>
+                </div>
+                <svg class="w-full h-56 text-secondary" preserveaspectratio="none" viewbox="0 0 760 220">
+                  <line stroke="currentColor" stroke-dasharray="3,3" stroke-opacity="0.1" x1="0" x2="760" y1="30" y2="30"></line>
+                  <line stroke="currentColor" stroke-dasharray="3,3" stroke-opacity="0.1" x1="0" x2="760" y1="80" y2="80"></line>
+                  <line stroke="currentColor" stroke-dasharray="3,3" stroke-opacity="0.1" x1="0" x2="760" y1="130" y2="130"></line>
+                  <line stroke="currentColor" stroke-dasharray="3,3" stroke-opacity="0.1" x1="0" x2="760" y1="180" y2="180"></line>
+                  <path d="M 0,160 Q 95,150 190,140 T 380,125 T 570,95 T 760,80 L 760,210 L 0,210 Z" fill="currentColor" fill-opacity="0.08"></path>
+                  <path d="M 0,160 Q 95,150 190,140 T 380,125 T 570,95 T 760,80" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+                  <path d="M 0,185 Q 95,170 190,120 T 380,140 T 570,75 T 760,50" fill="none" stroke="#0c9488" stroke-dasharray="5,2" stroke-width="2.5"></path>
+                  <g transform="translate(380, 125)">
+                    <circle cx="0" cy="0" fill="#006398" r="4" stroke="#ffffff" stroke-width="2"></circle>
+                    <line stroke="#006398" stroke-dasharray="2,2" stroke-width="1" x1="0" x2="0" y1="-5" y2="-45"></line>
+                  </g>
+                  <g transform="translate(570, 75)">
+                    <circle cx="0" cy="0" fill="#0c9488" r="4" stroke="#ffffff" stroke-width="2"></circle>
+                  </g>
+                </svg>
+                <div class="flex justify-between items-center pt-2 font-mono-provenance text-mono-provenance text-on-surface-variant">
+                  <span>01 Jun 2026</span>
+                  <span>01 Jul 2026</span>
+                  <span class="text-secondary font-semibold">15 Aug (MPC Gold Inflow)</span>
+                  <span>01 Sep 2026</span>
+                  <span>Today (11 Nov)</span>
+                </div>
+              </div>
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-xs pt-space-xs font-body-sm text-body-sm text-on-surface-variant">
+                <div class="flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[16px] text-on-tertiary-container">history_toggle_off</span>
+                  <span>Data point audited against RBZ Monthly Economic Review Table 4.1</span>
+                </div>
+                <button onclick="navigateTo('economic-indicators')" class="text-secondary font-headline-sm hover:underline flex items-center gap-0.5" type="button">
+                  <span>Explore Macro Time Series</span>
+                  <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </button>
+              </div>
+            </section>
+          </div>
+
+          <!-- RIGHT COLUMN: Evidence Queue, Peer Watch & Health (4 Cols) -->
+          <div class="lg:col-span-4 flex flex-col gap-space-lg">
+            <!-- Review Workbench Quick Queue -->
+            <section class="p-space-md rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-space-md border border-outline-variant/20">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-error text-[20px]">pending_actions</span>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface">Evidence Review Workbench</h3>
+                </div>
+                <span class="px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-mono-provenance text-mono-provenance font-semibold">
+                  2 PENDING
+                </span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">
+                Unconfirmed regulatory extractions awaiting risk officer signature before institutional propagation.
+              </p>
+
+              <!-- Queue Quick Item 1 -->
+              <div class="p-space-sm rounded bg-surface-container-low flex flex-col gap-space-xs border border-outline-variant/30">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono-provenance text-mono-provenance text-secondary font-semibold">EXT-2026-0982</span>
+                  <span class="px-space-xs py-0.5 rounded bg-surface-container font-mono-provenance text-mono-provenance text-on-surface-variant">78% Match</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface font-medium line-clamp-2">
+                  "Statutory Reserve Requirement for Foreign Currency Demand Deposits increased from 15% to 18% effective 1 Nov."
+                </p>
+                <div class="flex items-center gap-1 font-mono-provenance text-mono-provenance text-on-surface-variant">
+                  <span class="material-symbols-outlined text-[14px]">picture_as_pdf</span>
+                  <span>Source: RBZ Circular p.4 ¶3</span>
+                </div>
+                <div class="flex items-center gap-space-xs pt-1">
+                  <button onclick="navigateTo('evidence-review')" class="flex-1 py-1 px-space-xs rounded bg-primary text-on-primary font-headline-sm text-headline-sm text-center hover:bg-primary-container transition-colors text-body-sm" type="button">
+                    Review in Workbench
+                  </button>
+                </div>
+              </div>
+
+              <!-- Queue Quick Item 2 -->
+              <div class="p-space-sm rounded bg-surface-container-low flex flex-col gap-space-xs border border-outline-variant/30">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono-provenance text-mono-provenance text-secondary font-semibold">EXT-2026-0984</span>
+                  <span class="px-space-xs py-0.5 rounded bg-surface-container font-mono-provenance text-mono-provenance text-on-surface-variant">82% Match</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface font-medium line-clamp-2">
+                  "Zimswitch National Switch switches clearing cycle frequency from T+1 to four-hour daily settlement batches."
+                </p>
+                <div class="flex items-center gap-1 font-mono-provenance text-mono-provenance text-on-surface-variant">
+                  <span class="material-symbols-outlined text-[14px]">article</span>
+                  <span>Source: ZIMSWITCH Ops Memo 12/26</span>
+                </div>
+                <div class="flex items-center gap-space-xs pt-1">
+                  <button onclick="navigateTo('evidence-review')" class="flex-1 py-1 px-space-xs rounded bg-primary text-on-primary font-headline-sm text-headline-sm text-center hover:bg-primary-container transition-colors text-body-sm" type="button">
+                    Review in Workbench
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Zimbabwe Banking Peer Watch -->
+            <section class="p-space-md rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-space-md border border-outline-variant/20">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-secondary text-[20px]">domain</span>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface">Zimbabwe Banking Peer Watch</h3>
+                </div>
+                <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Q3 POSITIONS</span>
+              </div>
+              <div class="flex flex-col gap-space-xs">
+                <!-- Peer 1: FCB -->
+                <div class="p-space-sm rounded bg-surface-container-high flex flex-col gap-1 border border-outline-variant/30">
+                  <div class="flex items-center justify-between">
+                    <span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1">
+                      First Capital Bank (FCB)
+                      <span class="font-mono-provenance text-mono-provenance px-1 py-0.2 rounded bg-primary text-on-primary text-[10px]">YOU</span>
+                    </span>
+                    <span class="font-mono-provenance text-mono-provenance text-on-tertiary-container font-semibold">Tier 1 Leader</span>
+                  </div>
+                  <div class="flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant">
+                    <span>90-Day Fixed ZiG: <strong class="text-on-surface">11.25%</strong></span>
+                    <span>USD Lending: <strong class="text-on-surface">9.50%</strong></span>
+                  </div>
+                  <span class="font-mono-provenance text-mono-provenance text-secondary">Initiated Trade Finance Structured Facility ($35M)</span>
+                </div>
+                <!-- Peer 2: CBZ -->
+                <div class="p-space-sm rounded bg-surface-container-low flex flex-col gap-1 border border-outline-variant/20">
+                  <div class="flex items-center justify-between">
+                    <span class="font-headline-sm text-headline-sm text-on-surface">CBZ Holdings</span>
+                    <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">D-SIB #1</span>
+                  </div>
+                  <div class="flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant">
+                    <span>90-Day Fixed ZiG: <strong class="text-on-surface">11.75%</strong></span>
+                    <span>USD Lending: <strong class="text-on-surface">10.00%</strong></span>
+                  </div>
+                  <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">Expanded Agro-Yield Bond placement</span>
+                </div>
+                <!-- Peer 3: Stanbic -->
+                <div class="p-space-sm rounded bg-surface-container-low flex flex-col gap-1 border border-outline-variant/20">
+                  <div class="flex items-center justify-between">
+                    <span class="font-headline-sm text-headline-sm text-on-surface">Stanbic Bank ZW</span>
+                    <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">Standard Bank Grp</span>
+                  </div>
+                  <div class="flex items-center justify-between text-body-sm text-body-sm text-on-surface-variant">
+                    <span>90-Day Fixed ZiG: <strong class="text-on-surface">10.50%</strong></span>
+                    <span>USD Lending: <strong class="text-on-surface">9.00%</strong></span>
+                  </div>
+                  <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">Repriced Corporate Tariff fee schedule</span>
+                </div>
+              </div>
+              <button onclick="navigateTo('competitor-benchmarking')" class="text-secondary font-headline-sm text-body-sm hover:underline flex items-center justify-center gap-1 pt-1">
+                <span>View Full Competitor Matrix</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </button>
+            </section>
+
+            <!-- Source Pipeline Health Card -->
+            <section class="p-space-md rounded-lg bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm border border-outline-variant/20">
+              <div class="flex items-center justify-between">
+                <span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[18px] text-secondary">dns</span>
+                  Ingestion Pipeline Health
+                </span>
+                <span class="font-mono-provenance text-mono-provenance text-on-tertiary-container font-semibold">ALL OPERATIONAL</span>
+              </div>
+              <div class="flex flex-col gap-space-xs pt-1 font-body-sm text-body-sm">
+                <div class="flex items-center justify-between p-space-xs rounded bg-surface-container-low">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+                    <span class="font-medium text-on-surface">RBZ RSS & Gazette Stream</span>
+                  </div>
+                  <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">Polling / Connected</span>
+                </div>
+                <div class="flex items-center justify-between p-space-xs rounded bg-surface-container-low">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+                    <span class="font-medium text-on-surface">ZIMSTAT Statistical Portal</span>
+                  </div>
+                  <span class="font-mono-provenance text-mono-provenance text-secondary">Sched: 14:00 UTC</span>
+                </div>
+              </div>
+              <div class="pt-space-xs flex items-center justify-between text-on-surface-variant font-mono-provenance text-mono-provenance">
+                <span>PIPELINE LATENCY: 240ms</span>
+                <a onclick="navigateTo('source-registry-&-health')" class="text-secondary hover:underline cursor-pointer">View Registry &rarr;</a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- VIEW 2: INTELLIGENCE FEED (LIVE WIRE)                           -->
+      <!-- =============================================================== -->
+      <section id="view-intelligence-feed" class="view-panel hidden flex flex-col w-full pb-space-xl">
+        <div class="flex flex-col gap-space-sm mb-space-lg pt-space-md">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div>
+              <div class="flex items-center gap-space-xs text-secondary mb-1">
+                <span class="material-symbols-outlined text-[16px]">bolt</span>
+                <span class="font-label-caps text-label-caps uppercase tracking-wider">Real-Time Market Wire · Verified Ingestion Engine</span>
+              </div>
+              <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Intelligence Feed</h1>
+              <p class="font-body-md text-body-md text-on-surface-variant max-w-4xl mt-0.5">
+                Chronological, multi-source financial and regulatory wire. Every entry is automatically deduplicated, classified, and grounded against source documents.
+              </p>
+            </div>
+            <!-- Feed Stats -->
+            <div class="flex items-center gap-space-sm bg-surface-container-lowest px-space-md py-space-xs rounded-xl shadow-sm border border-outline-variant/20">
+              <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Stream Status:</span>
+              <span class="inline-flex items-center gap-1 font-mono-provenance text-mono-provenance text-on-tertiary-container font-semibold">
+                <span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-ping"></span> Live WebSocket
+              </span>
+              <div class="w-px h-3 bg-outline-variant"></div>
+              <span class="font-mono-provenance text-mono-provenance text-on-surface font-semibold">48 Dispatches Today</span>
+            </div>
+          </div>
+
+          <!-- Feed Filter Bar -->
+          <div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+            <div class="flex flex-wrap items-center gap-space-xs" id="feedCategoryFilters">
+              <button onclick="filterFeed('all', this)" class="feed-btn px-space-sm py-1 rounded-full bg-primary text-on-primary font-label-caps text-label-caps flex items-center gap-1 shadow-sm">
+                <span>All Categories</span>
+                <span class="font-mono-provenance text-mono-provenance bg-surface-container-lowest text-primary px-1.5 py-0.2 rounded-full font-bold">12</span>
+              </button>
+              <button onclick="filterFeed('monetary', this)" class="feed-btn px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-caps text-label-caps">
+                Monetary Policy (4)
+              </button>
+              <button onclick="filterFeed('fx', this)" class="feed-btn px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-caps text-label-caps">
+                FX & Interbank (3)
+              </button>
+              <button onclick="filterFeed('competitor', this)" class="feed-btn px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-caps text-label-caps">
+                Competitor Tariffs (3)
+              </button>
+              <button onclick="filterFeed('macro', this)" class="feed-btn px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-caps text-label-caps">
+                ZIMSTAT Macro (2)
+              </button>
+            </div>
+            <!-- Search in feed -->
+            <div class="flex items-center gap-space-xs bg-surface-container-lowest px-space-sm py-1 rounded-xl shadow-sm border border-outline-variant/30">
+              <span class="material-symbols-outlined text-[16px] text-on-surface-variant">search</span>
+              <input type="text" id="feedSearchInput" onkeyup="searchFeed()" placeholder="Search wire headlines..." class="bg-transparent border-0 outline-none text-body-sm font-body-sm text-on-surface placeholder:text-on-surface-variant w-48"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feed List -->
+        <div class="flex flex-col gap-space-sm" id="feedContainer">
+          <!-- Item 1 -->
+          <article class="feed-item bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow border border-outline-variant/20 flex flex-col gap-space-xs" data-category="monetary">
+            <div class="flex flex-wrap items-center justify-between gap-space-xs">
+              <div class="flex items-center gap-space-xs">
+                <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-error-container text-on-error-container font-semibold uppercase flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-error"></span> High Impact
+                </span>
+                <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-surface-container text-on-surface-variant">Tier 1 Official (RBZ)</span>
+                <span class="font-mono-provenance text-mono-provenance text-outline">12 Mins Ago · 08:48 UTC</span>
+              </div>
+              <div class="flex items-center gap-1 text-on-tertiary-container font-mono-provenance text-mono-provenance">
+                <span class="material-symbols-outlined text-[15px]">verified_user</span>
+                <span>98% Conf</span>
+              </div>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-on-surface font-semibold mt-1">
+              RBZ Issues Circular 08/2026: Nostro Statutory Reserves sterilisation requirement set at 18%
+            </h3>
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Commercial banking authorized dealers instructed to deposit incremental Nostro reserves with central bank before 1 November. Estimated $14.2M liquidity reallocation required for First Capital Bank portfolio.
+            </p>
+            <div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs border-t border-outline-variant/20 mt-1">
+              <div class="flex items-center gap-2 font-mono-provenance text-mono-provenance text-secondary">
+                <span class="material-symbols-outlined text-[15px]">attachment</span>
+                <span>MPS_Circular_08_2026.pdf (p.14, ¶3)</span>
+              </div>
+              <div class="flex items-center gap-space-xs">
+                <button onclick="navigateTo('evidence-review')" class="px-space-sm py-1 rounded bg-surface-container-low text-secondary font-headline-sm text-headline-sm hover:bg-surface-container transition-colors">
+                  Inspect in Evidence Review &rarr;
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 2 -->
+          <article class="feed-item bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow border border-outline-variant/20 flex flex-col gap-space-xs" data-category="competitor">
+            <div class="flex flex-wrap items-center justify-between gap-space-xs">
+              <div class="flex items-center gap-space-xs">
+                <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-surface-container text-on-surface font-medium uppercase">
+                  Competitor Alert
+                </span>
+                <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-surface-container text-on-surface-variant">Tier 2 Commercial</span>
+                <span class="font-mono-provenance text-mono-provenance text-outline">1 Hour Ago · 07:30 UTC</span>
+              </div>
+              <div class="flex items-center gap-1 text-secondary font-mono-provenance text-mono-provenance">
+                <span class="material-symbols-outlined text-[15px]">check_circle</span>
+                <span>92% Conf</span>
+              </div>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-on-surface font-semibold mt-1">
+              Stanbic Bank launches revised Corporate FX Cash Deposit structure (5.50% 90-Day Yield)
+            </h3>
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Waiver of cash-handling commission for Nostro deposits exceeding $100k paired with 5.50% 90-day yield. Directly targeted at multinational mining and tobacco off-takers.
+            </p>
+            <div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs border-t border-outline-variant/20 mt-1">
+              <div class="flex items-center gap-2 font-mono-provenance text-mono-provenance text-secondary">
+                <span class="material-symbols-outlined text-[15px]">newspaper</span>
+                <span>Stanbic Q4 Public Tariff Matrix</span>
+              </div>
+              <button onclick="navigateTo('competitor-benchmarking')" class="px-space-sm py-1 rounded bg-surface-container-low text-secondary font-headline-sm text-headline-sm hover:bg-surface-container transition-colors">
+                View Competitor Benchmark &rarr;
+              </button>
+            </div>
+          </article>
+
+          <!-- Item 3 -->
+          <article class="feed-item bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow border border-outline-variant/20 flex flex-col gap-space-xs" data-category="fx">
+            <div class="flex flex-wrap items-center justify-between gap-space-xs">
+              <div class="flex items-center gap-space-xs">
+                <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-surface-container text-on-surface font-medium uppercase">
+                  Liquidity & Clearing
+                </span>
+                <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-surface-container text-on-surface-variant">Tier 1 Switch</span>
+                <span class="font-mono-provenance text-mono-provenance text-outline">3 Hours Ago</span>
+              </div>
+              <div class="flex items-center gap-1 text-on-tertiary-container font-mono-provenance text-mono-provenance">
+                <span class="material-symbols-outlined text-[15px]">verified_user</span>
+                <span>96% Conf</span>
+              </div>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-on-surface font-semibold mt-1">
+              Zimswitch National Switch accelerates intraday settlement batches to 4-hour clearing windows
+            </h3>
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              RTGS batch cycles reduced from overnight settlement to 4-hour settlement windows between 08:00 and 16:00 CAT. Improves ZiG clearing velocity by an estimated 28%.
+            </p>
+            <div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs border-t border-outline-variant/20 mt-1">
+              <div class="flex items-center gap-2 font-mono-provenance text-mono-provenance text-secondary">
+                <span class="material-symbols-outlined text-[15px]">article</span>
+                <span>ZIMSWITCH Ops Memo 12/26</span>
+              </div>
+              <button onclick="showToast('Dispatch saved to briefing drafting queue')" class="px-space-sm py-1 rounded bg-surface-container-low text-on-surface font-headline-sm text-headline-sm hover:bg-surface-container transition-colors">
+                Add to Briefing
+              </button>
+            </div>
+          </article>
+
+          <!-- Item 4 -->
+          <article class="feed-item bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow border border-outline-variant/20 flex flex-col gap-space-xs" data-category="macro">
+            <div class="flex flex-wrap items-center justify-between gap-space-xs">
+              <div class="flex items-center gap-space-xs">
+                <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-surface-container text-on-surface font-medium uppercase">
+                  Official Statistics
+                </span>
+                <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-surface-container text-on-surface-variant">Tier 1 ZIMSTAT</span>
+                <span class="font-mono-provenance text-mono-provenance text-outline">Yesterday, 14:00 UTC</span>
+              </div>
+              <div class="flex items-center gap-1 text-on-tertiary-container font-mono-provenance text-mono-provenance">
+                <span class="material-symbols-outlined text-[15px]">verified_user</span>
+                <span>99% Conf</span>
+              </div>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-on-surface font-semibold mt-1">
+              ZIMSTAT External Trade Bulletin: Mining Remittances top $2.1B in first 8 months
+            </h3>
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Gold and PGMs accounted for 64% of total export receipts. Foreign currency reserves backstop expands by $180M under RBZ surrendered export receipt allocations.
+            </p>
+            <div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs border-t border-outline-variant/20 mt-1">
+              <div class="flex items-center gap-2 font-mono-provenance text-mono-provenance text-secondary">
+                <span class="material-symbols-outlined text-[15px]">table_chart</span>
+                <span>ZIMSTAT_Trade_Bulletin_Aug26.pdf</span>
+              </div>
+              <button onclick="navigateTo('economic-indicators')" class="px-space-sm py-1 rounded bg-surface-container-low text-secondary font-headline-sm text-headline-sm hover:bg-surface-container transition-colors">
+                View Trade Indicators &rarr;
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- VIEW 3: EVIDENCE REVIEW & VERIFICATION                          -->
+      <!-- =============================================================== -->
+      <section id="view-evidence-review" class="view-panel hidden flex flex-col w-full pb-space-xl">
+        <div class="flex flex-col gap-space-sm mb-space-lg pt-space-md">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div>
+              <div class="flex items-center gap-space-xs text-secondary mb-1">
+                <span class="material-symbols-outlined text-[16px]">verified</span>
+                <span class="font-label-caps text-label-caps uppercase tracking-wider">Human-in-the-Loop Governance · Level 3 Audit</span>
+              </div>
+              <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Evidence Review & Intelligence Verification</h1>
+              <p class="font-body-md text-body-md text-on-surface-variant max-w-4xl mt-0.5">
+                Review AI-extracted factual claims, verify underlying document citations, and approve or reject draft intelligence before cross-tenant institutional publication.
+              </p>
+            </div>
+            <!-- Quick Metrics Ribbon -->
+            <div class="flex items-center gap-space-sm bg-surface-container-lowest px-space-md py-space-xs rounded-xl shadow-sm self-start md:self-auto border border-outline-variant/20">
+              <div class="flex items-center gap-space-xs">
+                <span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+                <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Pipeline Integrity</span>
+              </div>
+              <span class="font-mono-provenance text-mono-provenance text-secondary font-medium">99.8% Grounded</span>
+              <div class="w-px h-3 bg-outline-variant"></div>
+              <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Pending Audit SLA</span>
+              <span class="font-mono-provenance text-mono-provenance text-on-surface font-semibold">01h 42m</span>
+            </div>
+          </div>
+          <!-- Filters & Facets Toolbar -->
+          <div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+            <div class="flex flex-wrap items-center gap-space-xs">
+              <div class="font-label-caps text-label-caps text-on-surface-variant uppercase mr-space-xs">Status:</div>
+              <button class="px-space-sm py-1 rounded-full bg-surface-container-highest text-on-surface font-label-caps text-label-caps flex items-center gap-1 shadow-sm" type="button">
+                <span>All</span>
+                <span class="font-mono-provenance text-mono-provenance bg-surface-container-lowest px-1.5 py-0.2 rounded-full text-on-surface">18</span>
+              </button>
+              <button class="px-space-sm py-1 rounded-full bg-primary text-on-primary font-label-caps text-label-caps flex items-center gap-1 shadow-sm" type="button">
+                <span>Pending Review</span>
+                <span class="font-mono-provenance text-mono-provenance bg-surface-container-lowest text-primary px-1.5 py-0.2 rounded-full font-bold" id="badgePendingCount">5</span>
+              </button>
+              <button class="px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-caps text-label-caps flex items-center gap-1" type="button">
+                <span>Needs More Evidence</span>
+                <span class="font-mono-provenance text-mono-provenance bg-surface-container-highest px-1.5 py-0.2 rounded-full text-on-surface-variant">3</span>
+              </button>
+              <button class="px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-caps text-label-caps flex items-center gap-1" type="button">
+                <span>Approved</span>
+                <span class="font-mono-provenance text-mono-provenance bg-surface-container-highest px-1.5 py-0.2 rounded-full text-on-surface-variant">84</span>
+              </button>
+            </div>
+            <div class="flex flex-wrap items-center gap-space-sm">
+              <div class="flex items-center gap-space-xs bg-surface-container-lowest px-space-sm py-1 rounded-xl shadow-sm border border-outline-variant/30">
+                <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Source:</span>
+                <select class="bg-transparent font-body-sm text-body-sm text-on-surface outline-none cursor-pointer pr-1">
+                  <option>All Tiers</option>
+                  <option selected="">Tier 1 Official (Central Bank, Gov)</option>
+                  <option>Tier 2 Multilateral (IMF, AfDB)</option>
+                  <option>Tier 3 Reputable Media</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dual-Zone Split Layout -->
+        <div class="grid grid-cols-12 gap-space-lg items-start">
+          <!-- LEFT PANEL: Review Queue (5 Cols) -->
+          <div class="col-span-12 lg:col-span-5 flex flex-col gap-space-sm">
+            <div class="flex items-center justify-between px-space-xs mb-0.5">
+              <div class="flex items-center gap-space-xs">
+                <span class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Review Queue</span>
+                <span class="font-mono-provenance text-mono-provenance px-space-xs py-0.5 rounded bg-surface-container-highest text-on-surface-variant">5 Awaiting</span>
+              </div>
+              <span class="font-label-caps text-label-caps text-secondary uppercase flex items-center">
+                Impact Descending <span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+              </span>
+            </div>
+            <div class="flex flex-col gap-space-sm" id="queueContainer">
+              <!-- Queue Card 1 (Active) -->
+              <div class="queue-card relative bg-surface-container-lowest p-space-md rounded-xl shadow-md cursor-pointer transition-all border border-outline-variant/20" id="card-1" onclick="selectQueueCard(1)">
+                <div class="active-indicator absolute left-0 top-0 bottom-0 w-1.5 bg-secondary rounded-l-xl"></div>
+                <div class="flex items-start justify-between gap-space-xs mb-space-xs pl-space-xs">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-error-container text-on-error-container font-semibold uppercase flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-error"></span> High Impact
+                    </span>
+                    <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-surface-container-high text-on-surface-variant">Tier 1 Official</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px] text-on-tertiary-container">verified_user</span>
+                    <span class="font-mono-provenance text-mono-provenance font-semibold text-on-tertiary-container">94% Conf</span>
+                  </div>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface leading-snug pl-space-xs mb-space-xs font-semibold">
+                  RBZ Directs Commercial Banks on Increased Statutory Reserve Ratio for Foreign Currency Deposits from 15% to 18%
+                </h3>
+                <div class="flex flex-wrap items-center gap-space-xs pl-space-xs mb-space-sm">
+                  <span class="px-space-xs py-0.5 rounded bg-surface-container font-label-caps text-label-caps text-on-surface-variant">Monetary Policy</span>
+                  <span class="px-space-xs py-0.5 rounded bg-surface-container font-label-caps text-label-caps text-on-surface-variant">Liquidity Requirements</span>
+                </div>
+                <div class="pt-space-xs pl-space-xs flex flex-col gap-1 bg-surface-container-low p-space-xs rounded">
+                  <div class="flex items-center justify-between text-on-surface-variant">
+                    <span class="font-mono-provenance text-mono-provenance flex items-center gap-1 truncate">
+                      <span class="material-symbols-outlined text-[14px]">account_balance</span>
+                      Reserve Bank of Zimbabwe (RBZ)
+                    </span>
+                    <span class="font-mono-provenance text-mono-provenance">MPS_Circular_08_2026.pdf (p.14)</span>
+                  </div>
+                  <div class="flex items-center justify-between text-on-surface-variant">
+                    <span class="font-mono-hash text-mono-hash text-outline truncate max-w-[180px]">SHA256: 7f8a9e403d1...b3c</span>
+                    <span class="font-mono-provenance text-mono-provenance text-outline">Today, 08:30 UTC</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Queue Card 2 -->
+              <div class="queue-card bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md cursor-pointer transition-all border border-outline-variant/20" id="card-2" onclick="selectQueueCard(2)">
+                <div class="flex items-start justify-between gap-space-xs mb-space-xs">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-surface-container-high text-on-surface uppercase font-medium">Pending Review</span>
+                    <span class="px-space-xs py-0.5 rounded font-label-caps text-label-caps bg-surface-container text-on-surface-variant">Tier 2 Commercial</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+                    <span class="font-mono-provenance text-mono-provenance font-semibold text-secondary">88% Conf</span>
+                  </div>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface leading-snug mb-space-xs font-semibold">
+                  Stanbic Bank Introduces Zero-Rated SME Digital Merchant Settlement via Zimswitch Direct
+                </h3>
+                <div class="flex flex-wrap items-center gap-space-xs mb-space-sm">
+                  <span class="px-space-xs py-0.5 rounded bg-surface-container font-label-caps text-label-caps text-on-surface-variant">Competitive Dynamics</span>
+                  <span class="px-space-xs py-0.5 rounded bg-surface-container font-label-caps text-label-caps text-on-surface-variant">Payment Rails</span>
+                </div>
+                <div class="flex items-center justify-between text-on-surface-variant text-body-sm pt-space-xs bg-surface-container-low p-space-xs rounded">
+                  <span class="font-mono-provenance text-mono-provenance truncate flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">feed</span> Stanbic Press Release & Tariff
+                  </span>
+                  <span class="font-mono-provenance text-mono-provenance text-outline">Yesterday, 16:45 UTC</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT PANEL: Dual Inspection & Verification Canvas (7 Cols) -->
+          <div class="col-span-12 lg:col-span-7 flex flex-col gap-space-md">
+            <!-- Action Shelf -->
+            <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-md flex flex-col gap-space-sm border border-outline-variant/20">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+                <div class="flex items-center gap-space-sm">
+                  <div class="flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-surface-container-high text-on-surface">
+                    <span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+                    <span class="font-label-caps text-label-caps uppercase font-semibold">Status: DRAFT</span>
+                  </div>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant hidden sm:inline">· Pending Senior Executive Sign-off</span>
+                </div>
+                <div class="flex items-center gap-space-xs">
+                  <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">Assigned Lead:</span>
+                  <span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1 font-semibold">
+                    Dr. T. Moyo <span class="material-symbols-outlined text-[16px] text-on-tertiary-container">verified</span>
+                  </span>
+                </div>
+              </div>
+              <!-- Action Buttons -->
+              <div class="flex flex-wrap items-center gap-space-xs pt-space-xs">
+                <button onclick="handleReject()" class="flex-1 min-w-[120px] px-space-sm py-2 rounded bg-error-container text-on-error-container hover:bg-error hover:text-on-error transition-colors flex items-center justify-center gap-1.5 font-headline-sm text-headline-sm" type="button">
+                  <span class="material-symbols-outlined text-[18px]">cancel</span>
+                  <span>Reject Claim</span>
+                </button>
+                <button onclick="handleRequestEvidence()" class="flex-1 min-w-[140px] px-space-sm py-2 rounded bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors flex items-center justify-center gap-1.5 font-headline-sm text-headline-sm" type="button">
+                  <span class="material-symbols-outlined text-[18px]">add_link</span>
+                  <span>Request Evidence</span>
+                </button>
+                <button onclick="handleApprove()" class="flex-grow-[2] min-w-[180px] px-space-md py-2 rounded bg-primary text-on-primary hover:bg-primary-container transition-all flex items-center justify-center gap-2 font-headline-sm text-headline-sm shadow-md" id="btn-approve" type="button">
+                  <span class="material-symbols-outlined text-[20px] text-on-tertiary-container">check_circle</span>
+                  <span>Approve & Publish</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- AI Extracted Claim Box -->
+            <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md border border-outline-variant/20">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-xs">
+                  <span class="p-1 rounded bg-secondary-fixed text-on-secondary-fixed flex items-center">
+                    <span class="material-symbols-outlined text-[18px]">psychology</span>
+                  </span>
+                  <h2 class="font-headline-md text-headline-md text-on-surface">AI Extracted Claim & Analytical Synthesis</h2>
+                </div>
+                <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">Model: Meridian-Gateway (Claude-3.5-Sonnet)</span>
+              </div>
+              <div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs border border-outline-variant/30">
+                <div class="flex items-center justify-between">
+                  <span class="font-label-caps text-label-caps text-secondary uppercase font-semibold flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">format_quote</span>
+                    Atomic Verified Factual Claim
+                  </span>
+                  <div class="flex items-center gap-1 bg-surface-container px-2 py-0.5 rounded text-on-surface font-mono-provenance text-mono-provenance">
+                    <span class="material-symbols-outlined text-[14px] text-on-tertiary-container">done_all</span>
+                    Strict Semantic Grounding: 100%
+                  </div>
+                </div>
+                <p class="font-headline-sm text-headline-sm text-on-surface font-medium leading-relaxed" id="claimText">
+                  “Effective 1 November 2026, statutory reserve requirements on all Nostro / Foreign Currency Accounts (FCAs) are revised upward to 18% (previously 15%). Domestic local currency (ZiG) statutory reserves remain unchanged at 15%.”
+                </p>
+              </div>
+
+              <!-- FCB Institutional Impact -->
+              <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-xs border border-outline-variant/20">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5 text-on-surface">
+                    <span class="material-symbols-outlined text-[18px] text-error">trending_up</span>
+                    <span class="font-headline-sm text-headline-sm font-semibold">Institutional Tenant Impact: First Capital Bank Zimbabwe</span>
+                  </div>
+                  <span class="px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-label-caps text-label-caps font-semibold uppercase">Liquidity Rebalance Event</span>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Direct impact on First Capital Bank net interest margin and Nostro liquidity buffers. Requires rebalancing approximately <span class="font-headline-sm text-headline-sm text-on-surface font-semibold">$14.2M</span> in Nostro placement portfolios to meet central bank sterilization quotas before 1 November. 
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm pt-space-xs">
+                  <div class="bg-surface p-space-xs rounded-xl flex flex-col justify-between border border-outline-variant/20">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Nostro Reserve Ratio</span>
+                    <div class="flex items-baseline gap-space-xs mt-1">
+                      <span class="font-numeric-metric text-numeric-metric text-on-surface">18.0%</span>
+                      <span class="font-mono-provenance text-mono-provenance text-error font-medium">+300 bps</span>
+                    </div>
+                  </div>
+                  <div class="bg-surface p-space-xs rounded-xl flex flex-col justify-between border border-outline-variant/20">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Sterilization Capital</span>
+                    <div class="flex items-baseline gap-space-xs mt-1">
+                      <span class="font-numeric-metric text-numeric-metric text-on-surface">$14.20M</span>
+                      <span class="font-mono-provenance text-mono-provenance text-secondary font-medium">To Be Pledged</span>
+                    </div>
+                  </div>
+                  <div class="bg-surface p-space-xs rounded-xl flex flex-col justify-between border border-outline-variant/20">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Projected NIM Impact</span>
+                    <div class="flex items-baseline gap-space-xs mt-1">
+                      <span class="font-numeric-metric text-numeric-metric text-on-surface">-18 bps</span>
+                      <span class="font-mono-provenance text-mono-provenance text-on-surface-variant font-medium">Annualized</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Original Document Viewer & Bounding Grounding -->
+            <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-sm border border-outline-variant/20">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+                <div class="flex items-center gap-space-xs">
+                  <span class="p-1 rounded bg-surface-container-highest text-on-surface flex items-center">
+                    <span class="material-symbols-outlined text-[18px]">menu_book</span>
+                  </span>
+                  <div class="flex flex-col">
+                    <h2 class="font-headline-md text-headline-md text-on-surface">Original Document Source & Grounding</h2>
+                    <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">MPS_Circular_08_2026.pdf · Page 14 of 48</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-space-xs bg-surface-container-low px-space-xs py-1 rounded">
+                  <span class="font-label-caps text-label-caps text-on-tertiary-container uppercase flex items-center gap-1 font-semibold px-1">
+                    <span class="material-symbols-outlined text-[14px]">format_image_left</span> Hash Verified
+                  </span>
+                </div>
+              </div>
+
+              <!-- Simulated Document Viewport / Bounding Highlight -->
+              <div class="relative bg-surface-variant p-space-lg rounded-xl overflow-hidden shadow-inner">
+                <div class="bg-surface-container-lowest p-space-lg rounded shadow-sm flex flex-col gap-space-md text-on-surface select-none">
+                  <div class="flex items-center justify-between pb-space-xs bg-surface-container-low p-space-xs rounded">
+                    <span class="font-label-caps text-label-caps font-bold text-on-surface uppercase tracking-widest">RESERVE BANK OF ZIMBABWE</span>
+                    <span class="font-mono-hash text-mono-hash text-on-surface-variant">CIRCULAR NO. 08/2026/BSD · 24 SEPT 2026</span>
+                  </div>
+                  <div class="text-body-sm text-on-surface-variant leading-relaxed">
+                    <p class="mb-2 text-outline">
+                      3.1 Overview of Systemic Liquidity Aggregates: The Monetary Policy Committee (MPC) convened on 23 September 2026 to evaluate liquidity trends in the banking sector...
+                    </p>
+                    <!-- HIGHLIGHTED PASSAGE BOUNDING BOX -->
+                    <div class="relative bg-secondary-fixed/50 p-space-md rounded shadow-sm transition-all my-space-xs border border-secondary">
+                      <div class="flex items-center justify-between mb-1.5">
+                        <span class="px-space-xs py-0.5 rounded bg-secondary text-on-secondary font-label-caps text-label-caps uppercase font-bold flex items-center gap-1 shadow-sm">
+                          <span class="material-symbols-outlined text-[12px]">auto_awesome</span> Grounded Target Passage (Confidence: 94.2%)
+                        </span>
+                        <span class="font-mono-provenance text-mono-provenance text-secondary font-medium">BBox: [X:142, Y:430, W:720, H:180]</span>
+                      </div>
+                      <p class="font-body-md text-body-md text-on-surface font-medium leading-relaxed">
+                        “<span class="bg-secondary-container/40 px-0.5">3.2 Foreign Currency Reserve Sterilisation: In order to mitigate speculative pressure and consolidate foreign exchange market stability, the Bank has adjusted statutory reserves on call and time deposits held in foreign currency from 15% to 18%, effective 1 November 2026.</span> All authorized dealers are mandated to comply by close of business on the implementation date. Local currency (ZiG) statutory reserves remain unchanged at 15%.”
+                      </p>
+                    </div>
+                    <p class="mt-2 text-outline">
+                      3.3 Penalty Provisions: Non-compliance with the adjusted statutory reserve requirement shall attract a daily penalty equivalent to the policy rate plus 500 basis points...
+                    </p>
+                  </div>
+                  <div class="flex items-center justify-between pt-space-xs bg-surface-container-low px-space-sm py-1 rounded text-on-surface-variant font-mono-provenance text-mono-provenance">
+                    <span>RBZ MID-TERM MONETARY POLICY REVIEW 2026</span>
+                    <span>PAGE 14 OF 48</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sign-off & Audit Trail -->
+              <div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm border border-outline-variant/30">
+                <div class="flex items-center justify-between">
+                  <span class="font-label-caps text-label-caps text-on-surface uppercase font-bold flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px] text-secondary">history_edu</span>
+                    Cryptographic Provenance & Ledger Notes
+                  </span>
+                  <span class="font-mono-provenance text-mono-provenance text-on-tertiary-container bg-surface-container px-2 py-0.5 rounded">
+                    Tenant Scope: Public Market Fact
+                  </span>
+                </div>
+                <div class="flex flex-col gap-1 mt-1">
+                  <label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="review-notes">
+                    Executive Reviewer Comments / Amendment Instructions
+                  </label>
+                  <textarea class="w-full bg-surface-container-lowest p-space-sm rounded font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant outline-none border border-outline-variant/30 focus:border-secondary transition-colors" id="review-notes" placeholder="Enter institutional review comments or ALCO execution notes..." rows="2"></textarea>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+                  <div class="flex items-center gap-space-md">
+                    <label class="flex items-center gap-1.5 cursor-pointer">
+                      <input checked="" class="w-4 h-4 rounded text-primary focus:ring-0" type="checkbox"/>
+                      <span class="font-body-sm text-body-sm text-on-surface">Verified against original gazetted circular</span>
+                    </label>
+                  </div>
+                  <span class="font-mono-provenance text-mono-provenance text-outline">
+                    Sign-off ID: SIG_MOYO_20260924_881
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- VIEW 4: COMPETITOR BENCHMARKING                                 -->
+      <!-- =============================================================== -->
+      <section id="view-competitor-benchmarking" class="view-panel hidden flex flex-col w-full pb-space-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm py-space-sm mb-space-sm pt-space-md">
+          <div class="flex items-center gap-space-sm">
+            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Sector Watch</span>
+            <span class="text-outline-variant font-mono-provenance text-mono-provenance">/</span>
+            <span class="font-label-caps text-label-caps text-secondary uppercase font-semibold">Tier-1 Commercial Banking Landscape</span>
+            <span class="px-space-xs py-0.5 rounded-full bg-surface-container-low text-secondary font-mono-provenance text-mono-provenance">6 Institutions Active</span>
+          </div>
+          <div class="flex items-center gap-space-md">
+            <div class="flex items-center gap-space-xs">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">Live Scraping: 09:42 CAT</span>
+            </div>
+            <div class="h-3 w-px bg-outline-variant"></div>
+            <div class="font-mono-provenance text-mono-provenance text-on-surface-variant">
+              Audit Key: <span class="font-mono-hash text-mono-hash text-on-surface uppercase">ZW-BCH-2026-Q4</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg mb-space-lg">
+          <div class="flex flex-col max-w-3xl">
+            <div class="flex items-center gap-space-sm mb-space-xs">
+              <span class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface font-label-caps text-label-caps uppercase tracking-wider">Competitive Intelligence Matrix</span>
+              <span class="px-space-sm py-0.5 rounded bg-surface-container-low text-secondary font-mono-provenance text-mono-provenance">RBZ Circular Tier Compliance: 100%</span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Competitor Benchmarking & Commercial Banking Products</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Systematic observation and historical tracking of tariffs, lending rates, deposit yields, and digital banking innovations across Zimbabwean peer institutions.
+            </p>
+          </div>
+          <div class="flex items-center gap-space-sm flex-shrink-0">
+            <button onclick="exportMatrix()" class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container-lowest text-on-surface shadow-sm hover:bg-surface-container-low transition-colors font-headline-sm text-headline-sm border border-outline-variant/30" type="button">
+              <span class="material-symbols-outlined text-[18px] text-secondary">file_download</span>
+              <span>Export Comparative Matrix</span>
+            </button>
+            <button onclick="showToast('Add Monitored Product dialog opened')" class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-primary text-on-primary shadow-sm hover:bg-primary-container transition-colors font-headline-sm text-headline-sm" type="button">
+              <span class="material-symbols-outlined text-[18px]">add_circle</span>
+              <span>Add Monitored Product</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Shelf -->
+        <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm mb-space-lg flex flex-col gap-space-md border border-outline-variant/20">
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-space-md items-center">
+            <!-- Institution Selector -->
+            <div class="xl:col-span-4 flex flex-col gap-1">
+              <label class="font-label-caps text-label-caps text-on-surface-variant uppercase flex items-center justify-between">
+                <span>Peer Institutions (Monitored: 6)</span>
+                <span class="text-secondary font-mono-provenance text-mono-provenance cursor-pointer hover:underline">Select All</span>
+              </label>
+              <div class="flex flex-wrap items-center gap-1.5 p-1 bg-surface-container-low rounded-lg min-h-[36px] border border-outline-variant/30">
+                <span class="peer-chip inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary text-on-primary font-body-sm text-body-sm shadow-xs cursor-pointer">
+                  FCB (Our Org)
+                  <span class="material-symbols-outlined text-[14px]">check</span>
+                </span>
+                <span class="peer-chip inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-body-sm text-body-sm cursor-pointer hover:bg-surface-container-highest">
+                  CBZ
+                </span>
+                <span class="peer-chip inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-body-sm text-body-sm cursor-pointer hover:bg-surface-container-highest">
+                  Stanbic
+                </span>
+                <span class="peer-chip inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-body-sm text-body-sm cursor-pointer hover:bg-surface-container-highest">
+                  NMB
+                </span>
+                <span class="peer-chip inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-body-sm text-body-sm cursor-pointer hover:bg-surface-container-highest">
+                  CABS
+                </span>
+              </div>
+            </div>
+            <!-- Product Segment -->
+            <div class="xl:col-span-3 flex flex-col gap-1">
+              <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Product Segment</label>
+              <div class="relative">
+                <select class="w-full bg-surface-container-low text-on-surface rounded-lg px-space-md py-1.5 font-body-md text-body-md appearance-none focus:outline-none focus:ring-1 focus:ring-secondary cursor-pointer border border-outline-variant/30">
+                  <option selected="">All Segments (Consolidated)</option>
+                  <option>Corporate & Institutional Banking</option>
+                  <option>Retail & Commercial SME</option>
+                  <option>Diaspora Remittance & Mortgages</option>
+                  <option>Treasury, FX & Structured Trade</option>
+                </select>
+                <span class="material-symbols-outlined absolute right-2.5 top-2 text-[18px] text-on-surface-variant pointer-events-none">expand_more</span>
+              </div>
+            </div>
+            <!-- Settlement Currency -->
+            <div class="xl:col-span-2 flex flex-col gap-1">
+              <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Settlement Currency</label>
+              <div class="flex items-center bg-surface-container-low p-0.5 rounded-lg border border-outline-variant/30">
+                <button class="flex-1 py-1 text-center font-headline-sm text-headline-sm rounded bg-surface-container-lowest text-on-surface shadow-xs transition-colors" type="button">
+                  USD / Nostro
+                </button>
+                <button class="flex-1 py-1 text-center font-headline-sm text-headline-sm rounded text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+                  ZiG (ZWG)
+                </button>
+              </div>
+            </div>
+            <!-- Temporal Baseline -->
+            <div class="xl:col-span-3 flex flex-col gap-1">
+              <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Temporal Baseline</label>
+              <div class="grid grid-cols-4 bg-surface-container-low p-0.5 rounded-lg text-center font-mono-provenance text-mono-provenance border border-outline-variant/30">
+                <button class="py-1 rounded bg-surface-container-lowest text-on-surface shadow-xs font-semibold" type="button">Latest</button>
+                <button class="py-1 rounded text-on-surface-variant hover:text-on-surface" type="button">30D</button>
+                <button class="py-1 rounded text-on-surface-variant hover:text-on-surface" type="button">6M</button>
+                <button class="py-1 rounded text-on-surface-variant hover:text-on-surface" type="button">1Y</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tariff Table -->
+        <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden mb-space-xl border border-outline-variant/20">
+          <div class="px-space-md py-space-sm bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm border-b border-outline-variant/20">
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px] text-secondary">table_view</span>
+              <h2 class="font-headline-md text-headline-md text-on-surface">Cross-Institutional Tariff & Pricing Matrix</h2>
+              <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-mono-provenance text-mono-provenance">6 Instruments Sampled</span>
+            </div>
+          </div>
+          <div class="overflow-x-auto w-full">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider h-8 border-b border-outline-variant/20">
+                  <th class="py-space-xs px-space-md">Institution & Tier</th>
+                  <th class="py-space-xs px-space-md">Product / Service</th>
+                  <th class="py-space-xs px-space-md">Category</th>
+                  <th class="py-space-xs px-space-xs text-center">CCY</th>
+                  <th class="py-space-xs px-space-md text-right">Current Rate / Fee</th>
+                  <th class="py-space-xs px-space-md text-right">Previous</th>
+                  <th class="py-space-xs px-space-md">Delta / Movement</th>
+                  <th class="py-space-xs px-space-md">Evidence Source & Citation</th>
+                </tr>
+              </thead>
+              <tbody class="font-body-md text-body-md divide-y divide-surface-container-low">
+                <!-- FCB -->
+                <tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-low/20">
+                  <td class="py-space-sm px-space-md font-medium text-on-surface">
+                    <div class="flex items-center gap-space-xs">
+                      <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                      <span class="font-headline-sm text-headline-sm">First Capital Bank</span>
+                      <span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant font-mono-provenance text-[10px]">T1 (YOU)</span>
+                    </div>
+                  </td>
+                  <td class="py-space-sm px-space-md">
+                    <div class="font-medium text-on-surface">Commercial Overdraft Facility</div>
+                    <div class="font-mono-provenance text-mono-provenance text-on-surface-variant">FCB-CORP-OD-002</div>
+                  </td>
+                  <td class="py-space-sm px-space-md">
+                    <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-mono-provenance text-mono-provenance">Corporate Lending</span>
+                  </td>
+                  <td class="py-space-sm px-space-xs text-center">
+                    <span class="font-mono-provenance text-mono-provenance font-semibold text-on-surface">USD</span>
+                  </td>
+                  <td class="py-space-sm px-space-md text-right">
+                    <span class="font-numeric-metric text-numeric-metric text-on-surface">11.50%</span>
+                  </td>
+                  <td class="py-space-sm px-space-md text-right font-numeric-table text-numeric-table text-on-surface-variant">11.50%</td>
+                  <td class="py-space-sm px-space-md">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono-provenance text-mono-provenance font-medium">
+                      <span class="material-symbols-outlined text-[14px]">horizontal_rule</span> Unchanged
+                    </span>
+                  </td>
+                  <td class="py-space-sm px-space-md">
+                    <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container text-secondary font-mono-provenance text-mono-provenance">
+                      <span class="material-symbols-outlined text-[14px]">verified</span>
+                      <span>FCB Pricing Guide (Tier 1)</span>
+                    </div>
+                  </td>
+                </tr>
+                <!-- CBZ -->
+                <tr class="hover:bg-surface-container-low/60 transition-colors">
+                  <td class="py-space-sm px-space-md font-medium text-on-surface">
+                    <div class="flex items-center gap-space-xs">
+                      <span class="w-2 h-2 rounded-full bg-outline"></span>
+                      <span class="font-headline-sm text-headline-sm">CBZ Bank</span>
+                      <span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant font-mono-provenance text-[10px]">T1</span>
+                    </div>
+                  </td>
+                  <td class="py-space-sm px-space-md">
+                    <div class="font-medium text-on-surface">Corporate Prime Overdraft</div>
+                    <div class="font-mono-provenance text-mono-provenance text-on-surface-variant">CBZ-CRED-PR-08</div>
+                  </td>
+                  <td class="py-space-sm px-space-md">
+                    <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-mono-provenance text-mono-provenance">Corporate Lending</span>
+                  </td>
+                  <td class="py-space-sm px-space-xs text-center">
+                    <span class="font-mono-provenance text-mono-provenance font-semibold text-on-surface">USD</span>
+                  </td>
+                  <td class="py-space-sm px-space-md text-right">
+                    <span class="font-numeric-metric text-numeric-metric text-error">12.25%</span>
+                  </td>
+                  <td class="py-space-sm px-space-md text-right font-numeric-table text-numeric-table text-on-surface-variant">12.00%</td>
+                  <td class="py-space-sm px-space-md">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-mono-provenance text-mono-provenance font-medium">
+                      <span class="material-symbols-outlined text-[14px]">arrow_upward</span> +25 bps
+                    </span>
+                  </td>
+                  <td class="py-space-sm px-space-md">
+                    <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container text-secondary font-mono-provenance text-mono-provenance">
+                      <span class="material-symbols-outlined text-[14px]">verified</span>
+                      <span>CBZ Tariff Circular Q3</span>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Stanbic -->
+                <tr class="hover:bg-surface-container-low/60 transition-colors">
+                  <td class="py-space-sm px-space-md font-medium text-on-surface">
+                    <div class="flex items-center gap-space-xs">
+                      <span class="w-2 h-2 rounded-full bg-outline"></span>
+                      <span class="font-headline-sm text-headline-sm">Stanbic Bank</span>
+                      <span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant font-mono-provenance text-[10px]">T1</span>
+                    </div>
+                  </td>
+                  <td class="py-space-sm px-space-md">
+                    <div class="font-medium text-on-surface">Nostro High-Yield Fixed Deposit (90-Day)</div>
+                    <div class="font-mono-provenance text-mono-provenance text-on-surface-variant">SBZ-FD-90D-NOS</div>
+                  </td>
+                  <td class="py-space-sm px-space-md">
+                    <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-mono-provenance text-mono-provenance">Treasury / Deposit</span>
+                  </td>
+                  <td class="py-space-sm px-space-xs text-center">
+                    <span class="font-mono-provenance text-mono-provenance font-semibold text-on-surface">USD</span>
+                  </td>
+                  <td class="py-space-sm px-space-md text-right">
+                    <span class="font-numeric-metric text-numeric-metric text-on-tertiary-container">5.50%</span>
+                  </td>
+                  <td class="py-space-sm px-space-md text-right font-numeric-table text-numeric-table text-on-surface-variant">5.00%</td>
+                  <td class="py-space-sm px-space-md">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-on-tertiary-container font-mono-provenance text-mono-provenance font-semibold">
+                      <span class="material-symbols-outlined text-[14px]">arrow_upward</span> +50 bps
+                    </span>
+                  </td>
+                  <td class="py-space-sm px-space-md">
+                    <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container text-secondary font-mono-provenance text-mono-provenance">
+                      <span class="material-symbols-outlined text-[14px]">description</span>
+                      <span>Stanbic Schedule p.2</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2 Analytical Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg mb-space-xl">
+          <!-- Left: Deposit Yields -->
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-space-xs">
+                <div class="flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-[20px] text-secondary">bar_chart</span>
+                  <h3 class="font-headline-md text-headline-md text-on-surface">Deposit Rate Competition vs Market Median</h3>
+                </div>
+                <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-mono-provenance text-mono-provenance">USD Deposits</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+                Comparative yield across 30-Day, 90-Day, and 180-Day Nostro deposit brackets.
+              </p>
+              <div class="w-full h-56 relative flex items-center justify-center">
+                <svg class="w-full h-full" fill="none" viewbox="0 0 540 220" xmlns="http://www.w3.org/2000/svg">
+                  <line stroke="#E2E8F0" stroke-dasharray="2 2" stroke-width="1" x1="40" x2="520" y1="20" y2="20"></line>
+                  <line stroke="#E2E8F0" stroke-dasharray="2 2" stroke-width="1" x1="40" x2="520" y1="70" y2="70"></line>
+                  <line stroke="#E2E8F0" stroke-dasharray="2 2" stroke-width="1" x1="40" x2="520" y1="120" y2="120"></line>
+                  <line stroke="#CBD5E1" stroke-width="1.5" x1="40" x2="520" y1="190" y2="190"></line>
+                  <line stroke="#BA1A1A" stroke-dasharray="4 4" stroke-width="1.5" x1="40" x2="520" y1="58" y2="58"></line>
+                  <text fill="#BA1A1A" font-family="JetBrains Mono" font-size="8.5" text-anchor="end" x="515" y="52">MEDIAN 4.85%</text>
+
+                  <!-- 30-Day -->
+                  <rect fill="#000000" height="75" rx="1" width="22" x="75" y="115"></rect>
+                  <rect fill="#006398" height="85" rx="1" width="22" x="100" y="105"></rect>
+                  <rect fill="#C6C6CD" height="70" rx="1" width="22" x="125" y="120"></rect>
+                  <text fill="#0B1C30" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="111" y="206">30-Day Tenor</text>
+
+                  <!-- 90-Day -->
+                  <rect fill="#000000" height="96" rx="1" width="22" x="225" y="94"></rect>
+                  <rect fill="#006398" height="110" rx="1" width="22" x="250" y="80"></rect>
+                  <rect fill="#C6C6CD" height="92" rx="1" width="22" x="275" y="98"></rect>
+                  <text fill="#0B1C30" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="261" y="206">90-Day Tenor</text>
+
+                  <!-- 180-Day -->
+                  <rect fill="#000000" height="116" rx="1" width="22" x="375" y="74"></rect>
+                  <rect fill="#006398" height="119" rx="1" width="22" x="400" y="71"></rect>
+                  <rect fill="#C6C6CD" height="104" rx="1" width="22" x="425" y="86"></rect>
+                  <text fill="#0B1C30" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="411" y="206">180-Day Tenor</text>
+                </svg>
+              </div>
+            </div>
+            <div class="mt-space-sm pt-space-xs bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between text-on-surface-variant font-mono-provenance text-mono-provenance border border-outline-variant/30">
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px] text-error">priority_high</span>
+                <span>Stanbic 90-day rate is 70 bps above FCB; potential deposit flight.</span>
+              </span>
+              <button onclick="showToast('ALCO repricing draft generated')" class="text-secondary font-semibold hover:underline">Re-price Facility</button>
+            </div>
+          </div>
+
+          <!-- Right: Tariff Restructuring Timeline -->
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-space-xs">
+                <div class="flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-[20px] text-secondary">insights</span>
+                  <h3 class="font-headline-md text-headline-md text-on-surface">Tariff Restructuring Trajectory (90 Days)</h3>
+                </div>
+                <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-mono-provenance text-mono-provenance">RBZ Normalized</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+                Timeline of retail and merchant interchange fee shifts.
+              </p>
+              <div class="w-full h-56 relative flex items-center justify-center">
+                <svg class="w-full h-full" fill="none" viewbox="0 0 540 220" xmlns="http://www.w3.org/2000/svg">
+                  <line stroke="#CBD5E1" stroke-width="1.5" x1="30" x2="520" y1="180" y2="180"></line>
+                  <line stroke="#E2E8F0" stroke-dasharray="2 2" stroke-width="1" x1="30" x2="520" y1="40" y2="40"></line>
+                  <line stroke="#E2E8F0" stroke-dasharray="2 2" stroke-width="1" x1="30" x2="520" y1="90" y2="90"></line>
+                  <line stroke="#E2E8F0" stroke-dasharray="2 2" stroke-width="1" x1="30" x2="520" y1="140" y2="140"></line>
+                  <!-- Circular vertical line -->
+                  <line stroke="#E11D48" stroke-dasharray="3 3" stroke-width="1.5" x1="330" x2="330" y1="20" y2="180"></line>
+                  <rect fill="#FFE4E6" height="20" rx="3" width="135" x="335" y="24"></rect>
+                  <text fill="#9F1239" font-family="Inter" font-size="8.5" font-weight="600" x="340" y="38">RBZ Circular 08/2026</text>
+
+                  <path d="M 50 130 L 160 130 L 250 120 L 330 115 L 360 85 L 510 85" fill="none" stroke="#BA1A1A" stroke-linecap="round" stroke-width="2.5"></path>
+                  <circle cx="360" cy="85" fill="#BA1A1A" r="4"></circle>
+                  <text fill="#BA1A1A" font-family="Inter" font-size="9" font-weight="600" x="512" y="88">CBZ (+25bps)</text>
+
+                  <path d="M 50 95 L 180 95 L 310 95 L 370 145 L 510 145" fill="none" stroke="#006398" stroke-linecap="round" stroke-width="2.5"></path>
+                  <circle cx="370" cy="145" fill="#006398" r="4"></circle>
+                  <text fill="#006398" font-family="Inter" font-size="9" font-weight="600" x="512" y="148">NMB (-25bps)</text>
+
+                  <path d="M 50 110 L 510 110" fill="none" stroke="#000000" stroke-dasharray="4 2" stroke-width="2"></path>
+                  <text fill="#000000" font-family="Inter" font-size="9" font-weight="600" x="512" y="113">FCB (Stable)</text>
+                </svg>
+              </div>
+            </div>
+            <div class="mt-space-sm pt-space-xs bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between text-on-surface-variant font-mono-provenance text-mono-provenance border border-outline-variant/30">
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px] text-secondary">trending_up</span>
+                <span>CBZ expanded retail spread to counter statutory reserve drag.</span>
+              </span>
+              <button onclick="navigateTo('reports-&-briefings')" class="text-secondary font-semibold hover:underline">Create ALCO Summary</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- VIEW 5: ECONOMIC INDICATORS                                     -->
+      <!-- =============================================================== -->
+      <section id="view-economic-indicators" class="view-panel hidden flex flex-col w-full pb-space-xl">
+        <div class="flex flex-col gap-space-sm mb-space-lg pt-space-md">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div>
+              <div class="flex items-center gap-space-xs text-secondary mb-1">
+                <span class="material-symbols-outlined text-[16px]">monitoring</span>
+                <span class="font-label-caps text-label-caps uppercase tracking-wider">Macro Ledger · ZIMSTAT & RBZ Time Series</span>
+              </div>
+              <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Economic Indicators & Market Dynamics</h1>
+              <p class="font-body-md text-body-md text-on-surface-variant max-w-4xl mt-0.5">
+                Official macroeconomic time series, gold-backed currency reserves, blended CPI inflation, and interbank transaction volumes.
+              </p>
+            </div>
+            <div class="flex items-center gap-space-sm">
+              <button onclick="showToast('Exporting macro time-series as .parquet...')" class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-surface-container-lowest text-on-surface shadow-sm hover:bg-surface-container-low transition-colors font-headline-sm text-headline-sm border border-outline-variant/30" type="button">
+                <span class="material-symbols-outlined text-[18px] text-secondary">download</span>
+                <span>Export Data (.parquet)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 Macro Metric Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md mb-space-lg">
+          <!-- Metric 1: Blended CPI Inflation -->
+          <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-on-surface-variant mb-1">
+              <span class="font-label-caps text-label-caps uppercase">Blended CPI Inflation (MoM)</span>
+              <span class="font-mono-provenance text-mono-provenance text-on-tertiary-container bg-surface-container-low px-1.5 py-0.5 rounded">ZIMSTAT Sept</span>
+            </div>
+            <div class="flex items-baseline gap-space-sm my-1">
+              <span class="font-headline-xl text-headline-xl text-on-surface font-numeric-metric">0.7%</span>
+              <span class="font-mono-provenance text-mono-provenance text-on-tertiary-container font-semibold">-0.4% from Aug</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Weighted basket deceleration driven by food staples stabilization in ZiG.</p>
+          </div>
+
+          <!-- Metric 2: Parallel Market Premium -->
+          <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-on-surface-variant mb-1">
+              <span class="font-label-caps text-label-caps uppercase">Parallel Market Premium</span>
+              <span class="font-mono-provenance text-mono-provenance text-secondary bg-surface-container-low px-1.5 py-0.5 rounded">Street vs Interbank</span>
+            </div>
+            <div class="flex items-baseline gap-space-sm my-1">
+              <span class="font-headline-xl text-headline-xl text-on-surface font-numeric-metric">3.1%</span>
+              <span class="font-mono-provenance text-mono-provenance text-on-tertiary-container font-semibold">Tolerable Band</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Interbank rate: 26.8520 vs Street midpoint: 27.68 ZWG per 1 USD.</p>
+          </div>
+
+          <!-- Metric 3: National Gold Reserves -->
+          <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-on-surface-variant mb-1">
+              <span class="font-label-caps text-label-caps uppercase">Central Bank Reserve Gold</span>
+              <span class="font-mono-provenance text-mono-provenance text-on-surface-variant bg-surface-container-low px-1.5 py-0.5 rounded">RBZ Vault Stock</span>
+            </div>
+            <div class="flex items-baseline gap-space-sm my-1">
+              <span class="font-headline-xl text-headline-xl text-on-surface font-numeric-metric">2.84 Tn</span>
+              <span class="font-mono-provenance text-mono-provenance text-secondary font-semibold">+140 kg Q3</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Provides 3.4x coverage against physical and digital ZiG notes in circulation.</p>
+          </div>
+        </div>
+
+        <!-- Indicator Observation Table -->
+        <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden border border-outline-variant/20">
+          <div class="px-space-md py-space-sm bg-surface-container-low flex items-center justify-between border-b border-outline-variant/20">
+            <h2 class="font-headline-md text-headline-md text-on-surface">Official Indicator Ledger (Audited Time Series)</h2>
+            <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">Updated daily via automated connectors</span>
+          </div>
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider h-8">
+                <th class="py-space-xs px-space-md">Indicator Name</th>
+                <th class="py-space-xs px-space-md">Frequency</th>
+                <th class="py-space-xs px-space-md">Unit / CCY</th>
+                <th class="py-space-xs px-space-md text-right">Latest Value</th>
+                <th class="py-space-xs px-space-md">Observation Date</th>
+                <th class="py-space-xs px-space-md">Authority Source</th>
+              </tr>
+            </thead>
+            <tbody class="font-body-md text-body-md divide-y divide-surface-container-low">
+              <tr>
+                <td class="py-space-sm px-space-md font-medium text-on-surface">RBZ Benchmark Policy Rate</td>
+                <td class="py-space-sm px-space-md">MPC Meeting</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">% p.a.</td>
+                <td class="py-space-sm px-space-md text-right font-numeric-metric text-numeric-metric">20.00%</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">24 Sept 2026</td>
+                <td class="py-space-sm px-space-md text-secondary font-mono-provenance">RBZ Circular 08/2026</td>
+              </tr>
+              <tr>
+                <td class="py-space-sm px-space-md font-medium text-on-surface">Interbank Weighted Mid-Rate</td>
+                <td class="py-space-sm px-space-md">Daily</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">USD / ZWG</td>
+                <td class="py-space-sm px-space-md text-right font-numeric-metric text-numeric-metric">26.8520</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">10 Nov 2026</td>
+                <td class="py-space-sm px-space-md text-secondary font-mono-provenance">RBZ FX Portal</td>
+              </tr>
+              <tr>
+                <td class="py-space-sm px-space-md font-medium text-on-surface">Blended Monthly CPI</td>
+                <td class="py-space-sm px-space-md">Monthly</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">% MoM</td>
+                <td class="py-space-sm px-space-md text-right font-numeric-metric text-numeric-metric">0.70%</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">30 Sept 2026</td>
+                <td class="py-space-sm px-space-md text-secondary font-mono-provenance">ZIMSTAT CPI Bulletin</td>
+              </tr>
+              <tr>
+                <td class="py-space-sm px-space-md font-medium text-on-surface">Mining Export Surrender Inflows</td>
+                <td class="py-space-sm px-space-md">Cumulative</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">USD Million</td>
+                <td class="py-space-sm px-space-md text-right font-numeric-metric text-numeric-metric">$2,140M</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">31 Aug 2026</td>
+                <td class="py-space-sm px-space-md text-secondary font-mono-provenance">Min of Mines / ZIMSTAT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- VIEW 6: SOURCE REGISTRY & HEALTH                                -->
+      <!-- =============================================================== -->
+      <section id="view-source-registry-&-health" class="view-panel hidden flex flex-col w-full pb-space-xl">
+        <div class="flex flex-col gap-space-sm mb-space-lg pt-space-md">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div>
+              <div class="flex items-center gap-space-xs text-secondary mb-1">
+                <span class="material-symbols-outlined text-[16px]">dns</span>
+                <span class="font-label-caps text-label-caps uppercase tracking-wider">Ingestion Spiders · Authority Tier Classification</span>
+              </div>
+              <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Source Registry & Pipeline Health</h1>
+              <p class="font-body-md text-body-md text-on-surface-variant max-w-4xl mt-0.5">
+                Monitoring status of automated web spiders, official RSS feeds, PDF OCR extraction workers, and multilateral connectors.
+              </p>
+            </div>
+            <button onclick="triggerAllCollectors()" class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-primary text-on-primary hover:bg-primary-container transition-colors font-headline-sm text-headline-sm shadow-sm" type="button">
+              <span class="material-symbols-outlined text-[18px]">play_circle</span>
+              <span>Trigger All Active Collectors</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Registry Table -->
+        <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden border border-outline-variant/20 mb-space-lg">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider h-8">
+                <th class="py-space-xs px-space-md">Source Entity</th>
+                <th class="py-space-xs px-space-md">Tier</th>
+                <th class="py-space-xs px-space-md">Connector Method</th>
+                <th class="py-space-xs px-space-md">Cadence</th>
+                <th class="py-space-xs px-space-md">Last Status</th>
+                <th class="py-space-xs px-space-md">Indexed Docs</th>
+                <th class="py-space-xs px-space-xs text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody class="font-body-md text-body-md divide-y divide-surface-container-low">
+              <tr>
+                <td class="py-space-sm px-space-md font-medium text-on-surface">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+                    <span>Reserve Bank of Zimbabwe (RBZ)</span>
+                  </div>
+                  <div class="font-mono-provenance text-mono-provenance text-on-surface-variant">https://www.rbz.co.zw/circulars</div>
+                </td>
+                <td class="py-space-sm px-space-md">
+                  <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-caps text-label-caps font-semibold">Tier 1 Official</span>
+                </td>
+                <td class="py-space-sm px-space-md font-mono-provenance">RSS + PDF Spider</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">Hourly (Cron #12)</td>
+                <td class="py-space-sm px-space-md">
+                  <span class="inline-flex items-center gap-1 text-on-tertiary-container font-mono-provenance font-semibold">
+                    <span class="material-symbols-outlined text-[14px]">check_circle</span> 200 OK (140ms)
+                  </span>
+                </td>
+                <td class="py-space-sm px-space-md font-mono-provenance">842 Gazettes</td>
+                <td class="py-space-sm px-space-xs text-center">
+                  <button onclick="runCollector('RBZ')" class="px-space-sm py-1 rounded bg-surface-container-low text-secondary hover:bg-surface-container font-headline-sm text-body-sm">Sync</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-space-sm px-space-md font-medium text-on-surface">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+                    <span>ZIMSTAT Statistical Agency</span>
+                  </div>
+                  <div class="font-mono-provenance text-mono-provenance text-on-surface-variant">https://www.zimstat.co.zw/reports</div>
+                </td>
+                <td class="py-space-sm px-space-md">
+                  <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-caps text-label-caps font-semibold">Tier 1 Official</span>
+                </td>
+                <td class="py-space-sm px-space-md font-mono-provenance">REST Scraper</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">Daily 14:00 UTC</td>
+                <td class="py-space-sm px-space-md">
+                  <span class="inline-flex items-center gap-1 text-on-tertiary-container font-mono-provenance font-semibold">
+                    <span class="material-symbols-outlined text-[14px]">check_circle</span> 200 OK (210ms)
+                  </span>
+                </td>
+                <td class="py-space-sm px-space-md font-mono-provenance">326 Reports</td>
+                <td class="py-space-sm px-space-xs text-center">
+                  <button onclick="runCollector('ZIMSTAT')" class="px-space-sm py-1 rounded bg-surface-container-low text-secondary hover:bg-surface-container font-headline-sm text-body-sm">Sync</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-space-sm px-space-md font-medium text-on-surface">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+                    <span>Zimswitch National Switch Gateway</span>
+                  </div>
+                  <div class="font-mono-provenance text-mono-provenance text-on-surface-variant">Secure Partner Ingestion Feed</div>
+                </td>
+                <td class="py-space-sm px-space-md">
+                  <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-caps text-label-caps font-semibold">Tier 1 Switch</span>
+                </td>
+                <td class="py-space-sm px-space-md font-mono-provenance">WebSocket Ingest</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">Real-time</td>
+                <td class="py-space-sm px-space-md">
+                  <span class="inline-flex items-center gap-1 text-on-tertiary-container font-mono-provenance font-semibold">
+                    <span class="material-symbols-outlined text-[14px]">check_circle</span> Streaming
+                  </span>
+                </td>
+                <td class="py-space-sm px-space-md font-mono-provenance">128 Batches</td>
+                <td class="py-space-sm px-space-xs text-center">
+                  <button onclick="runCollector('Zimswitch')" class="px-space-sm py-1 rounded bg-surface-container-low text-secondary hover:bg-surface-container font-headline-sm text-body-sm">Sync</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- VIEW 7: REPORTS & BRIEFINGS                                     -->
+      <!-- =============================================================== -->
+      <section id="view-reports-&-briefings" class="view-panel hidden flex flex-col w-full pb-space-xl">
+        <div class="flex flex-col gap-space-sm mb-space-lg pt-space-md">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div>
+              <div class="flex items-center gap-space-xs text-secondary mb-1">
+                <span class="material-symbols-outlined text-[16px]">description</span>
+                <span class="font-label-caps text-label-caps uppercase tracking-wider">Executive Intelligence Briefings · ALCO & Board Ready</span>
+              </div>
+              <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Reports & Briefings</h1>
+              <p class="font-body-md text-body-md text-on-surface-variant max-w-4xl mt-0.5">
+                Generate, customize, and export cryptographic evidence-backed intelligence dossiers for First Capital Bank leadership and board committees.
+              </p>
+            </div>
+            <button onclick="openBriefingModal()" class="flex items-center gap-space-xs px-space-md py-space-xs rounded bg-primary text-on-primary hover:bg-primary-container transition-colors font-headline-sm text-headline-sm shadow-md" type="button">
+              <span class="material-symbols-outlined text-[18px]">add</span>
+              <span>Draft New Briefing</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3 Briefing Templates Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md mb-space-lg">
+          <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col justify-between">
+            <div>
+              <span class="px-space-xs py-0.5 rounded bg-surface-container-low text-secondary font-label-caps text-label-caps uppercase font-semibold">Standard Template</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-2 mb-1">RBZ MPC Policy Impact Briefing</h3>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">Evaluates capital adequacy changes, reserve sterilizations, and balance sheet NIM impacts.</p>
+            </div>
+            <button onclick="previewReport('mpc')" class="mt-space-md py-1.5 px-space-sm rounded bg-surface-container-low text-secondary font-headline-sm text-headline-sm hover:bg-surface-container transition-colors flex items-center justify-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">visibility</span>
+              <span>Preview & Export</span>
+            </button>
+          </div>
+
+          <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col justify-between">
+            <div>
+              <span class="px-space-xs py-0.5 rounded bg-surface-container-low text-secondary font-label-caps text-label-caps uppercase font-semibold">Weekly ALCO</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-2 mb-1">Peer Banking Pricing & Tariff Matrix</h3>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">Spread analysis between FCB, CBZ, and Stanbic deposit yields and commercial loan facilities.</p>
+            </div>
+            <button onclick="previewReport('pricing')" class="mt-space-md py-1.5 px-space-sm rounded bg-surface-container-low text-secondary font-headline-sm text-headline-sm hover:bg-surface-container transition-colors flex items-center justify-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">visibility</span>
+              <span>Preview & Export</span>
+            </button>
+          </div>
+
+          <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col justify-between">
+            <div>
+              <span class="px-space-xs py-0.5 rounded bg-surface-container-low text-secondary font-label-caps text-label-caps uppercase font-semibold">Quarterly Macro</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-2 mb-1">Zimbabwe Macroeconomic Synthesis</h3>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">Gold reserve stock, ZiG money supply velocity, inflation basket, and export surrender trends.</p>
+            </div>
+            <button onclick="previewReport('macro')" class="mt-space-md py-1.5 px-space-sm rounded bg-surface-container-low text-secondary font-headline-sm text-headline-sm hover:bg-surface-container transition-colors flex items-center justify-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">visibility</span>
+              <span>Preview & Export</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Generated Reports Ledger -->
+        <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden border border-outline-variant/20">
+          <div class="px-space-md py-space-sm bg-surface-container-low flex items-center justify-between border-b border-outline-variant/20">
+            <h2 class="font-headline-md text-headline-md text-on-surface">Archived Executive Intelligence Reports</h2>
+            <span class="font-mono-provenance text-mono-provenance text-on-surface-variant">PostgreSQL Ledger Audited</span>
+          </div>
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider h-8">
+                <th class="py-space-xs px-space-md">Report Title</th>
+                <th class="py-space-xs px-space-md">Generated By</th>
+                <th class="py-space-xs px-space-md">Date</th>
+                <th class="py-space-xs px-space-md">Scope</th>
+                <th class="py-space-xs px-space-md">Status</th>
+                <th class="py-space-xs px-space-xs text-center">Export</th>
+              </tr>
+            </thead>
+            <tbody class="font-body-md text-body-md divide-y divide-surface-container-low">
+              <tr>
+                <td class="py-space-sm px-space-md font-medium text-on-surface">
+                  <div class="flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px] text-error">picture_as_pdf</span>
+                    <span>Executive Briefing: Foreign Currency Statutory Reserve Revision</span>
+                  </div>
+                </td>
+                <td class="py-space-sm px-space-md font-mono-provenance">Dr. T. Moyo</td>
+                <td class="py-space-sm px-space-md font-mono-provenance">10 Nov 2026</td>
+                <td class="py-space-sm px-space-md font-mono-provenance text-secondary">FCB Private Overlay</td>
+                <td class="py-space-sm px-space-md">
+                  <span class="px-space-xs py-0.5 rounded bg-surface-container-high text-on-tertiary-container font-mono-provenance font-semibold">Published</span>
+                </td>
+                <td class="py-space-sm px-space-xs text-center">
+                  <button onclick="downloadReportPDF()" class="text-secondary hover:text-on-surface p-1" title="Download PDF">
+                    <span class="material-symbols-outlined text-[18px]">file_download</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- VIEW 8: SETTINGS & GOVERNANCE                                   -->
+      <!-- =============================================================== -->
+      <section id="view-settings" class="view-panel hidden flex flex-col w-full pb-space-xl">
+        <div class="flex flex-col gap-space-sm mb-space-lg pt-space-md">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+            <div>
+              <div class="flex items-center gap-space-xs text-secondary mb-1">
+                <span class="material-symbols-outlined text-[16px]">settings</span>
+                <span class="font-label-caps text-label-caps uppercase tracking-wider">Tenant Settings & Governance Configuration</span>
+              </div>
+              <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Settings & Access Control</h1>
+              <p class="font-body-md text-body-md text-on-surface-variant max-w-4xl mt-0.5">
+                Manage organization profile, PostgreSQL Row-Level Security (RLS) enforcement, AI model gateway endpoints, and user permissions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+          <!-- Tenant Profile -->
+          <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-space-sm">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-secondary text-[18px]">shield</span>
+              Tenant Isolation & Row-Level Security (RLS)
+            </h3>
+            <div class="flex flex-col gap-space-xs text-body-sm text-on-surface-variant pt-1 font-mono-provenance text-mono-provenance">
+              <div class="p-space-xs bg-surface-container-low rounded flex justify-between">
+                <span>Active Tenant ID:</span>
+                <span class="text-on-surface font-semibold">org_fcb_zw_77492</span>
+              </div>
+              <div class="p-space-xs bg-surface-container-low rounded flex justify-between">
+                <span>Enforcement Level:</span>
+                <span class="text-on-tertiary-container font-semibold">Postgres RLS STRICT</span>
+              </div>
+              <div class="p-space-xs bg-surface-container-low rounded flex justify-between">
+                <span>Hosting Node:</span>
+                <span class="text-on-surface font-semibold">HRE-SOUTH-DC1 (Harare)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Gateway -->
+          <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-space-sm">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-secondary text-[18px]">psychology</span>
+              AI Model Gateway Configuration
+            </h3>
+            <div class="flex flex-col gap-space-xs text-body-sm text-on-surface-variant pt-1 font-mono-provenance text-mono-provenance">
+              <div class="p-space-xs bg-surface-container-low rounded flex justify-between">
+                <span>Active Model:</span>
+                <span class="text-on-surface font-semibold">Claude-3.5-Sonnet / Gemini-Flash</span>
+              </div>
+              <div class="p-space-xs bg-surface-container-low rounded flex justify-between">
+                <span>Prompt Version:</span>
+                <span class="text-secondary font-semibold">v2.4.1 (Strict Grounding)</span>
+              </div>
+              <div class="p-space-xs bg-surface-container-low rounded flex justify-between">
+                <span>Auto-Publication:</span>
+                <span class="text-error font-semibold">DISABLED (Human Review Required)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═════════════════════════════════════════════════════════════════════ -->
+  <!-- 4. MODALS & FLYOUTS (SEARCH, INGEST, REPORT PREVIEW, TOAST)            -->
+  <!-- ═════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Modal: Omnisearch (Cmd+K) -->
+  <div id="searchModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-start justify-center pt-24">
+    <div class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-2xl border border-outline-variant/30 overflow-hidden flex flex-col" onclick="event.stopPropagation()">
+      <div class="flex items-center px-space-md py-space-sm border-b border-outline-variant/30 gap-space-sm">
+        <span class="material-symbols-outlined text-[20px] text-on-surface-variant">search</span>
+        <input type="text" id="omniSearchInput" placeholder="Search gazettes, circulars, bank tariffs, indicators..." class="w-full bg-transparent border-0 outline-none font-body-lg text-body-lg text-on-surface placeholder:text-on-surface-variant"/>
+        <kbd class="font-mono-hash text-mono-hash bg-surface-container px-space-xs py-0.5 rounded text-on-surface-variant cursor-pointer" onclick="closeSearchModal()">ESC</kbd>
+      </div>
+      <div class="p-space-md max-h-96 overflow-y-auto flex flex-col gap-space-xs text-body-sm">
+        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase px-2">Quick Navigation</span>
+        <div onclick="navigateTo('market-radar'); closeSearchModal()" class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low cursor-pointer">
+          <span class="font-medium text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-secondary">radar</span> Market Radar: Macro Overview</span>
+          <span class="font-mono-provenance text-mono-provenance text-outline">View</span>
+        </div>
+        <div onclick="navigateTo('evidence-review'); closeSearchModal()" class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low cursor-pointer">
+          <span class="font-medium text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-error">verified_user</span> Evidence Review Workbench (5 Pending)</span>
+          <span class="font-mono-provenance text-mono-provenance text-outline">Audit</span>
+        </div>
+        <div onclick="navigateTo('competitor-benchmarking'); closeSearchModal()" class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low cursor-pointer">
+          <span class="font-medium text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-secondary">query_stats</span> Cross-Institutional Tariff & Rate Matrix</span>
+          <span class="font-mono-provenance text-mono-provenance text-outline">Benchmarking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Ingest Source -->
+  <div id="ingestModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-center justify-center">
+    <div class="bg-surface-container-lowest w-full max-w-lg rounded-xl shadow-2xl border border-outline-variant/30 p-space-lg flex flex-col gap-space-md" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between">
+        <h3 class="font-headline-md text-headline-md text-on-surface font-semibold flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px] text-secondary">file_upload</span>
+          Ingest Document or Circular
+        </h3>
+        <button onclick="closeIngestModal()" class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">
+        Upload gazetted circulars, institutional tariff sheets, or statistical releases for automated cryptographic hashing, OCR parsing, and evidence extraction.
+      </p>
+      <div class="border-2 border-dashed border-outline-variant/60 rounded-xl p-space-lg flex flex-col items-center justify-center gap-2 bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-[32px] text-secondary">cloud_upload</span>
+        <span class="font-headline-sm text-headline-sm text-on-surface">Drag & Drop PDF or Excel file</span>
+        <span class="font-mono-provenance text-mono-provenance text-outline">Max 50MB · SHA256 checksum generated on receipt</span>
+      </div>
+      <div class="flex items-center justify-end gap-space-xs pt-space-xs">
+        <button onclick="closeIngestModal()" class="px-space-md py-1.5 rounded bg-surface-container text-on-surface font-headline-sm text-headline-sm">Cancel</button>
+        <button onclick="simulateUpload()" class="px-space-md py-1.5 rounded bg-primary text-on-primary font-headline-sm text-headline-sm shadow-sm">Submit to Pipeline</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 hidden bg-primary text-on-primary px-space-md py-space-sm rounded-xl shadow-xl z-50 flex items-center gap-space-sm border border-outline-variant/30">
+    <span class="material-symbols-outlined text-[20px] text-on-tertiary-container" id="toastIcon">task_alt</span>
+    <div class="flex flex-col">
+      <span class="font-headline-sm text-headline-sm" id="toastTitle">Notification</span>
+      <span class="font-mono-provenance text-mono-provenance text-surface-dim" id="toastMessage">Action completed successfully.</span>
+    </div>
+  </div>
+
+  <!-- ═════════════════════════════════════════════════════════════════════ -->
+  <!-- 5. APPLICATION STATE CONTROLLER JAVASCRIPT                             -->
+  <!-- ═════════════════════════════════════════════════════════════════════ -->
+  <script>
+    // Navigation Router
+    function navigateTo(path, event) {
+      if (event) event.preventDefault();
+
+      // Hide all view panels
+      document.querySelectorAll('.view-panel').forEach(panel => {
+        panel.classList.add('hidden');
+      });
+
+      // Show selected panel
+      const targetPanel = document.getElementById('view-' + path);
+      if (targetPanel) {
+        targetPanel.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Update sidebar active classes
+      document.querySelectorAll('.nav-item').forEach(item => {
+        if (item.getAttribute('data-path') === path) {
+          item.className = 'nav-item flex items-center gap-space-md px-space-md py-space-sm rounded transition-colors bg-primary-container text-on-primary-container font-headline-sm';
+        } else {
+          item.className = 'nav-item flex items-center gap-space-md px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-body-md text-body-md';
+        }
+      });
+    }
+
+    // Modal Handlers
+    function openSearchModal() {
+      document.getElementById('searchModal').classList.remove('hidden');
+      document.getElementById('omniSearchInput').focus();
+    }
+    function closeSearchModal() {
+      document.getElementById('searchModal').classList.add('hidden');
+    }
+    function openIngestModal() {
+      document.getElementById('ingestModal').classList.remove('hidden');
+    }
+    function closeIngestModal() {
+      document.getElementById('ingestModal').classList.add('hidden');
+    }
+
+    // Toast helper
+    function showToast(title, message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastTitle').textContent = title;
+      document.getElementById('toastMessage').textContent = message || 'Action committed to institutional ledger.';
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+
+    // Live Refresh Demo
+    function triggerLiveRefresh() {
+      const btn = document.getElementById('refreshBtn');
+      const icon = btn.querySelector('.material-symbols-outlined');
+      icon.classList.add('animate-spin');
+      setTimeout(() => {
+        icon.classList.remove('animate-spin');
+        document.getElementById('radarLastSync').textContent = 'Last sync: Just now';
+        showToast('Radar Refreshed', 'Synced with RBZ RSS and Zimswitch clearing ledger.');
+      }, 700);
+    }
+
+    // Ingest Simulation
+    function simulateUpload() {
+      closeIngestModal();
+      showToast('Document Ingested', 'MPS_Circular_Q4_2026.pdf queued for OCR & semantic extraction.');
+    }
+
+    // Evidence Review Approval
+    function handleApprove() {
+      const approveBtn = document.getElementById('btn-approve');
+      approveBtn.disabled = true;
+      approveBtn.classList.add('opacity-50');
+      
+      showToast('Claim Approved & Published', 'Cryptographic sign-off recorded. Dispatched to Meridian Market Radar.');
+
+      // Decrement queue count badge
+      const badge = document.getElementById('evidencePendingBadge');
+      const badge2 = document.getElementById('badgePendingCount');
+      if (badge) badge.textContent = '4 Pending';
+      if (badge2) badge2.textContent = '4';
+
+      setTimeout(() => {
+        approveBtn.disabled = false;
+        approveBtn.classList.remove('opacity-50');
+      }, 3000);
+    }
+
+    function handleReject() {
+      showToast('Claim Rejected', 'Marked as unverified in extraction audit history.');
+    }
+
+    function handleRequestEvidence() {
+      showToast('Evidence Requested', 'Automated query sent to document spider for page-level corroboration.');
+    }
+
+    // Queue Card Selection in Evidence Review
+    function selectQueueCard(id) {
+      document.querySelectorAll('.queue-card').forEach(c => {
+        c.classList.remove('shadow-md');
+        c.classList.add('shadow-sm');
+        const bar = c.querySelector('.active-indicator');
+        if (bar) bar.remove();
+      });
+
+      const selected = document.getElementById('card-' + id);
+      if (selected) {
+        selected.classList.remove('shadow-sm');
+        selected.classList.add('shadow-md');
+        const indicator = document.createElement('div');
+        indicator.className = 'active-indicator absolute left-0 top-0 bottom-0 w-1.5 bg-secondary rounded-l-xl';
+        selected.prepend(indicator);
+      }
+    }
+
+    // Intelligence Feed Category Filter
+    function filterFeed(category, btn) {
+      document.querySelectorAll('.feed-btn').forEach(b => {
+        b.className = 'feed-btn px-space-sm py-1 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-caps text-label-caps';
+      });
+      btn.className = 'feed-btn px-space-sm py-1 rounded-full bg-primary text-on-primary font-label-caps text-label-caps shadow-sm';
+
+      const items = document.querySelectorAll('.feed-item');
+      items.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    function searchFeed() {
+      const q = document.getElementById('feedSearchInput').value.toLowerCase();
+      document.querySelectorAll('.feed-item').forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(q)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    // Chart span button active states
+    function setChartSpan(btn, span) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('button').forEach(b => {
+        b.className = 'px-space-sm py-1 rounded text-body-sm font-headline-sm text-on-surface-variant hover:text-on-surface';
+      });
+      btn.className = 'px-space-sm py-1 rounded text-body-sm font-headline-sm bg-surface-container-lowest text-on-surface shadow-sm font-semibold';
+      showToast('Chart Range Updated', 'Displaying ' + span + ' time window.');
+    }
+
+    // Source Collectors
+    function runCollector(name) {
+      showToast('Collector Triggered', 'Spider polling ' + name + ' endpoint for gazetted updates.');
+    }
+    function triggerAllCollectors() {
+      showToast('Batch Ingestion Running', '13 collector spiders dispatched simultaneously.');
+    }
+
+    // Report previews
+    function previewReport(type) {
+      showToast('Briefing Preview Generated', 'Opening print preview for ' + type.toUpperCase() + ' intelligence report.');
+      window.print();
+    }
+    function downloadReportPDF() {
+      showToast('Exporting Report', 'Generating signed PDF with cryptographic watermarks...');
+    }
+
+    // Keyboard shortcut for Cmd+K / Ctrl+K
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearchModal();
+      }
+      if (e.key === 'Escape') {
+        closeSearchModal();
+        closeIngestModal();
+      }
+    });
+
+    // Hash change handler for direct links (#evidence-review, etc.)
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) navigateTo(hash);
+    });
+
+    // Check hash on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) navigateTo(hash);
+    });
+  </script>
+</body>
+</html>

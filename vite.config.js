@@ -9,6 +9,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        meridian: resolve(__dirname, 'meridian.html'),
         workspace: resolve(__dirname, 'workspace.html'),
         refinement: resolve(__dirname, 'refinement.html'),
         library: resolve(__dirname, 'library.html'),

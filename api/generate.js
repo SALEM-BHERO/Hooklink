@@ -34,10 +34,10 @@ Tone: Authentic, unpolished, conversational, like texting a group chat of fellow
 
   return `${selectedRule}
 
-CRITICAL UNIVERSAL WRITING RULES:
-1. Sound like a real, authentic human speaking from real-world experience. NEVER use robotic AI tropes like "delve", "unlock", "revolutionize", "game-changer", "testament to", "it's not just about X, it's about Y", or "in today's fast-paced world".
-2. Vary sentence length naturally: short punchy sentences mixed with longer explanatory ones.
-3. If the user provides a real-life detail or anchor, weave it seamlessly into the narrative.
+CRITICAL UNIVERSAL WRITING RULES (ANTI-AI PROTOCOL):
+1. Sound like a real, authentic human speaking from real-world experience. NEVER use robotic AI tropes like "delve", "unlock", "revolutionize", "game-changer", "testament to", "it's not just about X, it's about Y", "in today's fast-paced world", "tapestry", "foster", or "navigating".
+2. Variable Sentence Cadence: Follow rhythmic human writing. Short sentences punch. Longer sentences carry the thought through to the end with rhythm and flow. Then another short one. Like this. Never output robotic, uniform-length sentences.
+3. If the user provides a real-life detail or anchor, weave it seamlessly into the narrative as the focal point.
 
 Your output must be pure JSON with no markdown formatting. The JSON must match exactly this schema:
 {
@@ -86,7 +86,16 @@ export default async function handler(req, res) {
     }
     body = body || {};
 
-    const { topic, goal, tone, platform = 'linkedin', specificDetail, provider = 'groq' } = body;
+    const { 
+      topic, 
+      goal, 
+      tone, 
+      platform = 'linkedin', 
+      specificDetail, 
+      isBrainDump = false, 
+      voiceProfile,
+      provider = 'groq' 
+    } = body;
 
     if (!topic || !topic.trim()) {
       return res.status(400).json({ error: 'Topic is required' });
@@ -94,9 +103,20 @@ export default async function handler(req, res) {
 
     const systemPrompt = getSystemPrompt(platform);
 
-    let userPrompt = `TARGET PLATFORM: ${platform.toUpperCase()}\nTOPIC: ${topic}\nGOAL: ${goal || 'Engagement'}\nTONE: ${tone || 'Authentic'}`;
+    let userPrompt = `TARGET PLATFORM: ${platform.toUpperCase()}\nGOAL: ${goal || 'Engagement'}\nTONE: ${tone || 'Authentic'}`;
+
+    if (isBrainDump) {
+      userPrompt += `\nMODE: MESSY BRAIN DUMP / VOICE NOTE\nRAW THOUGHTS: "${topic}"\nExtract the core insight and convert this unorganized stream of thoughts into a clear, compelling post while strictly keeping the author's real perspective and raw authenticity.`;
+    } else {
+      userPrompt += `\nTOPIC: ${topic}`;
+    }
+
     if (specificDetail && specificDetail.trim()) {
       userPrompt += `\nREAL-LIFE SPECIFIC DETAIL TO WEAVE IN: ${specificDetail.trim()}`;
+    }
+
+    if (voiceProfile && voiceProfile.trim()) {
+      userPrompt += `\nSAMPLE OF AUTHOR'S PREVIOUS WRITING (VOICE PROFILE):\n"""\n${voiceProfile.trim()}\n"""\nMirror the author's rhythm, sentence length, paragraph spacing, and natural voice patterns from this sample.`;
     }
 
     let jsonString = '';
